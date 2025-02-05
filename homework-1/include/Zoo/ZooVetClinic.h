@@ -7,7 +7,7 @@ public:
         return animal.IsHealthy();
     }
 
-    void TreatAnimal(Animal& animal) {
+    static void TreatAnimal(Animal& animal) {
         animal.Treat();
     }
 };

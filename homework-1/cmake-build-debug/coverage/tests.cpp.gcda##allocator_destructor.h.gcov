@@ -1,0 +1,53 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocator_destructor.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1://===----------------------------------------------------------------------===//
+        -:    2://
+        -:    3:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    4:// See https://llvm.org/LICENSE.txt for license information.
+        -:    5:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    6://
+        -:    7://===----------------------------------------------------------------------===//
+        -:    8:
+        -:    9:#ifndef _LIBCPP___MEMORY_ALLOCATOR_DESTRUCTOR_H
+        -:   10:#define _LIBCPP___MEMORY_ALLOCATOR_DESTRUCTOR_H
+        -:   11:
+        -:   12:#include <__config>
+        -:   13:#include <__memory/allocator_traits.h>
+        -:   14:
+        -:   15:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   16:#  pragma GCC system_header
+        -:   17:#endif
+        -:   18:
+        -:   19:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:   20:
+        -:   21:template <class _Alloc>
+        -:   22:class __allocator_destructor
+        -:   23:{
+        -:   24:    typedef _LIBCPP_NODEBUG allocator_traits<_Alloc> __alloc_traits;
+        -:   25:public:
+        -:   26:    typedef _LIBCPP_NODEBUG typename __alloc_traits::pointer pointer;
+        -:   27:    typedef _LIBCPP_NODEBUG typename __alloc_traits::size_type size_type;
+        -:   28:private:
+        -:   29:    _Alloc& __alloc_;
+        -:   30:    size_type __s_;
+        -:   31:public:
+function _ZNSt3__122__allocator_destructorINS_9allocatorINS_10__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS1_ISA_EEFNS_10shared_ptrIvEEvEEEEEEC1B8ue170006ERSG_m called 0 returned 0% blocks executed 0%
+function _ZNSt3__122__allocator_destructorINS_9allocatorINS_10__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS1_ISA_EEFNS_10shared_ptrIvEEvEEEEEEC2B8ue170006ERSG_m called 0 returned 0% blocks executed 0%
+    #####:   32:    _LIBCPP_INLINE_VISIBILITY __allocator_destructor(_Alloc& __a, size_type __s)
+        -:   33:             _NOEXCEPT
+    #####:   34:        : __alloc_(__a), __s_(__s) {}
+    $$$$$:   34-block  0
+    $$$$$:   34-block  1
+        -:   35:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__122__allocator_destructorINS_9allocatorINS_10__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS1_ISA_EEFNS_10shared_ptrIvEEvEEEEEEclB8ue170006EPSF_ called 0 returned 0% blocks executed 0%
+    #####:   36:    void operator()(pointer __p) _NOEXCEPT
+    #####:   37:        {__alloc_traits::deallocate(__alloc_, __p, __s_);}
+    $$$$$:   37-block  0
+        -:   38:};
+        -:   39:
+        -:   40:_LIBCPP_END_NAMESPACE_STD
+        -:   41:
+        -:   42:#endif // _LIBCPP___MEMORY_ALLOCATOR_DESTRUCTOR_H

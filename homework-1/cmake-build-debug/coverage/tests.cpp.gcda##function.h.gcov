@@ -1,0 +1,1452 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__functional/function.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===----------------------------------------------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#ifndef _LIBCPP___FUNCTIONAL_FUNCTION_H
+        -:   11:#define _LIBCPP___FUNCTIONAL_FUNCTION_H
+        -:   12:
+        -:   13:#include <__assert>
+        -:   14:#include <__config>
+        -:   15:#include <__exception/exception.h>
+        -:   16:#include <__functional/binary_function.h>
+        -:   17:#include <__functional/invoke.h>
+        -:   18:#include <__functional/unary_function.h>
+        -:   19:#include <__iterator/iterator_traits.h>
+        -:   20:#include <__memory/addressof.h>
+        -:   21:#include <__memory/allocator.h>
+        -:   22:#include <__memory/allocator_destructor.h>
+        -:   23:#include <__memory/allocator_traits.h>
+        -:   24:#include <__memory/builtin_new_allocator.h>
+        -:   25:#include <__memory/compressed_pair.h>
+        -:   26:#include <__memory/unique_ptr.h>
+        -:   27:#include <__type_traits/aligned_storage.h>
+        -:   28:#include <__type_traits/decay.h>
+        -:   29:#include <__type_traits/is_core_convertible.h>
+        -:   30:#include <__type_traits/is_scalar.h>
+        -:   31:#include <__type_traits/is_trivially_copy_constructible.h>
+        -:   32:#include <__type_traits/is_trivially_destructible.h>
+        -:   33:#include <__type_traits/is_void.h>
+        -:   34:#include <__type_traits/strip_signature.h>
+        -:   35:#include <__utility/forward.h>
+        -:   36:#include <__utility/move.h>
+        -:   37:#include <__utility/piecewise_construct.h>
+        -:   38:#include <__utility/swap.h>
+        -:   39:#include <__verbose_abort>
+        -:   40:#include <new>
+        -:   41:#include <tuple>
+        -:   42:#include <typeinfo>
+        -:   43:
+        -:   44:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   45:#  pragma GCC system_header
+        -:   46:#endif
+        -:   47:
+        -:   48:#ifndef _LIBCPP_CXX03_LANG
+        -:   49:
+        -:   50:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:   51:
+        -:   52:// bad_function_call
+        -:   53:
+        -:   54:_LIBCPP_DIAGNOSTIC_PUSH
+        -:   55:_LIBCPP_CLANG_DIAGNOSTIC_IGNORED("-Wweak-vtables")
+function _ZNSt3__117bad_function_callC1Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__117bad_function_callC2Ev called 0 returned 0% blocks executed 0%
+        -:   56:class _LIBCPP_EXPORTED_FROM_ABI bad_function_call
+        -:   57:    : public exception
+        -:   58:{
+        -:   59:public:
+        -:   60:// Note that when a key function is not used, every translation unit that uses
+        -:   61:// bad_function_call will end up containing a weak definition of the vtable and
+        -:   62:// typeinfo.
+        -:   63:#ifdef _LIBCPP_ABI_BAD_FUNCTION_CALL_KEY_FUNCTION
+        -:   64:    ~bad_function_call() _NOEXCEPT override;
+        -:   65:#else
+function _ZNSt3__117bad_function_callD1Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__117bad_function_callD0Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__117bad_function_callD2Ev called 0 returned 0% blocks executed 0%
+    #####:   66:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL ~bad_function_call() _NOEXCEPT override {}
+    $$$$$:   66-block  0
+    $$$$$:   66-block  1
+    $$$$$:   66-block  2
+        -:   67:#endif
+        -:   68:
+        -:   69:#ifdef _LIBCPP_ABI_BAD_FUNCTION_CALL_GOOD_WHAT_MESSAGE
+        -:   70:    const char* what() const _NOEXCEPT override;
+        -:   71:#endif
+        -:   72:};
+        -:   73:_LIBCPP_DIAGNOSTIC_POP
+        -:   74:
+        -:   75:_LIBCPP_NORETURN inline _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__125__throw_bad_function_callB8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:   76:void __throw_bad_function_call()
+        -:   77:{
+        -:   78:#ifndef _LIBCPP_HAS_NO_EXCEPTIONS
+    #####:   79:    throw bad_function_call();
+    $$$$$:   79-block  0
+        -:   80:#else
+        -:   81:    std::abort(); // TODO: Workaround to avoid requiring linking against libc++
+        -:   82:    // _LIBCPP_VERBOSE_ABORT("bad_function_call was thrown in -fno-exceptions mode");
+        -:   83:#endif
+        -:   84:}
+        -:   85:
+        -:   86:template<class _Fp> class _LIBCPP_TEMPLATE_VIS function; // undefined
+        -:   87:
+        -:   88:namespace __function
+        -:   89:{
+        -:   90:
+        -:   91:template<class _Rp>
+        -:   92:struct __maybe_derive_from_unary_function
+        -:   93:{
+        -:   94:};
+        -:   95:
+        -:   96:template<class _Rp, class _A1>
+        -:   97:struct __maybe_derive_from_unary_function<_Rp(_A1)>
+        -:   98:    : public __unary_function<_A1, _Rp>
+        -:   99:{
+        -:  100:};
+        -:  101:
+        -:  102:template<class _Rp>
+        -:  103:struct __maybe_derive_from_binary_function
+        -:  104:{
+        -:  105:};
+        -:  106:
+        -:  107:template<class _Rp, class _A1, class _A2>
+        -:  108:struct __maybe_derive_from_binary_function<_Rp(_A1, _A2)>
+        -:  109:    : public __binary_function<_A1, _A2, _Rp>
+        -:  110:{
+        -:  111:};
+        -:  112:
+        -:  113:template <class _Fp>
+        -:  114:_LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function10__not_nullB8ue170006IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_EEbRKT_ called 1 returned 100% blocks executed 100%
+        1:  115:bool __not_null(_Fp const&) { return true; }
+        1:  115-block  0
+        -:  116:
+        -:  117:template <class _Fp>
+        -:  118:_LIBCPP_INLINE_VISIBILITY
+        -:  119:bool __not_null(_Fp* __ptr) { return __ptr; }
+        -:  120:
+        -:  121:template <class _Ret, class _Class>
+        -:  122:_LIBCPP_INLINE_VISIBILITY
+        -:  123:bool __not_null(_Ret _Class::*__ptr) { return __ptr; }
+        -:  124:
+        -:  125:template <class _Fp>
+        -:  126:_LIBCPP_INLINE_VISIBILITY
+        -:  127:bool __not_null(function<_Fp> const& __f) { return !!__f; }
+        -:  128:
+        -:  129:#ifdef _LIBCPP_HAS_EXTENSION_BLOCKS
+        -:  130:template <class _Rp, class ..._Args>
+        -:  131:_LIBCPP_INLINE_VISIBILITY
+        -:  132:bool __not_null(_Rp (^__p)(_Args...)) { return __p; }
+        -:  133:#endif
+        -:  134:
+        -:  135:} // namespace __function
+        -:  136:
+        -:  137:namespace __function {
+        -:  138:
+        -:  139:// __alloc_func holds a functor and an allocator.
+        -:  140:
+        -:  141:template <class _Fp, class _Ap, class _FB> class __alloc_func;
+        -:  142:template <class _Fp, class _FB>
+        -:  143:class __default_alloc_func;
+        -:  144:
+        -:  145:template <class _Fp, class _Ap, class _Rp, class... _ArgTypes>
+        -:  146:class __alloc_func<_Fp, _Ap, _Rp(_ArgTypes...)>
+        -:  147:{
+        -:  148:    __compressed_pair<_Fp, _Ap> __f_;
+        -:  149:
+        -:  150:  public:
+        -:  151:    typedef _LIBCPP_NODEBUG _Fp _Target;
+        -:  152:    typedef _LIBCPP_NODEBUG _Ap _Alloc;
+        -:  153:
+        -:  154:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE8__targetB8ue170006Ev called 1 returned 100% blocks executed 100%
+        1:  155:    const _Target& __target() const { return __f_.first(); }
+        1:  155-block  0
+        -:  156:
+        -:  157:    // WIN32 APIs may define __allocator, so use __get_allocator instead.
+        -:  158:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE15__get_allocatorB8ue170006Ev called 1 returned 100% blocks executed 100%
+        1:  159:    const _Alloc& __get_allocator() const { return __f_.second(); }
+        1:  159-block  0
+        -:  160:
+        -:  161:    _LIBCPP_INLINE_VISIBILITY
+        -:  162:    explicit __alloc_func(_Target&& __f)
+        -:  163:        : __f_(piecewise_construct, _VSTD::forward_as_tuple(_VSTD::move(__f)),
+        -:  164:               _VSTD::forward_as_tuple())
+        -:  165:    {
+        -:  166:    }
+        -:  167:
+        -:  168:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006ERKS8_RKSA_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006ERKS8_RKSA_ called 1 returned 100% blocks executed 100%
+        2:  169:    explicit __alloc_func(const _Target& __f, const _Alloc& __a)
+        2:  170:        : __f_(piecewise_construct, _VSTD::forward_as_tuple(__f),
+        1:  171:               _VSTD::forward_as_tuple(__a))
+        1:  172:    {
+        2:  173:    }
+        1:  173-block  0
+        1:  173-block  1
+        -:  174:
+        -:  175:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006ERKS8_OSA_ called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006ERKS8_OSA_ called 0 returned 0% blocks executed 0%
+    #####:  176:    explicit __alloc_func(const _Target& __f, _Alloc&& __a)
+    #####:  177:        : __f_(piecewise_construct, _VSTD::forward_as_tuple(__f),
+    #####:  178:               _VSTD::forward_as_tuple(_VSTD::move(__a)))
+    #####:  179:    {
+    #####:  180:    }
+    $$$$$:  180-block  0
+    $$$$$:  180-block  1
+        -:  181:
+        -:  182:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006EOS8_OSA_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006EOS8_OSA_ called 1 returned 100% blocks executed 100%
+        2:  183:    explicit __alloc_func(_Target&& __f, _Alloc&& __a)
+        2:  184:        : __f_(piecewise_construct, _VSTD::forward_as_tuple(_VSTD::move(__f)),
+        1:  185:               _VSTD::forward_as_tuple(_VSTD::move(__a)))
+        1:  186:    {
+        2:  187:    }
+        1:  187-block  0
+        1:  187-block  1
+        -:  188:
+        -:  189:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEclB8ue170006Ev called 1 returned 100% blocks executed 100%
+        1:  190:    _Rp operator()(_ArgTypes&&... __arg)
+        -:  191:    {
+        -:  192:        typedef __invoke_void_return_wrapper<_Rp> _Invoker;
+        1:  193:        return _Invoker::__call(__f_.first(),
+        1:  193-block  0
+        -:  194:                                _VSTD::forward<_ArgTypes>(__arg)...);
+        -:  195:    }
+        -:  196:
+        -:  197:    _LIBCPP_INLINE_VISIBILITY
+        -:  198:    __alloc_func* __clone() const
+        -:  199:    {
+        -:  200:        typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  201:        typedef __rebind_alloc<__alloc_traits, __alloc_func> _AA;
+        -:  202:        _AA __a(__f_.second());
+        -:  203:        typedef __allocator_destructor<_AA> _Dp;
+        -:  204:        unique_ptr<__alloc_func, _Dp> __hold(__a.allocate(1), _Dp(__a, 1));
+        -:  205:        ::new ((void*)__hold.get()) __alloc_func(__f_.first(), _Alloc(__a));
+        -:  206:        return __hold.release();
+        -:  207:    }
+        -:  208:
+        -:  209:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__alloc_funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE7destroyB8ue170006Ev called 2 returned 100% blocks executed 100%
+        2:  210:    void destroy() _NOEXCEPT { __f_.~__compressed_pair<_Target, _Alloc>(); }
+        2:  210-block  0
+        -:  211:
+        -:  212:    _LIBCPP_HIDE_FROM_ABI static void __destroy_and_delete(__alloc_func* __f) {
+        -:  213:      typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  214:      typedef __rebind_alloc<__alloc_traits, __alloc_func> _FunAlloc;
+        -:  215:      _FunAlloc __a(__f->__get_allocator());
+        -:  216:      __f->destroy();
+        -:  217:      __a.deallocate(__f, 1);
+        -:  218:    }
+        -:  219:};
+        -:  220:
+        -:  221:template <class _Fp, class _Rp, class... _ArgTypes>
+        -:  222:class __default_alloc_func<_Fp, _Rp(_ArgTypes...)> {
+        -:  223:  _Fp __f_;
+        -:  224:
+        -:  225:public:
+        -:  226:  typedef _LIBCPP_NODEBUG _Fp _Target;
+        -:  227:
+        -:  228:  _LIBCPP_INLINE_VISIBILITY
+        -:  229:  const _Target& __target() const { return __f_; }
+        -:  230:
+        -:  231:  _LIBCPP_INLINE_VISIBILITY
+        -:  232:  explicit __default_alloc_func(_Target&& __f) : __f_(_VSTD::move(__f)) {}
+        -:  233:
+        -:  234:  _LIBCPP_INLINE_VISIBILITY
+        -:  235:  explicit __default_alloc_func(const _Target& __f) : __f_(__f) {}
+        -:  236:
+        -:  237:  _LIBCPP_INLINE_VISIBILITY
+        -:  238:  _Rp operator()(_ArgTypes&&... __arg) {
+        -:  239:    typedef __invoke_void_return_wrapper<_Rp> _Invoker;
+        -:  240:    return _Invoker::__call(__f_, _VSTD::forward<_ArgTypes>(__arg)...);
+        -:  241:  }
+        -:  242:
+        -:  243:  _LIBCPP_INLINE_VISIBILITY
+        -:  244:  __default_alloc_func* __clone() const {
+        -:  245:      __builtin_new_allocator::__holder_t __hold =
+        -:  246:        __builtin_new_allocator::__allocate_type<__default_alloc_func>(1);
+        -:  247:    __default_alloc_func* __res =
+        -:  248:        ::new ((void*)__hold.get()) __default_alloc_func(__f_);
+        -:  249:    (void)__hold.release();
+        -:  250:    return __res;
+        -:  251:  }
+        -:  252:
+        -:  253:  _LIBCPP_INLINE_VISIBILITY
+        -:  254:  void destroy() _NOEXCEPT { __f_.~_Target(); }
+        -:  255:
+        -:  256:  _LIBCPP_HIDE_FROM_ABI static void __destroy_and_delete(__default_alloc_func* __f) {
+        -:  257:    __f->destroy();
+        -:  258:      __builtin_new_allocator::__deallocate_type<__default_alloc_func>(__f, 1);
+        -:  259:  }
+        -:  260:};
+        -:  261:
+        -:  262:// __base provides an abstract interface for copyable functors.
+        -:  263:
+        -:  264:template<class _Fp> class _LIBCPP_TEMPLATE_VIS __base;
+        -:  265:
+        -:  266:template<class _Rp, class ..._ArgTypes>
+        -:  267:class __base<_Rp(_ArgTypes...)>
+        -:  268:{
+        -:  269:    __base(const __base&);
+        -:  270:    __base& operator=(const __base&);
+        -:  271:public:
+function _ZNSt3__110__function6__baseIFNS_10shared_ptrIvEEvEEC2B8ue170006Ev called 2 returned 100% blocks executed 100%
+        2:  272:    _LIBCPP_INLINE_VISIBILITY __base() {}
+        2:  272-block  0
+function _ZNSt3__110__function6__baseIFNS_10shared_ptrIvEEvEED2Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function6__baseIFNS_10shared_ptrIvEEvEED1Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function6__baseIFNS_10shared_ptrIvEEvEED0Ev called 0 returned 0% blocks executed 0%
+    #####:  273:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual ~__base() {}
+    $$$$$:  273-block  0
+    $$$$$:  273-block  1
+    $$$$$:  273-block  2
+        -:  274:    virtual __base* __clone() const = 0;
+        -:  275:    virtual void __clone(__base*) const = 0;
+        -:  276:    virtual void destroy() _NOEXCEPT = 0;
+        -:  277:    virtual void destroy_deallocate() _NOEXCEPT = 0;
+        -:  278:    virtual _Rp operator()(_ArgTypes&& ...) = 0;
+        -:  279:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  280:    virtual const void* target(const type_info&) const _NOEXCEPT = 0;
+        -:  281:    virtual const std::type_info& target_type() const _NOEXCEPT = 0;
+        -:  282:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  283:};
+        -:  284:
+        -:  285:// __func implements __base for a given functor type.
+        -:  286:
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEED1Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEED0Ev called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEED2Ev called 0 returned 0% blocks executed 0%
+        -:  287:template<class _FD, class _Alloc, class _FB> class __func;
+        -:  288:
+        -:  289:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  290:class __func<_Fp, _Alloc, _Rp(_ArgTypes...)>
+        -:  291:    : public  __base<_Rp(_ArgTypes...)>
+        -:  292:{
+        -:  293:    __alloc_func<_Fp, _Alloc, _Rp(_ArgTypes...)> __f_;
+        -:  294:public:
+        -:  295:    _LIBCPP_INLINE_VISIBILITY
+        -:  296:    explicit __func(_Fp&& __f)
+        -:  297:        : __f_(_VSTD::move(__f)) {}
+        -:  298:
+        -:  299:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006ERKS8_RKSA_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006ERKS8_RKSA_ called 1 returned 100% blocks executed 50%
+        2:  300:    explicit __func(const _Fp& __f, const _Alloc& __a)
+        2:  301:        : __f_(__f, __a) {}
+        1:  301-block  0
+        1:  301-block  1
+branch  0 taken 1
+branch  1 taken 0
+        1:  301-block  2
+    $$$$$:  301-block  3
+    $$$$$:  301-block  4
+        -:  302:
+        -:  303:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006ERKS8_OSA_ called 0 returned 0% blocks executed 0%
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006ERKS8_OSA_ called 0 returned 0% blocks executed 0%
+    #####:  304:    explicit __func(const _Fp& __f, _Alloc&& __a)
+    #####:  305:        : __f_(__f, _VSTD::move(__a)) {}
+    $$$$$:  305-block  0
+    $$$$$:  305-block  1
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  305-block  2
+    $$$$$:  305-block  3
+    $$$$$:  305-block  4
+        -:  306:
+        -:  307:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC1B8ue170006EOS8_OSA_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEC2B8ue170006EOS8_OSA_ called 1 returned 100% blocks executed 50%
+        2:  308:    explicit __func(_Fp&& __f, _Alloc&& __a)
+        2:  309:        : __f_(_VSTD::move(__f), _VSTD::move(__a)) {}
+        1:  309-block  0
+        1:  309-block  1
+branch  0 taken 1
+branch  1 taken 0
+        1:  309-block  2
+    $$$$$:  309-block  3
+    $$$$$:  309-block  4
+        -:  310:
+        -:  311:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual __base<_Rp(_ArgTypes...)>* __clone() const;
+        -:  312:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void __clone(__base<_Rp(_ArgTypes...)>*) const;
+        -:  313:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy() _NOEXCEPT;
+        -:  314:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual void destroy_deallocate() _NOEXCEPT;
+        -:  315:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual _Rp operator()(_ArgTypes&&... __arg);
+        -:  316:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  317:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const void* target(const type_info&) const _NOEXCEPT;
+        -:  318:    _LIBCPP_HIDE_FROM_ABI_VIRTUAL virtual const std::type_info& target_type() const _NOEXCEPT;
+        -:  319:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  320:};
+        -:  321:
+        -:  322:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  323:__base<_Rp(_ArgTypes...)>*
+function _ZNKSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE7__cloneEv called 0 returned 0% blocks executed 0%
+    #####:  324:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::__clone() const
+        -:  325:{
+        -:  326:    typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  327:    typedef __rebind_alloc<__alloc_traits, __func> _Ap;
+    #####:  328:    _Ap __a(__f_.__get_allocator());
+        -:  329:    typedef __allocator_destructor<_Ap> _Dp;
+    #####:  330:    unique_ptr<__func, _Dp> __hold(__a.allocate(1), _Dp(__a, 1));
+    #####:  331:    ::new ((void*)__hold.get()) __func(__f_.__target(), _Alloc(__a));
+    $$$$$:  331-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  331-block  1
+branch  2 never executed
+branch  3 never executed
+    #####:  332:    return __hold.release();
+    #####:  333:}
+    $$$$$:  333-block  0
+    $$$$$:  333-block  1
+    $$$$$:  333-block  2
+        -:  334:
+        -:  335:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  336:void
+function _ZNKSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE7__cloneEPNS0_6__baseISD_EE called 1 returned 100% blocks executed 100%
+        1:  337:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::__clone(__base<_Rp(_ArgTypes...)>* __p) const
+        -:  338:{
+        1:  339:    ::new ((void*)__p) __func(__f_.__target(), __f_.__get_allocator());
+        1:  340:}
+        1:  340-block  0
+        -:  341:
+        -:  342:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  343:void
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE7destroyEv called 2 returned 100% blocks executed 100%
+        2:  344:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::destroy() _NOEXCEPT
+        -:  345:{
+        2:  346:    __f_.destroy();
+        2:  347:}
+        2:  347-block  0
+        -:  348:
+        -:  349:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  350:void
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE18destroy_deallocateEv called 0 returned 0% blocks executed 0%
+    #####:  351:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::destroy_deallocate() _NOEXCEPT
+        -:  352:{
+        -:  353:    typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  354:    typedef __rebind_alloc<__alloc_traits, __func> _Ap;
+    #####:  355:    _Ap __a(__f_.__get_allocator());
+    #####:  356:    __f_.destroy();
+    #####:  357:    __a.deallocate(this, 1);
+    #####:  358:}
+    $$$$$:  358-block  0
+        -:  359:
+        -:  360:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  361:_Rp
+function _ZNSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEEclEv called 1 returned 100% blocks executed 100%
+        1:  362:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::operator()(_ArgTypes&& ... __arg)
+        -:  363:{
+        1:  364:    return __f_(_VSTD::forward<_ArgTypes>(__arg)...);
+        1:  364-block  0
+        -:  365:}
+        -:  366:
+        -:  367:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  368:
+        -:  369:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  370:const void*
+function _ZNKSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE6targetERKSt9type_info called 0 returned 0% blocks executed 0%
+    #####:  371:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::target(const type_info& __ti) const _NOEXCEPT
+        -:  372:{
+    #####:  373:    if (__ti == typeid(_Fp))
+    $$$$$:  373-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  374:        return _VSTD::addressof(__f_.__target());
+    $$$$$:  374-block  0
+    #####:  375:    return nullptr;
+    $$$$$:  375-block  0
+    #####:  376:}
+    $$$$$:  376-block  0
+        -:  377:
+        -:  378:template<class _Fp, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  379:const std::type_info&
+function _ZNKSt3__110__function6__funcIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorIS8_EEFNS_10shared_ptrIvEEvEE11target_typeEv called 0 returned 0% blocks executed 0%
+    #####:  380:__func<_Fp, _Alloc, _Rp(_ArgTypes...)>::target_type() const _NOEXCEPT
+        -:  381:{
+    #####:  382:    return typeid(_Fp);
+    $$$$$:  382-block  0
+        -:  383:}
+        -:  384:
+        -:  385:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  386:
+        -:  387:// __value_func creates a value-type from a __func.
+        -:  388:
+        -:  389:template <class _Fp> class __value_func;
+        -:  390:
+        -:  391:template <class _Rp, class... _ArgTypes> class __value_func<_Rp(_ArgTypes...)>
+        -:  392:{
+        -:  393:    _LIBCPP_SUPPRESS_DEPRECATED_PUSH
+        -:  394:    typename aligned_storage<3 * sizeof(void*)>::type __buf_;
+        -:  395:    _LIBCPP_SUPPRESS_DEPRECATED_POP
+        -:  396:
+        -:  397:    typedef __base<_Rp(_ArgTypes...)> __func;
+        -:  398:    __func* __f_;
+        -:  399:
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEE9__as_baseB8ue170006EPv called 2 returned 100% blocks executed 100%
+        2:  400:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_NO_CFI static __func* __as_base(void* __p)
+        -:  401:    {
+        2:  402:        return reinterpret_cast<__func*>(__p);
+        2:  402-block  0
+        -:  403:    }
+        -:  404:
+        -:  405:  public:
+        -:  406:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEC1B8ue170006Ev called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEC2B8ue170006Ev called 1 returned 100% blocks executed 100%
+        2:  407:    __value_func() _NOEXCEPT : __f_(nullptr) {}
+        1:  407-block  0
+        1:  407-block  1
+        -:  408:
+        -:  409:    template <class _Fp, class _Alloc>
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEC1B8ue170006IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorISD_EEEEOT_RKT0_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEC2B8ue170006IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_NS_9allocatorISD_EEEEOT_RKT0_ called 1 returned 100% blocks executed 100%
+        2:  410:    _LIBCPP_INLINE_VISIBILITY __value_func(_Fp&& __f, const _Alloc& __a)
+        1:  411:        : __f_(nullptr)
+        1:  412:    {
+        -:  413:        typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  414:        typedef __function::__func<_Fp, _Alloc, _Rp(_ArgTypes...)> _Fun;
+        -:  415:        typedef __rebind_alloc<__alloc_traits, _Fun> _FunAlloc;
+        -:  416:
+        1:  417:        if (__function::__not_null(__f))
+        1:  417-block  0
+branch  0 taken 0
+branch  1 taken 1
+        -:  418:        {
+        1:  419:            _FunAlloc __af(__a);
+        -:  420:            if (sizeof(_Fun) <= sizeof(__buf_) &&
+        -:  421:                is_nothrow_copy_constructible<_Fp>::value &&
+        -:  422:                is_nothrow_copy_constructible<_FunAlloc>::value)
+        -:  423:            {
+        1:  424:                __f_ =
+        1:  425:                    ::new ((void*)&__buf_) _Fun(_VSTD::move(__f), _Alloc(__af));
+        -:  426:            }
+        -:  427:            else
+        -:  428:            {
+        -:  429:                typedef __allocator_destructor<_FunAlloc> _Dp;
+        -:  430:                unique_ptr<__func, _Dp> __hold(__af.allocate(1), _Dp(__af, 1));
+        -:  431:                ::new ((void*)__hold.get()) _Fun(_VSTD::move(__f), _Alloc(__a));
+        -:  432:                __f_ = __hold.release();
+        -:  433:            }
+        1:  434:        }
+        1:  434-block  0
+        2:  435:    }
+        1:  435-block  0
+        1:  435-block  1
+        -:  436:
+        -:  437:    template <class _Fp,
+        -:  438:        class = typename enable_if<!is_same<__decay_t<_Fp>, __value_func>::value>::type>
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEC1B8ue170006IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_vEEOT_ called 1 returned 100% blocks executed 100%
+        1:  439:    _LIBCPP_INLINE_VISIBILITY explicit __value_func(_Fp&& __f)
+        1:  440:        : __value_func(_VSTD::forward<_Fp>(__f), allocator<_Fp>()) {}
+        1:  440-block  0
+        -:  441:
+        -:  442:    _LIBCPP_INLINE_VISIBILITY
+        -:  443:    __value_func(const __value_func& __f)
+        -:  444:    {
+        -:  445:        if (__f.__f_ == nullptr)
+        -:  446:            __f_ = nullptr;
+        -:  447:        else if ((void*)__f.__f_ == &__f.__buf_)
+        -:  448:        {
+        -:  449:            __f_ = __as_base(&__buf_);
+        -:  450:            __f.__f_->__clone(__f_);
+        -:  451:        }
+        -:  452:        else
+        -:  453:            __f_ = __f.__f_->__clone();
+        -:  454:    }
+        -:  455:
+        -:  456:    _LIBCPP_INLINE_VISIBILITY
+        -:  457:    __value_func(__value_func&& __f) _NOEXCEPT
+        -:  458:    {
+        -:  459:        if (__f.__f_ == nullptr)
+        -:  460:            __f_ = nullptr;
+        -:  461:        else if ((void*)__f.__f_ == &__f.__buf_)
+        -:  462:        {
+        -:  463:            __f_ = __as_base(&__buf_);
+        -:  464:            __f.__f_->__clone(__f_);
+        -:  465:        }
+        -:  466:        else
+        -:  467:        {
+        -:  468:            __f_ = __f.__f_;
+        -:  469:            __f.__f_ = nullptr;
+        -:  470:        }
+        -:  471:    }
+        -:  472:
+        -:  473:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEED1B8ue170006Ev called 2 returned 100% blocks executed 100%
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEED2B8ue170006Ev called 2 returned 100% blocks executed 83%
+        4:  474:    ~__value_func()
+        2:  475:    {
+        2:  476:        if ((void*)__f_ == &__buf_)
+        2:  476-block  0
+branch  0 taken 1
+branch  1 taken 1
+        1:  477:            __f_->destroy();
+        1:  477-block  0
+        1:  478:        else if (__f_)
+        1:  478-block  0
+branch  0 taken 1
+branch  1 taken 0
+    #####:  479:            __f_->destroy_deallocate();
+    $$$$$:  479-block  0
+        4:  480:    }
+        2:  480-block  0
+        2:  480-block  1
+        -:  481:
+        -:  482:    _LIBCPP_INLINE_VISIBILITY
+        -:  483:    __value_func& operator=(__value_func&& __f)
+        -:  484:    {
+        -:  485:        *this = nullptr;
+        -:  486:        if (__f.__f_ == nullptr)
+        -:  487:            __f_ = nullptr;
+        -:  488:        else if ((void*)__f.__f_ == &__f.__buf_)
+        -:  489:        {
+        -:  490:            __f_ = __as_base(&__buf_);
+        -:  491:            __f.__f_->__clone(__f_);
+        -:  492:        }
+        -:  493:        else
+        -:  494:        {
+        -:  495:            __f_ = __f.__f_;
+        -:  496:            __f.__f_ = nullptr;
+        -:  497:        }
+        -:  498:        return *this;
+        -:  499:    }
+        -:  500:
+        -:  501:    _LIBCPP_INLINE_VISIBILITY
+        -:  502:    __value_func& operator=(nullptr_t)
+        -:  503:    {
+        -:  504:        __func* __f = __f_;
+        -:  505:        __f_ = nullptr;
+        -:  506:        if ((void*)__f == &__buf_)
+        -:  507:            __f->destroy();
+        -:  508:        else if (__f)
+        -:  509:            __f->destroy_deallocate();
+        -:  510:        return *this;
+        -:  511:    }
+        -:  512:
+        -:  513:    _LIBCPP_INLINE_VISIBILITY
+function _ZNKSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEEclB8ue170006Ev called 1 returned 100% blocks executed 66%
+        1:  514:    _Rp operator()(_ArgTypes&&... __args) const
+        -:  515:    {
+        1:  516:        if (__f_ == nullptr)
+        1:  516-block  0
+branch  0 taken 0
+branch  1 taken 1
+    #####:  517:            __throw_bad_function_call();
+    $$$$$:  517-block  0
+        1:  518:        return (*__f_)(_VSTD::forward<_ArgTypes>(__args)...);
+        1:  518-block  0
+        -:  519:    }
+        -:  520:
+        -:  521:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__110__function12__value_funcIFNS_10shared_ptrIvEEvEE4swapB8ue170006ERS5_ called 1 returned 100% blocks executed 35%
+        1:  522:    void swap(__value_func& __f) _NOEXCEPT
+        -:  523:    {
+        1:  524:        if (&__f == this)
+        1:  524-block  0
+branch  0 taken 1
+branch  1 taken 0
+    #####:  525:            return;
+    $$$$$:  525-block  0
+        1:  526:        if ((void*)__f_ == &__buf_ && (void*)__f.__f_ == &__f.__buf_)
+        1:  526-block  0
+branch  0 taken 1
+branch  1 taken 0
+        1:  526-block  1
+branch  2 taken 0
+branch  3 taken 1
+        -:  527:        {
+        -:  528:            _LIBCPP_SUPPRESS_DEPRECATED_PUSH
+        -:  529:            typename aligned_storage<sizeof(__buf_)>::type __tempbuf;
+        -:  530:            _LIBCPP_SUPPRESS_DEPRECATED_POP
+    #####:  531:            __func* __t = __as_base(&__tempbuf);
+    $$$$$:  531-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  531-block  1
+    #####:  532:            __f_->__clone(__t);
+    $$$$$:  532-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  533:            __f_->destroy();
+    #####:  534:            __f_ = nullptr;
+    #####:  535:            __f.__f_->__clone(__as_base(&__buf_));
+    $$$$$:  535-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  535-block  1
+branch  2 never executed
+branch  3 never executed
+    #####:  536:            __f.__f_->destroy();
+    #####:  537:            __f.__f_ = nullptr;
+    #####:  538:            __f_ = __as_base(&__buf_);
+    $$$$$:  538-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  539:            __t->__clone(__as_base(&__f.__buf_));
+    $$$$$:  539-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  539-block  1
+branch  2 never executed
+branch  3 never executed
+    #####:  540:            __t->destroy();
+    #####:  541:            __f.__f_ = __as_base(&__f.__buf_);
+    $$$$$:  541-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  542:        }
+    $$$$$:  542-block  0
+        1:  543:        else if ((void*)__f_ == &__buf_)
+        1:  543-block  0
+branch  0 taken 0
+branch  1 taken 1
+        -:  544:        {
+        1:  545:            __f_->__clone(__as_base(&__f.__buf_));
+        1:  545-block  0
+branch  0 taken 1
+branch  1 taken 0
+        1:  545-block  1
+branch  2 taken 1
+branch  3 taken 0
+        1:  546:            __f_->destroy();
+        1:  547:            __f_ = __f.__f_;
+        1:  548:            __f.__f_ = __as_base(&__f.__buf_);
+        1:  548-block  0
+branch  0 taken 1
+branch  1 taken 0
+        1:  549:        }
+        1:  549-block  0
+    #####:  550:        else if ((void*)__f.__f_ == &__f.__buf_)
+    $$$$$:  550-block  0
+branch  0 never executed
+branch  1 never executed
+        -:  551:        {
+    #####:  552:            __f.__f_->__clone(__as_base(&__buf_));
+    $$$$$:  552-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  552-block  1
+branch  2 never executed
+branch  3 never executed
+    #####:  553:            __f.__f_->destroy();
+    #####:  554:            __f.__f_ = __f_;
+    #####:  555:            __f_ = __as_base(&__buf_);
+    $$$$$:  555-block  0
+branch  0 never executed
+branch  1 never executed
+    #####:  556:        }
+    $$$$$:  556-block  0
+        -:  557:        else
+    #####:  558:            _VSTD::swap(__f_, __f.__f_);
+    $$$$$:  558-block  0
+        1:  559:    }
+        1:  559-block  0
+        -:  560:
+        -:  561:    _LIBCPP_INLINE_VISIBILITY
+        -:  562:    explicit operator bool() const _NOEXCEPT { return __f_ != nullptr; }
+        -:  563:
+        -:  564:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  565:    _LIBCPP_INLINE_VISIBILITY
+        -:  566:    const std::type_info& target_type() const _NOEXCEPT
+        -:  567:    {
+        -:  568:        if (__f_ == nullptr)
+        -:  569:            return typeid(void);
+        -:  570:        return __f_->target_type();
+        -:  571:    }
+        -:  572:
+        -:  573:    template <typename _Tp>
+        -:  574:    _LIBCPP_INLINE_VISIBILITY const _Tp* target() const _NOEXCEPT
+        -:  575:    {
+        -:  576:        if (__f_ == nullptr)
+        -:  577:            return nullptr;
+        -:  578:        return (const _Tp*)__f_->target(typeid(_Tp));
+        -:  579:    }
+        -:  580:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  581:};
+        -:  582:
+        -:  583:// Storage for a functor object, to be used with __policy to manage copy and
+        -:  584:// destruction.
+        -:  585:union __policy_storage
+        -:  586:{
+        -:  587:    mutable char __small[sizeof(void*) * 2];
+        -:  588:    void* __large;
+        -:  589:};
+        -:  590:
+        -:  591:// True if _Fun can safely be held in __policy_storage.__small.
+        -:  592:template <typename _Fun>
+        -:  593:struct __use_small_storage
+        -:  594:    : public integral_constant<
+        -:  595:          bool, sizeof(_Fun) <= sizeof(__policy_storage) &&
+        -:  596:                    _LIBCPP_ALIGNOF(_Fun) <= _LIBCPP_ALIGNOF(__policy_storage) &&
+        -:  597:                    is_trivially_copy_constructible<_Fun>::value &&
+        -:  598:                    is_trivially_destructible<_Fun>::value> {};
+        -:  599:
+        -:  600:// Policy contains information about how to copy, destroy, and move the
+        -:  601:// underlying functor. You can think of it as a vtable of sorts.
+        -:  602:struct __policy
+        -:  603:{
+        -:  604:    // Used to copy or destroy __large values. null for trivial objects.
+        -:  605:    void* (*const __clone)(const void*);
+        -:  606:    void (*const __destroy)(void*);
+        -:  607:
+        -:  608:    // True if this is the null policy (no value).
+        -:  609:    const bool __is_null;
+        -:  610:
+        -:  611:    // The target type. May be null if RTTI is disabled.
+        -:  612:    const std::type_info* const __type_info;
+        -:  613:
+        -:  614:    // Returns a pointer to a static policy object suitable for the functor
+        -:  615:    // type.
+        -:  616:    template <typename _Fun>
+        -:  617:    _LIBCPP_INLINE_VISIBILITY static const __policy* __create()
+        -:  618:    {
+        -:  619:        return __choose_policy<_Fun>(__use_small_storage<_Fun>());
+        -:  620:    }
+        -:  621:
+        -:  622:    _LIBCPP_INLINE_VISIBILITY
+        -:  623:    static const __policy* __create_empty()
+        -:  624:    {
+        -:  625:        static const _LIBCPP_CONSTEXPR __policy __policy = {nullptr, nullptr,
+        -:  626:                                                            true,
+        -:  627:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  628:                                                            &typeid(void)
+        -:  629:#else
+        -:  630:                                                            nullptr
+        -:  631:#endif
+        -:  632:        };
+        -:  633:        return &__policy;
+        -:  634:    }
+        -:  635:
+        -:  636:  private:
+        -:  637:    template <typename _Fun>
+        -:  638:    _LIBCPP_HIDE_FROM_ABI static void* __large_clone(const void* __s)
+        -:  639:    {
+        -:  640:        const _Fun* __f = static_cast<const _Fun*>(__s);
+        -:  641:        return __f->__clone();
+        -:  642:    }
+        -:  643:
+        -:  644:    template <typename _Fun>
+        -:  645:    _LIBCPP_HIDE_FROM_ABI static void __large_destroy(void* __s) {
+        -:  646:      _Fun::__destroy_and_delete(static_cast<_Fun*>(__s));
+        -:  647:    }
+        -:  648:
+        -:  649:    template <typename _Fun>
+        -:  650:    _LIBCPP_INLINE_VISIBILITY static const __policy*
+        -:  651:    __choose_policy(/* is_small = */ false_type) {
+        -:  652:      static const _LIBCPP_CONSTEXPR __policy __policy = {
+        -:  653:          &__large_clone<_Fun>, &__large_destroy<_Fun>, false,
+        -:  654:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  655:          &typeid(typename _Fun::_Target)
+        -:  656:#else
+        -:  657:          nullptr
+        -:  658:#endif
+        -:  659:      };
+        -:  660:        return &__policy;
+        -:  661:    }
+        -:  662:
+        -:  663:    template <typename _Fun>
+        -:  664:    _LIBCPP_INLINE_VISIBILITY static const __policy*
+        -:  665:        __choose_policy(/* is_small = */ true_type)
+        -:  666:    {
+        -:  667:        static const _LIBCPP_CONSTEXPR __policy __policy = {
+        -:  668:            nullptr, nullptr, false,
+        -:  669:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  670:            &typeid(typename _Fun::_Target)
+        -:  671:#else
+        -:  672:            nullptr
+        -:  673:#endif
+        -:  674:        };
+        -:  675:        return &__policy;
+        -:  676:    }
+        -:  677:};
+        -:  678:
+        -:  679:// Used to choose between perfect forwarding or pass-by-value. Pass-by-value is
+        -:  680:// faster for types that can be passed in registers.
+        -:  681:template <typename _Tp>
+        -:  682:using __fast_forward = __conditional_t<is_scalar<_Tp>::value, _Tp, _Tp&&>;
+        -:  683:
+        -:  684:// __policy_invoker calls an instance of __alloc_func held in __policy_storage.
+        -:  685:
+        -:  686:template <class _Fp> struct __policy_invoker;
+        -:  687:
+        -:  688:template <class _Rp, class... _ArgTypes>
+        -:  689:struct __policy_invoker<_Rp(_ArgTypes...)>
+        -:  690:{
+        -:  691:    typedef _Rp (*__Call)(const __policy_storage*,
+        -:  692:                          __fast_forward<_ArgTypes>...);
+        -:  693:
+        -:  694:    __Call __call_;
+        -:  695:
+        -:  696:    // Creates an invoker that throws bad_function_call.
+        -:  697:    _LIBCPP_INLINE_VISIBILITY
+        -:  698:    __policy_invoker() : __call_(&__call_empty) {}
+        -:  699:
+        -:  700:    // Creates an invoker that calls the given instance of __func.
+        -:  701:    template <typename _Fun>
+        -:  702:    _LIBCPP_INLINE_VISIBILITY static __policy_invoker __create()
+        -:  703:    {
+        -:  704:        return __policy_invoker(&__call_impl<_Fun>);
+        -:  705:    }
+        -:  706:
+        -:  707:  private:
+        -:  708:    _LIBCPP_INLINE_VISIBILITY
+        -:  709:    explicit __policy_invoker(__Call __c) : __call_(__c) {}
+        -:  710:
+        -:  711:    _LIBCPP_HIDE_FROM_ABI static _Rp __call_empty(const __policy_storage*,
+        -:  712:                            __fast_forward<_ArgTypes>...)
+        -:  713:    {
+        -:  714:        __throw_bad_function_call();
+        -:  715:    }
+        -:  716:
+        -:  717:    template <typename _Fun>
+        -:  718:    _LIBCPP_HIDE_FROM_ABI static _Rp __call_impl(const __policy_storage* __buf,
+        -:  719:                           __fast_forward<_ArgTypes>... __args)
+        -:  720:    {
+        -:  721:        _Fun* __f = reinterpret_cast<_Fun*>(__use_small_storage<_Fun>::value
+        -:  722:                                                ? &__buf->__small
+        -:  723:                                                : __buf->__large);
+        -:  724:        return (*__f)(_VSTD::forward<_ArgTypes>(__args)...);
+        -:  725:    }
+        -:  726:};
+        -:  727:
+        -:  728:// __policy_func uses a __policy and __policy_invoker to create a type-erased,
+        -:  729:// copyable functor.
+        -:  730:
+        -:  731:template <class _Fp> class __policy_func;
+        -:  732:
+        -:  733:template <class _Rp, class... _ArgTypes> class __policy_func<_Rp(_ArgTypes...)>
+        -:  734:{
+        -:  735:    // Inline storage for small objects.
+        -:  736:    __policy_storage __buf_;
+        -:  737:
+        -:  738:    // Calls the value stored in __buf_. This could technically be part of
+        -:  739:    // policy, but storing it here eliminates a level of indirection inside
+        -:  740:    // operator().
+        -:  741:    typedef __function::__policy_invoker<_Rp(_ArgTypes...)> __invoker;
+        -:  742:    __invoker __invoker_;
+        -:  743:
+        -:  744:    // The policy that describes how to move / copy / destroy __buf_. Never
+        -:  745:    // null, even if the function is empty.
+        -:  746:    const __policy* __policy_;
+        -:  747:
+        -:  748:  public:
+        -:  749:    _LIBCPP_INLINE_VISIBILITY
+        -:  750:    __policy_func() : __policy_(__policy::__create_empty()) {}
+        -:  751:
+        -:  752:    template <class _Fp, class _Alloc>
+        -:  753:    _LIBCPP_INLINE_VISIBILITY __policy_func(_Fp&& __f, const _Alloc& __a)
+        -:  754:        : __policy_(__policy::__create_empty())
+        -:  755:    {
+        -:  756:        typedef __alloc_func<_Fp, _Alloc, _Rp(_ArgTypes...)> _Fun;
+        -:  757:        typedef allocator_traits<_Alloc> __alloc_traits;
+        -:  758:        typedef __rebind_alloc<__alloc_traits, _Fun> _FunAlloc;
+        -:  759:
+        -:  760:        if (__function::__not_null(__f))
+        -:  761:        {
+        -:  762:            __invoker_ = __invoker::template __create<_Fun>();
+        -:  763:            __policy_ = __policy::__create<_Fun>();
+        -:  764:
+        -:  765:            _FunAlloc __af(__a);
+        -:  766:            if (__use_small_storage<_Fun>())
+        -:  767:            {
+        -:  768:                ::new ((void*)&__buf_.__small)
+        -:  769:                    _Fun(_VSTD::move(__f), _Alloc(__af));
+        -:  770:            }
+        -:  771:            else
+        -:  772:            {
+        -:  773:                typedef __allocator_destructor<_FunAlloc> _Dp;
+        -:  774:                unique_ptr<_Fun, _Dp> __hold(__af.allocate(1), _Dp(__af, 1));
+        -:  775:                ::new ((void*)__hold.get())
+        -:  776:                    _Fun(_VSTD::move(__f), _Alloc(__af));
+        -:  777:                __buf_.__large = __hold.release();
+        -:  778:            }
+        -:  779:        }
+        -:  780:    }
+        -:  781:
+        -:  782:    template <class _Fp, class = typename enable_if<!is_same<__decay_t<_Fp>, __policy_func>::value>::type>
+        -:  783:    _LIBCPP_INLINE_VISIBILITY explicit __policy_func(_Fp&& __f)
+        -:  784:        : __policy_(__policy::__create_empty()) {
+        -:  785:      typedef __default_alloc_func<_Fp, _Rp(_ArgTypes...)> _Fun;
+        -:  786:
+        -:  787:      if (__function::__not_null(__f)) {
+        -:  788:        __invoker_ = __invoker::template __create<_Fun>();
+        -:  789:        __policy_ = __policy::__create<_Fun>();
+        -:  790:        if (__use_small_storage<_Fun>()) {
+        -:  791:          ::new ((void*)&__buf_.__small) _Fun(_VSTD::move(__f));
+        -:  792:        } else {
+        -:  793:          __builtin_new_allocator::__holder_t __hold =
+        -:  794:              __builtin_new_allocator::__allocate_type<_Fun>(1);
+        -:  795:          __buf_.__large = ::new ((void*)__hold.get()) _Fun(_VSTD::move(__f));
+        -:  796:          (void)__hold.release();
+        -:  797:        }
+        -:  798:      }
+        -:  799:    }
+        -:  800:
+        -:  801:    _LIBCPP_INLINE_VISIBILITY
+        -:  802:    __policy_func(const __policy_func& __f)
+        -:  803:        : __buf_(__f.__buf_), __invoker_(__f.__invoker_),
+        -:  804:          __policy_(__f.__policy_)
+        -:  805:    {
+        -:  806:        if (__policy_->__clone)
+        -:  807:            __buf_.__large = __policy_->__clone(__f.__buf_.__large);
+        -:  808:    }
+        -:  809:
+        -:  810:    _LIBCPP_INLINE_VISIBILITY
+        -:  811:    __policy_func(__policy_func&& __f)
+        -:  812:        : __buf_(__f.__buf_), __invoker_(__f.__invoker_),
+        -:  813:          __policy_(__f.__policy_)
+        -:  814:    {
+        -:  815:        if (__policy_->__destroy)
+        -:  816:        {
+        -:  817:            __f.__policy_ = __policy::__create_empty();
+        -:  818:            __f.__invoker_ = __invoker();
+        -:  819:        }
+        -:  820:    }
+        -:  821:
+        -:  822:    _LIBCPP_INLINE_VISIBILITY
+        -:  823:    ~__policy_func()
+        -:  824:    {
+        -:  825:        if (__policy_->__destroy)
+        -:  826:            __policy_->__destroy(__buf_.__large);
+        -:  827:    }
+        -:  828:
+        -:  829:    _LIBCPP_INLINE_VISIBILITY
+        -:  830:    __policy_func& operator=(__policy_func&& __f)
+        -:  831:    {
+        -:  832:        *this = nullptr;
+        -:  833:        __buf_ = __f.__buf_;
+        -:  834:        __invoker_ = __f.__invoker_;
+        -:  835:        __policy_ = __f.__policy_;
+        -:  836:        __f.__policy_ = __policy::__create_empty();
+        -:  837:        __f.__invoker_ = __invoker();
+        -:  838:        return *this;
+        -:  839:    }
+        -:  840:
+        -:  841:    _LIBCPP_INLINE_VISIBILITY
+        -:  842:    __policy_func& operator=(nullptr_t)
+        -:  843:    {
+        -:  844:        const __policy* __p = __policy_;
+        -:  845:        __policy_ = __policy::__create_empty();
+        -:  846:        __invoker_ = __invoker();
+        -:  847:        if (__p->__destroy)
+        -:  848:            __p->__destroy(__buf_.__large);
+        -:  849:        return *this;
+        -:  850:    }
+        -:  851:
+        -:  852:    _LIBCPP_INLINE_VISIBILITY
+        -:  853:    _Rp operator()(_ArgTypes&&... __args) const
+        -:  854:    {
+        -:  855:        return __invoker_.__call_(_VSTD::addressof(__buf_),
+        -:  856:                                  _VSTD::forward<_ArgTypes>(__args)...);
+        -:  857:    }
+        -:  858:
+        -:  859:    _LIBCPP_INLINE_VISIBILITY
+        -:  860:    void swap(__policy_func& __f)
+        -:  861:    {
+        -:  862:        _VSTD::swap(__invoker_, __f.__invoker_);
+        -:  863:        _VSTD::swap(__policy_, __f.__policy_);
+        -:  864:        _VSTD::swap(__buf_, __f.__buf_);
+        -:  865:    }
+        -:  866:
+        -:  867:    _LIBCPP_INLINE_VISIBILITY
+        -:  868:    explicit operator bool() const _NOEXCEPT
+        -:  869:    {
+        -:  870:        return !__policy_->__is_null;
+        -:  871:    }
+        -:  872:
+        -:  873:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  874:    _LIBCPP_INLINE_VISIBILITY
+        -:  875:    const std::type_info& target_type() const _NOEXCEPT
+        -:  876:    {
+        -:  877:        return *__policy_->__type_info;
+        -:  878:    }
+        -:  879:
+        -:  880:    template <typename _Tp>
+        -:  881:    _LIBCPP_INLINE_VISIBILITY const _Tp* target() const _NOEXCEPT
+        -:  882:    {
+        -:  883:        if (__policy_->__is_null || typeid(_Tp) != *__policy_->__type_info)
+        -:  884:            return nullptr;
+        -:  885:        if (__policy_->__clone) // Out of line storage.
+        -:  886:            return reinterpret_cast<const _Tp*>(__buf_.__large);
+        -:  887:        else
+        -:  888:            return reinterpret_cast<const _Tp*>(&__buf_.__small);
+        -:  889:    }
+        -:  890:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  891:};
+        -:  892:
+        -:  893:#if defined(_LIBCPP_HAS_BLOCKS_RUNTIME)
+        -:  894:
+        -:  895:extern "C" void *_Block_copy(const void *);
+        -:  896:extern "C" void _Block_release(const void *);
+        -:  897:
+        -:  898:template<class _Rp1, class ..._ArgTypes1, class _Alloc, class _Rp, class ..._ArgTypes>
+        -:  899:class __func<_Rp1(^)(_ArgTypes1...), _Alloc, _Rp(_ArgTypes...)>
+        -:  900:    : public  __base<_Rp(_ArgTypes...)>
+        -:  901:{
+        -:  902:    typedef _Rp1(^__block_type)(_ArgTypes1...);
+        -:  903:    __block_type __f_;
+        -:  904:
+        -:  905:public:
+        -:  906:    _LIBCPP_INLINE_VISIBILITY
+        -:  907:    explicit __func(__block_type const& __f)
+        -:  908:#ifdef _LIBCPP_HAS_OBJC_ARC
+        -:  909:        : __f_(__f)
+        -:  910:#else
+        -:  911:        : __f_(reinterpret_cast<__block_type>(__f ? _Block_copy(__f) : nullptr))
+        -:  912:#endif
+        -:  913:    { }
+        -:  914:
+        -:  915:    // [TODO] add && to save on a retain
+        -:  916:
+        -:  917:    _LIBCPP_INLINE_VISIBILITY
+        -:  918:    explicit __func(__block_type __f, const _Alloc& /* unused */)
+        -:  919:#ifdef _LIBCPP_HAS_OBJC_ARC
+        -:  920:        : __f_(__f)
+        -:  921:#else
+        -:  922:        : __f_(reinterpret_cast<__block_type>(__f ? _Block_copy(__f) : nullptr))
+        -:  923:#endif
+        -:  924:    { }
+        -:  925:
+        -:  926:    virtual __base<_Rp(_ArgTypes...)>* __clone() const {
+        -:  927:        _LIBCPP_ASSERT_INTERNAL(false,
+        -:  928:            "Block pointers are just pointers, so they should always fit into "
+        -:  929:            "std::function's small buffer optimization. This function should "
+        -:  930:            "never be invoked.");
+        -:  931:        return nullptr;
+        -:  932:    }
+        -:  933:
+        -:  934:    virtual void __clone(__base<_Rp(_ArgTypes...)>* __p) const {
+        -:  935:        ::new ((void*)__p) __func(__f_);
+        -:  936:    }
+        -:  937:
+        -:  938:    virtual void destroy() _NOEXCEPT {
+        -:  939:#ifndef _LIBCPP_HAS_OBJC_ARC
+        -:  940:        if (__f_)
+        -:  941:            _Block_release(__f_);
+        -:  942:#endif
+        -:  943:        __f_ = 0;
+        -:  944:    }
+        -:  945:
+        -:  946:    virtual void destroy_deallocate() _NOEXCEPT {
+        -:  947:        _LIBCPP_ASSERT_INTERNAL(false,
+        -:  948:            "Block pointers are just pointers, so they should always fit into "
+        -:  949:            "std::function's small buffer optimization. This function should "
+        -:  950:            "never be invoked.");
+        -:  951:    }
+        -:  952:
+        -:  953:    virtual _Rp operator()(_ArgTypes&& ... __arg) {
+        -:  954:        return _VSTD::__invoke(__f_, _VSTD::forward<_ArgTypes>(__arg)...);
+        -:  955:    }
+        -:  956:
+        -:  957:#ifndef _LIBCPP_HAS_NO_RTTI
+        -:  958:    virtual const void* target(type_info const& __ti) const _NOEXCEPT {
+        -:  959:        if (__ti == typeid(__func::__block_type))
+        -:  960:            return &__f_;
+        -:  961:        return (const void*)nullptr;
+        -:  962:    }
+        -:  963:
+        -:  964:    virtual const std::type_info& target_type() const _NOEXCEPT {
+        -:  965:        return typeid(__func::__block_type);
+        -:  966:    }
+        -:  967:#endif // _LIBCPP_HAS_NO_RTTI
+        -:  968:};
+        -:  969:
+        -:  970:#endif // _LIBCPP_HAS_EXTENSION_BLOCKS
+        -:  971:
+        -:  972:} // namespace __function
+        -:  973:
+        -:  974:template<class _Rp, class ..._ArgTypes>
+        -:  975:class _LIBCPP_TEMPLATE_VIS function<_Rp(_ArgTypes...)>
+        -:  976:    : public __function::__maybe_derive_from_unary_function<_Rp(_ArgTypes...)>,
+        -:  977:      public __function::__maybe_derive_from_binary_function<_Rp(_ArgTypes...)>
+        -:  978:{
+        -:  979:#ifndef _LIBCPP_ABI_OPTIMIZED_FUNCTION
+        -:  980:    typedef __function::__value_func<_Rp(_ArgTypes...)> __func;
+        -:  981:#else
+        -:  982:    typedef __function::__policy_func<_Rp(_ArgTypes...)> __func;
+        -:  983:#endif
+        -:  984:
+        -:  985:    __func __f_;
+        -:  986:
+        -:  987:    template <class _Fp, bool = _And<
+        -:  988:        _IsNotSame<__remove_cvref_t<_Fp>, function>,
+        -:  989:        __invokable<_Fp, _ArgTypes...>
+        -:  990:    >::value>
+        -:  991:    struct __callable;
+        -:  992:    template <class _Fp>
+        -:  993:        struct __callable<_Fp, true>
+        -:  994:        {
+        -:  995:            static const bool value = is_void<_Rp>::value ||
+        -:  996:                __is_core_convertible<typename __invoke_of<_Fp, _ArgTypes...>::type,
+        -:  997:                                      _Rp>::value;
+        -:  998:        };
+        -:  999:    template <class _Fp>
+        -: 1000:        struct __callable<_Fp, false>
+        -: 1001:        {
+        -: 1002:            static const bool value = false;
+        -: 1003:        };
+        -: 1004:
+        -: 1005:  template <class _Fp>
+        -: 1006:  using _EnableIfLValueCallable = typename enable_if<__callable<_Fp&>::value>::type;
+        -: 1007:public:
+        -: 1008:    typedef _Rp result_type;
+        -: 1009:
+        -: 1010:    // construct/copy/destroy:
+        -: 1011:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEEC1B8ue170006Ev called 1 returned 100% blocks executed 100%
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEEC2B8ue170006Ev called 1 returned 100% blocks executed 100%
+        2: 1012:    function() _NOEXCEPT { }
+        1: 1012-block  0
+        1: 1012-block  1
+        -: 1013:    _LIBCPP_INLINE_VISIBILITY
+        -: 1014:    _LIBCPP_HIDE_FROM_ABI function(nullptr_t) _NOEXCEPT {}
+        -: 1015:    _LIBCPP_HIDE_FROM_ABI function(const function&);
+        -: 1016:    _LIBCPP_HIDE_FROM_ABI function(function&&) _NOEXCEPT;
+        -: 1017:    template<class _Fp, class = _EnableIfLValueCallable<_Fp>>
+        -: 1018:    _LIBCPP_HIDE_FROM_ABI function(_Fp);
+        -: 1019:
+        -: 1020:#if _LIBCPP_STD_VER <= 14
+        -: 1021:    template<class _Alloc>
+        -: 1022:      _LIBCPP_INLINE_VISIBILITY
+        -: 1023:      function(allocator_arg_t, const _Alloc&) _NOEXCEPT {}
+        -: 1024:    template<class _Alloc>
+        -: 1025:      _LIBCPP_INLINE_VISIBILITY
+        -: 1026:      function(allocator_arg_t, const _Alloc&, nullptr_t) _NOEXCEPT {}
+        -: 1027:    template<class _Alloc>
+        -: 1028:    _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&, const function&);
+        -: 1029:    template<class _Alloc>
+        -: 1030:    _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc&, function&&);
+        -: 1031:    template<class _Fp, class _Alloc, class = _EnableIfLValueCallable<_Fp>>
+        -: 1032:    _LIBCPP_HIDE_FROM_ABI function(allocator_arg_t, const _Alloc& __a, _Fp __f);
+        -: 1033:#endif
+        -: 1034:
+        -: 1035:    _LIBCPP_HIDE_FROM_ABI function& operator=(const function&);
+        -: 1036:    _LIBCPP_HIDE_FROM_ABI function& operator=(function&&) _NOEXCEPT;
+        -: 1037:    _LIBCPP_HIDE_FROM_ABI function& operator=(nullptr_t) _NOEXCEPT;
+        -: 1038:    template<class _Fp, class = _EnableIfLValueCallable<__decay_t<_Fp>>>
+        -: 1039:    _LIBCPP_HIDE_FROM_ABI function& operator=(_Fp&&);
+        -: 1040:
+        -: 1041:    _LIBCPP_HIDE_FROM_ABI ~function();
+        -: 1042:
+        -: 1043:    // function modifiers:
+        -: 1044:    _LIBCPP_HIDE_FROM_ABI void swap(function&) _NOEXCEPT;
+        -: 1045:
+        -: 1046:#if _LIBCPP_STD_VER <= 14
+        -: 1047:    template<class _Fp, class _Alloc>
+        -: 1048:      _LIBCPP_INLINE_VISIBILITY
+        -: 1049:      void assign(_Fp&& __f, const _Alloc& __a)
+        -: 1050:        {function(allocator_arg, __a, _VSTD::forward<_Fp>(__f)).swap(*this);}
+        -: 1051:#endif
+        -: 1052:
+        -: 1053:    // function capacity:
+        -: 1054:    _LIBCPP_INLINE_VISIBILITY
+        -: 1055:    explicit operator bool() const _NOEXCEPT {
+        -: 1056:      return static_cast<bool>(__f_);
+        -: 1057:    }
+        -: 1058:
+        -: 1059:    // deleted overloads close possible hole in the type system
+        -: 1060:    template<class _R2, class... _ArgTypes2>
+        -: 1061:      bool operator==(const function<_R2(_ArgTypes2...)>&) const = delete;
+        -: 1062:#if _LIBCPP_STD_VER <= 17
+        -: 1063:    template<class _R2, class... _ArgTypes2>
+        -: 1064:      bool operator!=(const function<_R2(_ArgTypes2...)>&) const = delete;
+        -: 1065:#endif
+        -: 1066:public:
+        -: 1067:    // function invocation:
+        -: 1068:    _LIBCPP_HIDE_FROM_ABI _Rp operator()(_ArgTypes...) const;
+        -: 1069:
+        -: 1070:#ifndef _LIBCPP_HAS_NO_RTTI
+        -: 1071:    // function target access:
+        -: 1072:    _LIBCPP_HIDE_FROM_ABI const std::type_info& target_type() const _NOEXCEPT;
+        -: 1073:    template <typename _Tp>
+        -: 1074:    _LIBCPP_HIDE_FROM_ABI _Tp* target() _NOEXCEPT;
+        -: 1075:    template <typename _Tp>
+        -: 1076:    _LIBCPP_HIDE_FROM_ABI const _Tp* target() const _NOEXCEPT;
+        -: 1077:#endif // _LIBCPP_HAS_NO_RTTI
+        -: 1078:};
+        -: 1079:
+        -: 1080:#if _LIBCPP_STD_VER >= 17
+        -: 1081:template<class _Rp, class ..._Ap>
+        -: 1082:function(_Rp(*)(_Ap...)) -> function<_Rp(_Ap...)>;
+        -: 1083:
+        -: 1084:template<class _Fp, class _Stripped = typename __strip_signature<decltype(&_Fp::operator())>::type>
+        -: 1085:function(_Fp) -> function<_Stripped>;
+        -: 1086:#endif // _LIBCPP_STD_VER >= 17
+        -: 1087:
+        -: 1088:template<class _Rp, class ..._ArgTypes>
+        -: 1089:function<_Rp(_ArgTypes...)>::function(const function& __f) : __f_(__f.__f_) {}
+        -: 1090:
+        -: 1091:#if _LIBCPP_STD_VER <= 14
+        -: 1092:template<class _Rp, class ..._ArgTypes>
+        -: 1093:template <class _Alloc>
+        -: 1094:function<_Rp(_ArgTypes...)>::function(allocator_arg_t, const _Alloc&,
+        -: 1095:                                     const function& __f) : __f_(__f.__f_) {}
+        -: 1096:#endif
+        -: 1097:
+        -: 1098:template <class _Rp, class... _ArgTypes>
+        -: 1099:function<_Rp(_ArgTypes...)>::function(function&& __f) _NOEXCEPT
+        -: 1100:    : __f_(_VSTD::move(__f.__f_)) {}
+        -: 1101:
+        -: 1102:#if _LIBCPP_STD_VER <= 14
+        -: 1103:template<class _Rp, class ..._ArgTypes>
+        -: 1104:template <class _Alloc>
+        -: 1105:function<_Rp(_ArgTypes...)>::function(allocator_arg_t, const _Alloc&,
+        -: 1106:                                      function&& __f)
+        -: 1107:    : __f_(_VSTD::move(__f.__f_)) {}
+        -: 1108:#endif
+        -: 1109:
+        -: 1110:template <class _Rp, class... _ArgTypes>
+        -: 1111:template <class _Fp, class>
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEEC1IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_vEET_ called 1 returned 100% blocks executed 100%
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEEC2IZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_vEET_ called 1 returned 100% blocks executed 100%
+        2: 1112:function<_Rp(_ArgTypes...)>::function(_Fp __f) : __f_(_VSTD::move(__f)) {}
+        1: 1112-block  0
+        1: 1112-block  1
+        -: 1113:
+        -: 1114:#if _LIBCPP_STD_VER <= 14
+        -: 1115:template <class _Rp, class... _ArgTypes>
+        -: 1116:template <class _Fp, class _Alloc, class>
+        -: 1117:function<_Rp(_ArgTypes...)>::function(allocator_arg_t, const _Alloc& __a,
+        -: 1118:                                      _Fp __f)
+        -: 1119:    : __f_(_VSTD::move(__f), __a) {}
+        -: 1120:#endif
+        -: 1121:
+        -: 1122:template<class _Rp, class ..._ArgTypes>
+        -: 1123:function<_Rp(_ArgTypes...)>&
+        -: 1124:function<_Rp(_ArgTypes...)>::operator=(const function& __f)
+        -: 1125:{
+        -: 1126:    function(__f).swap(*this);
+        -: 1127:    return *this;
+        -: 1128:}
+        -: 1129:
+        -: 1130:template<class _Rp, class ..._ArgTypes>
+        -: 1131:function<_Rp(_ArgTypes...)>&
+        -: 1132:function<_Rp(_ArgTypes...)>::operator=(function&& __f) _NOEXCEPT
+        -: 1133:{
+        -: 1134:    __f_ = _VSTD::move(__f.__f_);
+        -: 1135:    return *this;
+        -: 1136:}
+        -: 1137:
+        -: 1138:template<class _Rp, class ..._ArgTypes>
+        -: 1139:function<_Rp(_ArgTypes...)>&
+        -: 1140:function<_Rp(_ArgTypes...)>::operator=(nullptr_t) _NOEXCEPT
+        -: 1141:{
+        -: 1142:    __f_ = nullptr;
+        -: 1143:    return *this;
+        -: 1144:}
+        -: 1145:
+        -: 1146:template<class _Rp, class ..._ArgTypes>
+        -: 1147:template <class _Fp, class>
+        -: 1148:function<_Rp(_ArgTypes...)>&
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEEaSIZN11DIContainer14RegisterObjectI12ZooVetClinicJEEEvDpOT0_EUlvE_vEERS4_OT_ called 1 returned 100% blocks executed 100%
+        1: 1149:function<_Rp(_ArgTypes...)>::operator=(_Fp&& __f)
+        -: 1150:{
+        1: 1151:    function(_VSTD::forward<_Fp>(__f)).swap(*this);
+        1: 1152:    return *this;
+        1: 1152-block  0
+        -: 1153:}
+        -: 1154:
+        -: 1155:template<class _Rp, class ..._ArgTypes>
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEED1Ev called 2 returned 100% blocks executed 100%
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEED2Ev called 2 returned 100% blocks executed 100%
+        4: 1156:function<_Rp(_ArgTypes...)>::~function() {}
+        2: 1156-block  0
+        2: 1156-block  1
+        -: 1157:
+        -: 1158:template<class _Rp, class ..._ArgTypes>
+        -: 1159:void
+function _ZNSt3__18functionIFNS_10shared_ptrIvEEvEE4swapERS4_ called 1 returned 100% blocks executed 100%
+        1: 1160:function<_Rp(_ArgTypes...)>::swap(function& __f) _NOEXCEPT
+        -: 1161:{
+        1: 1162:    __f_.swap(__f.__f_);
+        1: 1163:}
+        1: 1163-block  0
+        -: 1164:
+        -: 1165:template<class _Rp, class ..._ArgTypes>
+        -: 1166:_Rp
+function _ZNKSt3__18functionIFNS_10shared_ptrIvEEvEEclEv called 1 returned 100% blocks executed 100%
+        1: 1167:function<_Rp(_ArgTypes...)>::operator()(_ArgTypes... __arg) const
+        -: 1168:{
+        1: 1169:    return __f_(_VSTD::forward<_ArgTypes>(__arg)...);
+        1: 1169-block  0
+        -: 1170:}
+        -: 1171:
+        -: 1172:#ifndef _LIBCPP_HAS_NO_RTTI
+        -: 1173:
+        -: 1174:template<class _Rp, class ..._ArgTypes>
+        -: 1175:const std::type_info&
+        -: 1176:function<_Rp(_ArgTypes...)>::target_type() const _NOEXCEPT
+        -: 1177:{
+        -: 1178:    return __f_.target_type();
+        -: 1179:}
+        -: 1180:
+        -: 1181:template<class _Rp, class ..._ArgTypes>
+        -: 1182:template <typename _Tp>
+        -: 1183:_Tp*
+        -: 1184:function<_Rp(_ArgTypes...)>::target() _NOEXCEPT
+        -: 1185:{
+        -: 1186:    return (_Tp*)(__f_.template target<_Tp>());
+        -: 1187:}
+        -: 1188:
+        -: 1189:template<class _Rp, class ..._ArgTypes>
+        -: 1190:template <typename _Tp>
+        -: 1191:const _Tp*
+        -: 1192:function<_Rp(_ArgTypes...)>::target() const _NOEXCEPT
+        -: 1193:{
+        -: 1194:    return __f_.template target<_Tp>();
+        -: 1195:}
+        -: 1196:
+        -: 1197:#endif // _LIBCPP_HAS_NO_RTTI
+        -: 1198:
+        -: 1199:template <class _Rp, class... _ArgTypes>
+        -: 1200:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1201:bool
+        -: 1202:operator==(const function<_Rp(_ArgTypes...)>& __f, nullptr_t) _NOEXCEPT {return !__f;}
+        -: 1203:
+        -: 1204:#if _LIBCPP_STD_VER <= 17
+        -: 1205:
+        -: 1206:template <class _Rp, class... _ArgTypes>
+        -: 1207:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1208:bool
+        -: 1209:operator==(nullptr_t, const function<_Rp(_ArgTypes...)>& __f) _NOEXCEPT {return !__f;}
+        -: 1210:
+        -: 1211:template <class _Rp, class... _ArgTypes>
+        -: 1212:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1213:bool
+        -: 1214:operator!=(const function<_Rp(_ArgTypes...)>& __f, nullptr_t) _NOEXCEPT {return (bool)__f;}
+        -: 1215:
+        -: 1216:template <class _Rp, class... _ArgTypes>
+        -: 1217:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1218:bool
+        -: 1219:operator!=(nullptr_t, const function<_Rp(_ArgTypes...)>& __f) _NOEXCEPT {return (bool)__f;}
+        -: 1220:
+        -: 1221:#endif // _LIBCPP_STD_VER <= 17
+        -: 1222:
+        -: 1223:template <class _Rp, class... _ArgTypes>
+        -: 1224:inline _LIBCPP_INLINE_VISIBILITY
+        -: 1225:void
+        -: 1226:swap(function<_Rp(_ArgTypes...)>& __x, function<_Rp(_ArgTypes...)>& __y) _NOEXCEPT
+        -: 1227:{return __x.swap(__y);}
+        -: 1228:
+        -: 1229:_LIBCPP_END_NAMESPACE_STD
+        -: 1230:
+        -: 1231:#endif // _LIBCPP_CXX03_LANG
+        -: 1232:
+        -: 1233:#endif // _LIBCPP___FUNCTIONAL_FUNCTION_H

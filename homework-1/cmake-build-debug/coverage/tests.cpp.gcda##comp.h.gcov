@@ -1,0 +1,54 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__algorithm/comp.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1://===----------------------------------------------------------------------===//
+        -:    2://
+        -:    3:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    4:// See https://llvm.org/LICENSE.txt for license information.
+        -:    5:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    6://
+        -:    7://===----------------------------------------------------------------------===//
+        -:    8:
+        -:    9:#ifndef _LIBCPP___ALGORITHM_COMP_H
+        -:   10:#define _LIBCPP___ALGORITHM_COMP_H
+        -:   11:
+        -:   12:#include <__config>
+        -:   13:#include <__type_traits/integral_constant.h>
+        -:   14:#include <__type_traits/predicate_traits.h>
+        -:   15:
+        -:   16:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   17:#  pragma GCC system_header
+        -:   18:#endif
+        -:   19:
+        -:   20:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:   21:
+        -:   22:struct __equal_to {
+        -:   23:  template <class _T1, class _T2>
+        -:   24:  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _T1& __x, const _T2& __y) const {
+        -:   25:    return __x == __y;
+        -:   26:  }
+        -:   27:};
+        -:   28:
+        -:   29:template <class _Lhs, class _Rhs>
+        -:   30:struct __is_trivial_equality_predicate<__equal_to, _Lhs, _Rhs> : true_type {};
+        -:   31:
+        -:   32:// The definition is required because __less is part of the ABI, but it's empty
+        -:   33:// because all comparisons should be transparent.
+        -:   34:template <class _T1 = void, class _T2 = _T1>
+        -:   35:struct __less {};
+        -:   36:
+        -:   37:template <>
+        -:   38:struct __less<void, void> {
+        -:   39:  template <class _Tp, class _Up>
+function _ZNKSt3__16__lessIvvEclB8ue170006ImmEEbRKT_RKT0_ called 7 returned 100% blocks executed 100%
+        7:   40:  _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 bool operator()(const _Tp& __lhs, const _Up& __rhs) const {
+        7:   41:    return __lhs < __rhs;
+        7:   41-block  0
+        -:   42:  }
+        -:   43:};
+        -:   44:
+        -:   45:_LIBCPP_END_NAMESPACE_STD
+        -:   46:
+        -:   47:#endif // _LIBCPP___ALGORITHM_COMP_H

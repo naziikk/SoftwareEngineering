@@ -1,0 +1,37 @@
+        -:    0:Source:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/tests/../include/Zoo/Zoo.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#include <iostream>
+        -:    2:#include <vector>
+        -:    3:#include "ZooVetClinic.h"
+        -:    4:
+function _ZN3ZooD1Ev called 1 returned 100% blocks executed 100%
+function _ZN3ZooD2Ev called 1 returned 100% blocks executed 100%
+        -:    5:class Zoo {
+        -:    6:private:
+        -:    7:    ZooVetClinic& vet_clinic_;
+        -:    8:    std::vector<std::unique_ptr<Animal>> animals_;
+        -:    9:    std::vector<std::unique_ptr<Inventory>> inventory_;
+        -:   10:
+        -:   11:public:
+function _ZN3ZooC1ER12ZooVetClinic called 1 returned 100% blocks executed 100%
+function _ZN3ZooC2ER12ZooVetClinic called 1 returned 100% blocks executed 100%
+        2:   12:    explicit Zoo(ZooVetClinic& vet_clinic) : vet_clinic_(vet_clinic) {}
+        1:   12-block  0
+        1:   12-block  1
+        -:   13:
+        -:   14:    void AddAnimal(std::unique_ptr<Animal> animal);
+        -:   15:
+        -:   16:    void AddThing(std::unique_ptr<Inventory> thing);
+        -:   17:
+        -:   18:    void ShowFoodRate();
+        -:   19:
+        -:   20:    void ShowAnimalsInTheZoo();
+        -:   21:
+        -:   22:    int GetAnimalsCount() const;
+        -:   23:
+        -:   24:    int GetInventoryCount() const;
+        -:   25:};
+        -:   26:
