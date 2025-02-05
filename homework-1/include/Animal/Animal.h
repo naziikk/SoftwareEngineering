@@ -1,3 +1,4 @@
+#pragma once
 #include "../InterfaceAliveInterface.h"
 #include "../InterfaceInventory.h"
 #include <iostream>
@@ -41,7 +42,7 @@ public:
     Herbo(std::string name, int food_rate, int inventory_number, bool is_healthy, int kindness)
         : Animal(name, food_rate, inventory_number, is_healthy, "herbo"), kindness(kindness){};
 
-    bool СanInteractWithPeople() {
+    bool CanInteractWithPeople() const {
         return kindness > 5;
     }
 };

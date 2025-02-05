@@ -18,5 +18,9 @@ public:
     void ShowFoodRate();
 
     void ShowAnimalsInTheZoo();
+
+    int GetAnimalsCount() const;
+
+    int GetInventoryCount() const;
 };
 

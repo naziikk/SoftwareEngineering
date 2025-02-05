@@ -26,7 +26,7 @@ void Zoo::ShowAnimalsInTheZoo() {
     for (const auto& animal : animals_) {
         if (animal->GetType() == "herbo") {
             auto herbo = dynamic_cast<Herbo*>(animal.get());
-            if (herbo->СanInteractWithPeople()) {
+            if (herbo->CanInteractWithPeople()) {
                 std::cout << "Травоядное: " << animal->GetName() << ". Можно контактировать с людьми" << '\n';
             } else {
                 std::cout << "Травоядное: " << animal->GetName() << '\n';
@@ -37,3 +37,10 @@ void Zoo::ShowAnimalsInTheZoo() {
     }
 }
 
+int Zoo::GetAnimalsCount() const {
+    return animals_.size();
+}
+
+int Zoo::GetInventoryCount() const {
+    return inventory_.size();
+}

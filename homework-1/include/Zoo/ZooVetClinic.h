@@ -1,3 +1,4 @@
+#pragma once
 #include "../Animal/Animal.h"
 
 class ZooVetClinic {
