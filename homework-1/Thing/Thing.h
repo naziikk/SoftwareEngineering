@@ -1,7 +1,7 @@
 #include "../InterfaceInventory.h"
 #include <iostream>
 
-class Thing : public IInventory {
+class Thing : public Inventory {
 protected:
     std::string name_;
     int inventory_number_;

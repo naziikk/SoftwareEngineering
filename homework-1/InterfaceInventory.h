@@ -1,7 +1,7 @@
 #pragma once
 
-class IInventory {
+class Inventory {
 public:
     virtual int InventoryNumber() const = 0;
-    virtual ~IInventory() = default;
+    virtual ~Inventory() = default;
 };
