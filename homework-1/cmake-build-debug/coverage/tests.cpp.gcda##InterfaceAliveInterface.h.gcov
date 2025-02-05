@@ -1,0 +1,20 @@
+        -:    0:Source:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/tests/../include/Zoo/../Animal/../InterfaceAliveInterface.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/tests/tests.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#pragma once
+        -:    2:
+function _ZN5AliveC2Ev called 2 returned 100% blocks executed 100%
+        -:    3:class Alive {
+        -:    4:public:
+        -:    5:    virtual int GetFoodRate() = 0;
+        -:    6:
+function _ZN5AliveD2Ev called 2 returned 100% blocks executed 100%
+function _ZN5AliveD1Ev called 0 returned 0% blocks executed 0%
+function _ZN5AliveD0Ev called 0 returned 0% blocks executed 0%
+        2:    7:    virtual ~Alive() = default;
+        2:    7-block  0
+    $$$$$:    7-block  1
+    $$$$$:    7-block  2
+        -:    8:};

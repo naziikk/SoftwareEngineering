@@ -1,0 +1,320 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__memory/allocator.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===----------------------------------------------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#ifndef _LIBCPP___MEMORY_ALLOCATOR_H
+        -:   11:#define _LIBCPP___MEMORY_ALLOCATOR_H
+        -:   12:
+        -:   13:#include <__config>
+        -:   14:#include <__memory/addressof.h>
+        -:   15:#include <__memory/allocate_at_least.h>
+        -:   16:#include <__memory/allocator_traits.h>
+        -:   17:#include <__type_traits/is_constant_evaluated.h>
+        -:   18:#include <__type_traits/is_same.h>
+        -:   19:#include <__type_traits/is_void.h>
+        -:   20:#include <__type_traits/is_volatile.h>
+        -:   21:#include <__utility/forward.h>
+        -:   22:#include <cstddef>
+        -:   23:#include <new>
+        -:   24:
+        -:   25:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   26:#  pragma GCC system_header
+        -:   27:#endif
+        -:   28:
+        -:   29:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:   30:
+        -:   31:template <class _Tp> class allocator;
+        -:   32:
+        -:   33:#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_ALLOCATOR_VOID_SPECIALIZATION)
+        -:   34:// These specializations shouldn't be marked _LIBCPP_DEPRECATED_IN_CXX17.
+        -:   35:// Specializing allocator<void> is deprecated, but not using it.
+        -:   36:template <>
+        -:   37:class _LIBCPP_TEMPLATE_VIS allocator<void>
+        -:   38:{
+        -:   39:#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_ALLOCATOR_MEMBERS)
+        -:   40:public:
+        -:   41:    _LIBCPP_DEPRECATED_IN_CXX17 typedef void*             pointer;
+        -:   42:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const void*       const_pointer;
+        -:   43:    _LIBCPP_DEPRECATED_IN_CXX17 typedef void              value_type;
+        -:   44:
+        -:   45:    template <class _Up> struct _LIBCPP_DEPRECATED_IN_CXX17 rebind {typedef allocator<_Up> other;};
+        -:   46:#endif
+        -:   47:};
+        -:   48:
+        -:   49:template <>
+        -:   50:class _LIBCPP_TEMPLATE_VIS allocator<const void>
+        -:   51:{
+        -:   52:#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_ALLOCATOR_MEMBERS)
+        -:   53:public:
+        -:   54:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const void*       pointer;
+        -:   55:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const void*       const_pointer;
+        -:   56:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const void        value_type;
+        -:   57:
+        -:   58:    template <class _Up> struct _LIBCPP_DEPRECATED_IN_CXX17 rebind {typedef allocator<_Up> other;};
+        -:   59:#endif
+        -:   60:};
+        -:   61:#endif
+        -:   62:
+        -:   63:// This class provides a non-trivial default constructor to the class that derives from it
+        -:   64:// if the condition is satisfied.
+        -:   65://
+        -:   66:// The second template parameter exists to allow giving a unique type to __non_trivial_if,
+        -:   67:// which makes it possible to avoid breaking the ABI when making this a base class of an
+        -:   68:// existing class. Without that, imagine we have classes D1 and D2, both of which used to
+        -:   69:// have no base classes, but which now derive from __non_trivial_if. The layout of a class
+        -:   70:// that inherits from both D1 and D2 will change because the two __non_trivial_if base
+        -:   71:// classes are not allowed to share the same address.
+        -:   72://
+        -:   73:// By making those __non_trivial_if base classes unique, we work around this problem and
+        -:   74:// it is safe to start deriving from __non_trivial_if in existing classes.
+        -:   75:template <bool _Cond, class _Unique>
+        -:   76:struct __non_trivial_if { };
+        -:   77:
+        -:   78:template <class _Unique>
+        -:   79:struct __non_trivial_if<true, _Unique> {
+        -:   80:    _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__116__non_trivial_ifILb1ENS_9allocatorIcEEEC2B8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:   81:    _LIBCPP_CONSTEXPR __non_trivial_if() _NOEXCEPT { }
+    $$$$$:   81-block  0
+        -:   82:};
+        -:   83:
+        -:   84:// allocator
+        -:   85://
+        -:   86:// Note: For ABI compatibility between C++20 and previous standards, we make
+        -:   87://       allocator<void> trivial in C++20.
+        -:   88:
+        -:   89:template <class _Tp>
+        -:   90:class _LIBCPP_TEMPLATE_VIS allocator
+        -:   91:    : private __non_trivial_if<!is_void<_Tp>::value, allocator<_Tp> >
+        -:   92:{
+        -:   93:    static_assert(!is_volatile<_Tp>::value, "std::allocator does not support volatile types");
+        -:   94:public:
+        -:   95:    typedef size_t      size_type;
+        -:   96:    typedef ptrdiff_t   difference_type;
+        -:   97:    typedef _Tp         value_type;
+        -:   98:    typedef true_type   propagate_on_container_move_assignment;
+        -:   99:    typedef true_type   is_always_equal;
+        -:  100:
+function _ZNSt3__19allocatorIcEC2B8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:  101:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 allocator() _NOEXCEPT = default;
+    $$$$$:  101-block  0
+        -:  102:
+        -:  103:    template <class _Up>
+        -:  104:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+        -:  105:    allocator(const allocator<_Up>&) _NOEXCEPT { }
+        -:  106:
+        -:  107:    _LIBCPP_NODISCARD_AFTER_CXX17 _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+function _ZNSt3__19allocatorINS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE8allocateB8ue170006Em called 0 returned 0% blocks executed 0%
+function _ZNSt3__19allocatorINS_10unique_ptrI9InventoryNS_14default_deleteIS2_EEEEE8allocateB8ue170006Em called 0 returned 0% blocks executed 0%
+    #####:  108:    _Tp* allocate(size_t __n) {
+    #####:  109:        if (__n > allocator_traits<allocator>::max_size(*this))
+    $$$$$:  109-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  109-block  1
+branch  2 never executed
+branch  3 never executed
+    #####:  110:            __throw_bad_array_new_length();
+    $$$$$:  110-block  0
+    $$$$$:  110-block  1
+        -:  111:        if (__libcpp_is_constant_evaluated()) {
+        -:  112:            return static_cast<_Tp*>(::operator new(__n * sizeof(_Tp)));
+        -:  113:        } else {
+    #####:  114:            return static_cast<_Tp*>(_VSTD::__libcpp_allocate(__n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp)));
+    $$$$$:  114-block  0
+    $$$$$:  114-block  1
+        -:  115:        }
+        -:  116:    }
+        -:  117:
+        -:  118:#if _LIBCPP_STD_VER >= 23
+        -:  119:    [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr
+        -:  120:    allocation_result<_Tp*> allocate_at_least(size_t __n) {
+        -:  121:        return {allocate(__n), __n};
+        -:  122:    }
+        -:  123:#endif
+        -:  124:
+        -:  125:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+function _ZNSt3__19allocatorINS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE10deallocateB8ue170006EPS5_m called 0 returned 0% blocks executed 0%
+function _ZNSt3__19allocatorINS_10unique_ptrI9InventoryNS_14default_deleteIS2_EEEEE10deallocateB8ue170006EPS5_m called 0 returned 0% blocks executed 0%
+    #####:  126:    void deallocate(_Tp* __p, size_t __n) _NOEXCEPT {
+        -:  127:        if (__libcpp_is_constant_evaluated()) {
+        -:  128:            ::operator delete(__p);
+        -:  129:        } else {
+    #####:  130:            _VSTD::__libcpp_deallocate((void*)__p, __n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp));
+    $$$$$:  130-block  0
+branch  0 never executed
+branch  1 never executed
+    $$$$$:  130-block  1
+    $$$$$:  130-block  2
+branch  2 never executed
+branch  3 never executed
+    $$$$$:  130-block  3
+        -:  131:        }
+    #####:  132:    }
+    $$$$$:  132-block  0
+    $$$$$:  132-block  1
+        -:  133:
+        -:  134:    // C++20 Removed members
+        -:  135:#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_ALLOCATOR_MEMBERS)
+        -:  136:    _LIBCPP_DEPRECATED_IN_CXX17 typedef _Tp*       pointer;
+        -:  137:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp* const_pointer;
+        -:  138:    _LIBCPP_DEPRECATED_IN_CXX17 typedef _Tp&       reference;
+        -:  139:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp& const_reference;
+        -:  140:
+        -:  141:    template <class _Up>
+        -:  142:    struct _LIBCPP_DEPRECATED_IN_CXX17 rebind {
+        -:  143:        typedef allocator<_Up> other;
+        -:  144:    };
+        -:  145:
+        -:  146:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+        -:  147:    pointer address(reference __x) const _NOEXCEPT {
+        -:  148:        return _VSTD::addressof(__x);
+        -:  149:    }
+        -:  150:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+        -:  151:    const_pointer address(const_reference __x) const _NOEXCEPT {
+        -:  152:        return _VSTD::addressof(__x);
+        -:  153:    }
+        -:  154:
+        -:  155:    _LIBCPP_NODISCARD_AFTER_CXX17 _LIBCPP_INLINE_VISIBILITY _LIBCPP_DEPRECATED_IN_CXX17
+        -:  156:    _Tp* allocate(size_t __n, const void*) {
+        -:  157:        return allocate(__n);
+        -:  158:    }
+        -:  159:
+function _ZNKSt3__19allocatorINS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE8max_sizeB8ue170006Ev called 0 returned 0% blocks executed 0%
+function _ZNKSt3__19allocatorINS_10unique_ptrI9InventoryNS_14default_deleteIS2_EEEEE8max_sizeB8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:  160:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY size_type max_size() const _NOEXCEPT {
+    #####:  161:        return size_type(~0) / sizeof(_Tp);
+    $$$$$:  161-block  0
+    $$$$$:  161-block  1
+        -:  162:    }
+        -:  163:
+        -:  164:    template <class _Up, class... _Args>
+        -:  165:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__19allocatorINS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE9constructB8ue170006IS5_JS5_EEEvPT_DpOT0_ called 0 returned 0% blocks executed 0%
+function _ZNSt3__19allocatorINS_10unique_ptrI9InventoryNS_14default_deleteIS2_EEEEE9constructB8ue170006IS5_JS5_EEEvPT_DpOT0_ called 0 returned 0% blocks executed 0%
+    #####:  166:    void construct(_Up* __p, _Args&&... __args) {
+    #####:  167:        ::new ((void*)__p) _Up(_VSTD::forward<_Args>(__args)...);
+    #####:  168:    }
+    $$$$$:  168-block  0
+    $$$$$:  168-block  1
+        -:  169:
+        -:  170:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+function _ZNSt3__19allocatorINS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE7destroyB8ue170006EPS5_ called 0 returned 0% blocks executed 0%
+function _ZNSt3__19allocatorINS_10unique_ptrI9InventoryNS_14default_deleteIS2_EEEEE7destroyB8ue170006EPS5_ called 0 returned 0% blocks executed 0%
+    #####:  171:    void destroy(pointer __p) {
+    #####:  172:        __p->~_Tp();
+    #####:  173:    }
+    $$$$$:  173-block  0
+    $$$$$:  173-block  1
+        -:  174:#endif
+        -:  175:};
+        -:  176:
+        -:  177:template <class _Tp>
+        -:  178:class _LIBCPP_TEMPLATE_VIS allocator<const _Tp>
+        -:  179:    : private __non_trivial_if<!is_void<_Tp>::value, allocator<const _Tp> >
+        -:  180:{
+        -:  181:    static_assert(!is_volatile<_Tp>::value, "std::allocator does not support volatile types");
+        -:  182:public:
+        -:  183:    typedef size_t      size_type;
+        -:  184:    typedef ptrdiff_t   difference_type;
+        -:  185:    typedef const _Tp   value_type;
+        -:  186:    typedef true_type   propagate_on_container_move_assignment;
+        -:  187:    typedef true_type   is_always_equal;
+        -:  188:
+        -:  189:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX20 allocator() _NOEXCEPT = default;
+        -:  190:
+        -:  191:    template <class _Up>
+        -:  192:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+        -:  193:    allocator(const allocator<_Up>&) _NOEXCEPT { }
+        -:  194:
+        -:  195:    _LIBCPP_NODISCARD_AFTER_CXX17 _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+        -:  196:    const _Tp* allocate(size_t __n) {
+        -:  197:        if (__n > allocator_traits<allocator>::max_size(*this))
+        -:  198:            __throw_bad_array_new_length();
+        -:  199:        if (__libcpp_is_constant_evaluated()) {
+        -:  200:            return static_cast<const _Tp*>(::operator new(__n * sizeof(_Tp)));
+        -:  201:        } else {
+        -:  202:            return static_cast<const _Tp*>(_VSTD::__libcpp_allocate(__n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp)));
+        -:  203:        }
+        -:  204:    }
+        -:  205:
+        -:  206:#if _LIBCPP_STD_VER >= 23
+        -:  207:    [[nodiscard]] _LIBCPP_HIDE_FROM_ABI constexpr
+        -:  208:    allocation_result<const _Tp*> allocate_at_least(size_t __n) {
+        -:  209:        return {allocate(__n), __n};
+        -:  210:    }
+        -:  211:#endif
+        -:  212:
+        -:  213:    _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+        -:  214:    void deallocate(const _Tp* __p, size_t __n) {
+        -:  215:        if (__libcpp_is_constant_evaluated()) {
+        -:  216:            ::operator delete(const_cast<_Tp*>(__p));
+        -:  217:        } else {
+        -:  218:            _VSTD::__libcpp_deallocate((void*) const_cast<_Tp *>(__p), __n * sizeof(_Tp), _LIBCPP_ALIGNOF(_Tp));
+        -:  219:        }
+        -:  220:    }
+        -:  221:
+        -:  222:    // C++20 Removed members
+        -:  223:#if _LIBCPP_STD_VER <= 17 || defined(_LIBCPP_ENABLE_CXX20_REMOVED_ALLOCATOR_MEMBERS)
+        -:  224:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp* pointer;
+        -:  225:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp* const_pointer;
+        -:  226:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp& reference;
+        -:  227:    _LIBCPP_DEPRECATED_IN_CXX17 typedef const _Tp& const_reference;
+        -:  228:
+        -:  229:    template <class _Up>
+        -:  230:    struct _LIBCPP_DEPRECATED_IN_CXX17 rebind {
+        -:  231:        typedef allocator<_Up> other;
+        -:  232:    };
+        -:  233:
+        -:  234:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+        -:  235:    const_pointer address(const_reference __x) const _NOEXCEPT {
+        -:  236:        return _VSTD::addressof(__x);
+        -:  237:    }
+        -:  238:
+        -:  239:    _LIBCPP_NODISCARD_AFTER_CXX17 _LIBCPP_INLINE_VISIBILITY _LIBCPP_DEPRECATED_IN_CXX17
+        -:  240:    const _Tp* allocate(size_t __n, const void*) {
+        -:  241:        return allocate(__n);
+        -:  242:    }
+        -:  243:
+        -:  244:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY size_type max_size() const _NOEXCEPT {
+        -:  245:        return size_type(~0) / sizeof(_Tp);
+        -:  246:    }
+        -:  247:
+        -:  248:    template <class _Up, class... _Args>
+        -:  249:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+        -:  250:    void construct(_Up* __p, _Args&&... __args) {
+        -:  251:        ::new ((void*)__p) _Up(_VSTD::forward<_Args>(__args)...);
+        -:  252:    }
+        -:  253:
+        -:  254:    _LIBCPP_DEPRECATED_IN_CXX17 _LIBCPP_INLINE_VISIBILITY
+        -:  255:    void destroy(pointer __p) {
+        -:  256:        __p->~_Tp();
+        -:  257:    }
+        -:  258:#endif
+        -:  259:};
+        -:  260:
+        -:  261:template <class _Tp, class _Up>
+        -:  262:inline _LIBCPP_INLINE_VISIBILITY _LIBCPP_CONSTEXPR_SINCE_CXX20
+        -:  263:bool operator==(const allocator<_Tp>&, const allocator<_Up>&) _NOEXCEPT {return true;}
+        -:  264:
+        -:  265:#if _LIBCPP_STD_VER <= 17
+        -:  266:
+        -:  267:template <class _Tp, class _Up>
+        -:  268:inline _LIBCPP_INLINE_VISIBILITY
+        -:  269:bool operator!=(const allocator<_Tp>&, const allocator<_Up>&) _NOEXCEPT {return false;}
+        -:  270:
+        -:  271:#endif
+        -:  272:
+        -:  273:_LIBCPP_END_NAMESPACE_STD
+        -:  274:
+        -:  275:#endif // _LIBCPP___MEMORY_ALLOCATOR_H

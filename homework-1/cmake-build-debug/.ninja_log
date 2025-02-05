@@ -1,0 +1,7 @@
+# ninja log v5
+3	497	1738758106909678881	CMakeFiles/tests.dir/src/Zoo.cpp.o	c23ded15a9fb31cc
+2	751	1738758107161550245	CMakeFiles/tests.dir/tests/tests.cpp.o	d27d9187ba8c52f2
+751	834	1738758107250281226	tests	210c84b75de11f16
+2	425	1738758159269548734	CMakeFiles/tests.dir/src/Zoo.cpp.o	ace42114f5482783
+2	656	1738758159499791773	CMakeFiles/tests.dir/tests/tests.cpp.o	aaa77f2441c676ae
+656	738	1738758159584780412	tests	331019eaf5e0af44

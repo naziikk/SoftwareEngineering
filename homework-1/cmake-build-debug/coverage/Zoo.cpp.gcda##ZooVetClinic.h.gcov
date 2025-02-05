@@ -1,0 +1,16 @@
+        -:    0:Source:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/src/../include/Zoo/ZooVetClinic.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:#pragma once
+        -:    2:#include "../Animal/Animal.h"
+        -:    3:
+        -:    4:class ZooVetClinic {
+        -:    5:public:
+function _ZN12ZooVetClinic11CheckHealthER6Animal called 0 returned 0% blocks executed 0%
+    #####:    6:    bool CheckHealth(Animal& animal) {
+    #####:    7:        return animal.IsHealthy();
+    $$$$$:    7-block  0
+        -:    8:    }
+        -:    9:};

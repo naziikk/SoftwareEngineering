@@ -1,0 +1,251 @@
+        -:    0:Source:/Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk/usr/include/c++/v1/__iterator/wrap_iter.h
+        -:    0:Graph:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcno
+        -:    0:Data:/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug/CMakeFiles/tests.dir/src/Zoo.cpp.gcda
+        -:    0:Runs:1
+        -:    0:Programs:1
+        -:    1:// -*- C++ -*-
+        -:    2://===----------------------------------------------------------------------===//
+        -:    3://
+        -:    4:// Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
+        -:    5:// See https://llvm.org/LICENSE.txt for license information.
+        -:    6:// SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
+        -:    7://
+        -:    8://===----------------------------------------------------------------------===//
+        -:    9:
+        -:   10:#ifndef _LIBCPP___ITERATOR_WRAP_ITER_H
+        -:   11:#define _LIBCPP___ITERATOR_WRAP_ITER_H
+        -:   12:
+        -:   13:#include <__config>
+        -:   14:#include <__iterator/iterator_traits.h>
+        -:   15:#include <__memory/addressof.h>
+        -:   16:#include <__memory/pointer_traits.h>
+        -:   17:#include <__type_traits/enable_if.h>
+        -:   18:#include <__type_traits/is_convertible.h>
+        -:   19:#include <cstddef>
+        -:   20:
+        -:   21:#if !defined(_LIBCPP_HAS_NO_PRAGMA_SYSTEM_HEADER)
+        -:   22:#  pragma GCC system_header
+        -:   23:#endif
+        -:   24:
+        -:   25:_LIBCPP_BEGIN_NAMESPACE_STD
+        -:   26:
+        -:   27:template <class _Iter>
+        -:   28:class __wrap_iter
+        -:   29:{
+        -:   30:public:
+        -:   31:    typedef _Iter                                                      iterator_type;
+        -:   32:    typedef typename iterator_traits<iterator_type>::value_type        value_type;
+        -:   33:    typedef typename iterator_traits<iterator_type>::difference_type   difference_type;
+        -:   34:    typedef typename iterator_traits<iterator_type>::pointer           pointer;
+        -:   35:    typedef typename iterator_traits<iterator_type>::reference         reference;
+        -:   36:    typedef typename iterator_traits<iterator_type>::iterator_category iterator_category;
+        -:   37:#if _LIBCPP_STD_VER >= 20
+        -:   38:    typedef contiguous_iterator_tag                                    iterator_concept;
+        -:   39:#endif
+        -:   40:
+        -:   41:private:
+        -:   42:    iterator_type __i_;
+        -:   43:public:
+        -:   44:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter() _NOEXCEPT
+        -:   45:                : __i_()
+        -:   46:    {
+        -:   47:    }
+        -:   48:    template <class _Up> _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+        -:   49:        __wrap_iter(const __wrap_iter<_Up>& __u,
+        -:   50:            typename enable_if<is_convertible<_Up, iterator_type>::value>::type* = nullptr) _NOEXCEPT
+        -:   51:            : __i_(__u.base())
+        -:   52:    {
+        -:   53:    }
+function _ZNKSt3__111__wrap_iterIPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEdeB8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:   54:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 reference operator*() const _NOEXCEPT
+        -:   55:    {
+    #####:   56:        return *__i_;
+    $$$$$:   56-block  0
+        -:   57:    }
+        -:   58:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 pointer operator->() const _NOEXCEPT
+        -:   59:    {
+        -:   60:        return _VSTD::__to_address(__i_);
+        -:   61:    }
+function _ZNSt3__111__wrap_iterIPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEppB8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:   62:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter& operator++() _NOEXCEPT
+        -:   63:    {
+    #####:   64:        ++__i_;
+    #####:   65:        return *this;
+    $$$$$:   65-block  0
+        -:   66:    }
+        -:   67:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter  operator++(int) _NOEXCEPT
+        -:   68:        {__wrap_iter __tmp(*this); ++(*this); return __tmp;}
+        -:   69:
+        -:   70:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter& operator--() _NOEXCEPT
+        -:   71:    {
+        -:   72:        --__i_;
+        -:   73:        return *this;
+        -:   74:    }
+        -:   75:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter  operator--(int) _NOEXCEPT
+        -:   76:        {__wrap_iter __tmp(*this); --(*this); return __tmp;}
+        -:   77:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter  operator+ (difference_type __n) const _NOEXCEPT
+        -:   78:        {__wrap_iter __w(*this); __w += __n; return __w;}
+        -:   79:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter& operator+=(difference_type __n) _NOEXCEPT
+        -:   80:    {
+        -:   81:        __i_ += __n;
+        -:   82:        return *this;
+        -:   83:    }
+        -:   84:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter  operator- (difference_type __n) const _NOEXCEPT
+        -:   85:        {return *this + (-__n);}
+        -:   86:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 __wrap_iter& operator-=(difference_type __n) _NOEXCEPT
+        -:   87:        {*this += -__n; return *this;}
+        -:   88:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 reference    operator[](difference_type __n) const _NOEXCEPT
+        -:   89:    {
+        -:   90:        return __i_[__n];
+        -:   91:    }
+        -:   92:
+function _ZNKSt3__111__wrap_iterIPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEE4baseB8ue170006Ev called 0 returned 0% blocks executed 0%
+    #####:   93:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14 iterator_type base() const _NOEXCEPT {return __i_;}
+    $$$$$:   93-block  0
+        -:   94:
+        -:   95:private:
+        -:   96:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+function _ZNSt3__111__wrap_iterIPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEC1B8ue170006ES6_ called 0 returned 0% blocks executed 0%
+function _ZNSt3__111__wrap_iterIPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEC2B8ue170006ES6_ called 0 returned 0% blocks executed 0%
+    #####:   97:    explicit __wrap_iter(iterator_type __x) _NOEXCEPT : __i_(__x)
+    #####:   98:    {
+    #####:   99:    }
+    $$$$$:   99-block  0
+    $$$$$:   99-block  1
+        -:  100:
+        -:  101:    template <class _Up> friend class __wrap_iter;
+        -:  102:    template <class _CharT, class _Traits, class _Alloc> friend class basic_string;
+        -:  103:    template <class _Tp, class _Alloc> friend class _LIBCPP_TEMPLATE_VIS vector;
+        -:  104:    template <class _Tp, size_t> friend class _LIBCPP_TEMPLATE_VIS span;
+        -:  105:};
+        -:  106:
+        -:  107:template <class _Iter1>
+        -:  108:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+function _ZNSt3__1eqB8ue170006IPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEEbRKNS_11__wrap_iterIT_EESB_ called 0 returned 0% blocks executed 0%
+    #####:  109:bool operator==(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  110:{
+    #####:  111:    return __x.base() == __y.base();
+    $$$$$:  111-block  0
+        -:  112:}
+        -:  113:
+        -:  114:template <class _Iter1, class _Iter2>
+        -:  115:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  116:bool operator==(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  117:{
+        -:  118:    return __x.base() == __y.base();
+        -:  119:}
+        -:  120:
+        -:  121:template <class _Iter1>
+        -:  122:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+        -:  123:bool operator<(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  124:{
+        -:  125:    return __x.base() < __y.base();
+        -:  126:}
+        -:  127:
+        -:  128:template <class _Iter1, class _Iter2>
+        -:  129:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+        -:  130:bool operator<(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  131:{
+        -:  132:    return __x.base() < __y.base();
+        -:  133:}
+        -:  134:
+        -:  135:template <class _Iter1>
+        -:  136:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+function _ZNSt3__1neB8ue170006IPNS_10unique_ptrI6AnimalNS_14default_deleteIS2_EEEEEEbRKNS_11__wrap_iterIT_EESB_ called 0 returned 0% blocks executed 0%
+    #####:  137:bool operator!=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  138:{
+    #####:  139:    return !(__x == __y);
+    $$$$$:  139-block  0
+        -:  140:}
+        -:  141:
+        -:  142:template <class _Iter1, class _Iter2>
+        -:  143:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  144:bool operator!=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  145:{
+        -:  146:    return !(__x == __y);
+        -:  147:}
+        -:  148:
+        -:  149:template <class _Iter1>
+        -:  150:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  151:bool operator>(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  152:{
+        -:  153:    return __y < __x;
+        -:  154:}
+        -:  155:
+        -:  156:template <class _Iter1, class _Iter2>
+        -:  157:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  158:bool operator>(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  159:{
+        -:  160:    return __y < __x;
+        -:  161:}
+        -:  162:
+        -:  163:template <class _Iter1>
+        -:  164:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  165:bool operator>=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  166:{
+        -:  167:    return !(__x < __y);
+        -:  168:}
+        -:  169:
+        -:  170:template <class _Iter1, class _Iter2>
+        -:  171:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  172:bool operator>=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  173:{
+        -:  174:    return !(__x < __y);
+        -:  175:}
+        -:  176:
+        -:  177:template <class _Iter1>
+        -:  178:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  179:bool operator<=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT
+        -:  180:{
+        -:  181:    return !(__y < __x);
+        -:  182:}
+        -:  183:
+        -:  184:template <class _Iter1, class _Iter2>
+        -:  185:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  186:bool operator<=(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  187:{
+        -:  188:    return !(__y < __x);
+        -:  189:}
+        -:  190:
+        -:  191:template <class _Iter1, class _Iter2>
+        -:  192:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+        -:  193:#ifndef _LIBCPP_CXX03_LANG
+        -:  194:auto operator-(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  195:    -> decltype(__x.base() - __y.base())
+        -:  196:#else
+        -:  197:typename __wrap_iter<_Iter1>::difference_type
+        -:  198:operator-(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter2>& __y) _NOEXCEPT
+        -:  199:#endif // C++03
+        -:  200:{
+        -:  201:    return __x.base() - __y.base();
+        -:  202:}
+        -:  203:
+        -:  204:template <class _Iter1>
+        -:  205:_LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR_SINCE_CXX14
+        -:  206:__wrap_iter<_Iter1> operator+(typename __wrap_iter<_Iter1>::difference_type __n, __wrap_iter<_Iter1> __x) _NOEXCEPT
+        -:  207:{
+        -:  208:    __x += __n;
+        -:  209:    return __x;
+        -:  210:}
+        -:  211:
+        -:  212:#if _LIBCPP_STD_VER <= 17
+        -:  213:template <class _It>
+        -:  214:struct __libcpp_is_contiguous_iterator<__wrap_iter<_It> > : true_type {};
+        -:  215:#endif
+        -:  216:
+        -:  217:template <class _It>
+        -:  218:struct _LIBCPP_TEMPLATE_VIS pointer_traits<__wrap_iter<_It> >
+        -:  219:{
+        -:  220:    typedef __wrap_iter<_It> pointer;
+        -:  221:    typedef typename pointer_traits<_It>::element_type element_type;
+        -:  222:    typedef typename pointer_traits<_It>::difference_type difference_type;
+        -:  223:
+        -:  224:    _LIBCPP_HIDE_FROM_ABI _LIBCPP_CONSTEXPR
+        -:  225:    static element_type *to_address(pointer __w) _NOEXCEPT {
+        -:  226:        return _VSTD::__to_address(__w.base());
+        -:  227:    }
+        -:  228:};
+        -:  229:
+        -:  230:_LIBCPP_END_NAMESPACE_STD
+        -:  231:
+        -:  232:#endif // _LIBCPP___ITERATOR_WRAP_ITER_H
