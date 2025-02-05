@@ -6,4 +6,8 @@ public:
     bool CheckHealth(Animal& animal) {
         return animal.IsHealthy();
     }
+
+    void TreatAnimal(Animal& animal) {
+        animal.Treat();
+    }
 };

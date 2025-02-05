@@ -31,6 +31,11 @@ public:
     std::string GetType() const {
         return type_;
     }
+
+    void Treat() {
+        is_healthy_ = true;
+    }
+
     virtual std::string GetName() const = 0;
 };
 

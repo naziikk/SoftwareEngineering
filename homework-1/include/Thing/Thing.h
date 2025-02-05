@@ -1,5 +1,6 @@
 #include "../InterfaceInventory.h"
 #include <iostream>
+#include <utility>
 
 class Thing : public Inventory {
 protected:
@@ -25,7 +26,7 @@ protected:
     std::string name_;
 
 public:
-    Table(std::string& name, int inventory_number)
+    Table(int inventory_number)
         : Thing("Table", inventory_number){};
 };
 
