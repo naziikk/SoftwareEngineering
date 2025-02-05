@@ -1,6 +1,7 @@
-#include "DI-container.h"
+#include "../include/DI-container.h"
 #include <memory>
-#include "Zoo/Zoo.h"
+#include "../include/Zoo/Zoo.h"
+#include "../include/Zoo/ZooVetClinic.h"
 
 int main() {
     auto container = DIContainer();

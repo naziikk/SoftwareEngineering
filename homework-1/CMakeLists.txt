@@ -3,4 +3,6 @@ project(homework-1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(homework-1 main.cpp)
+find_package(GTest REQUIRED)
+add_executable(homework-1 src/main.cpp
+        src/Zoo.cpp)
