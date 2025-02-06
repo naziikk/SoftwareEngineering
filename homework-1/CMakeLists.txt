@@ -4,7 +4,8 @@ project(homework-1)
 set(CMAKE_CXX_STANDARD 17)
 
 add_executable(homework-1 src/main.cpp
-        src/Zoo.cpp)
+        src/Zoo.cpp
+        src/ZooApp.cpp)
 
 find_package(GTest REQUIRED)
 enable_testing()

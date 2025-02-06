@@ -41,31 +41,38 @@ void Zoo::ShowAnimalsInTheZoo() {
     for (const auto& animal : animals_) {
         if (animal->GetType() == "herbo") {
             auto herbo = dynamic_cast<Herbo*>(animal.get());
+
             if (herbo->CanInteractWithPeople()) {
                 std::cout << "Травоядное: " << animal->GetName() << ' ';
+
                 if (!animal->IsHealthy()) {
                     std::cout << "(нуждается в лечении)" << '\n';
                 } else {
                     std::cout << "(здоров)" << '\n';
                 }
+
                 std::cout << "Инвентарный номер: " << herbo->InventoryNumber() << '\n';
                 std::cout << "Можно контактировать с людьми" << '\n' << '\n';
             } else {
                 std::cout << "Травоядное: " << animal->GetName() << ' ';
+
                 if (!animal->IsHealthy()) {
                     std::cout << "(нуждается в лечении)" << '\n';
                 } else {
                     std::cout << "(здоров)" << '\n';
                 }
+
                 std::cout << "Инвентарный номер: " << herbo->InventoryNumber()<< '\n' << '\n';
             }
         } else {
             std::cout << "Хищник: " << animal->GetName() << ' ';
+
             if (!animal->IsHealthy()) {
                 std::cout << "(нуждается в лечении)" << '\n';
             } else {
                 std::cout << "(здоров)" << '\n';
             }
+
             std::cout << "Инвентарный номер: " << animal->InventoryNumber() << '\n' << '\n';
         }
     }

@@ -41,14 +41,14 @@
 				{
 					"directoryIndex" : 0,
 					"id" : "homework-1::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-homework-1-Debug-29cc4190f3a0877573ab.json",
+					"jsonFile" : "target-homework-1-Debug-b045d6a4f3d33fc02846.json",
 					"name" : "homework-1",
 					"projectIndex" : 0
 				},
 				{
 					"directoryIndex" : 0,
 					"id" : "tests::@6890427a1f51a3e7e1df",
-					"jsonFile" : "target-tests-Debug-9027b07402dd7435526a.json",
+					"jsonFile" : "target-tests-Debug-d2507e1c167b0f7d233a.json",
 					"name" : "tests",
 					"projectIndex" : 0
 				}

@@ -2,7 +2,7 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "homework-1"
+			"path" : "tests"
 		}
 	],
 	"backtrace" : 1,
@@ -10,11 +10,15 @@
 	{
 		"commands" : 
 		[
-			"add_executable"
+			"add_executable",
+			"target_link_libraries",
+			"__gtest_define_backwards_compatible_library_targets",
+			"find_package"
 		],
 		"files" : 
 		[
-			"CMakeLists.txt"
+			"CMakeLists.txt",
+			"/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/share/cmake-3.27/Modules/FindGTest.cmake"
 		],
 		"nodes" : 
 		[
@@ -24,7 +28,41 @@
 			{
 				"command" : 0,
 				"file" : 0,
-				"line" : 6,
+				"line" : 14,
+				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 10,
+				"parent" : 0
+			},
+			{
+				"file" : 1,
+				"parent" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 204,
+				"parent" : 3
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 185,
+				"parent" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 181,
+				"parent" : 4
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 17,
 				"parent" : 0
 			}
 		]
@@ -38,12 +76,20 @@
 					"fragment" : "-g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -fcolor-diagnostics"
 				}
 			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 7,
+					"isSystem" : true,
+					"path" : "/opt/homebrew/include"
+				}
+			],
 			"language" : "CXX",
 			"languageStandard" : 
 			{
 				"backtraces" : 
 				[
-					1
+					7
 				],
 				"standard" : "17"
 			},
@@ -54,7 +100,7 @@
 			]
 		}
 	],
-	"id" : "homework-1::@6890427a1f51a3e7e1df",
+	"id" : "tests::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -66,12 +112,22 @@
 			{
 				"fragment" : "-L/usr/local/opt/libpqxx/lib",
 				"role" : "flags"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "/opt/homebrew/lib/libgtest_main.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 6,
+				"fragment" : "/opt/homebrew/lib/libgtest.a",
+				"role" : "libraries"
 			}
 		],
 		"language" : "CXX"
 	},
-	"name" : "homework-1",
-	"nameOnDisk" : "homework-1",
+	"name" : "tests",
+	"nameOnDisk" : "tests",
 	"paths" : 
 	{
 		"build" : ".",
@@ -93,7 +149,7 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/main.cpp",
+			"path" : "tests/tests.cpp",
 			"sourceGroupIndex" : 0
 		},
 		{
