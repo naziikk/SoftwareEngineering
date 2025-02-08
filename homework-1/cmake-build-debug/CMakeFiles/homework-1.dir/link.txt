@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -L/usr/local/opt/libpqxx/lib "CMakeFiles/homework-1.dir/src/main.cpp.o" "CMakeFiles/homework-1.dir/src/Zoo.cpp.o" "CMakeFiles/homework-1.dir/src/ZooApp.cpp.o" -o homework-1

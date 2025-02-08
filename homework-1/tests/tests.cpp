@@ -39,7 +39,7 @@ TEST(CheckDIcontainerWorkingAbility, DI_Container) {
 
     zoo.AddAnimal(std::make_unique<Rabbit>(8, 5, false, 6));
 
-    EXPECT_EQ(zoo.GetAnimalsCount(), 3);
+    EXPECT_EQ(zoo.GetAnimalsCount(), 4);
 }
 
 TEST(InventoryWorking, Inventory) {

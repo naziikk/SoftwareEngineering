@@ -1,0 +1,1 @@
+/Library/Developer/CommandLineTools/usr/bin/c++  -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.4.sdk -Wl,-search_paths_first -Wl,-headerpad_max_install_names -L/usr/local/opt/libpqxx/lib CMakeFiles/tests.dir/tests/tests.cpp.o CMakeFiles/tests.dir/src/Zoo.cpp.o -o tests  /opt/homebrew/lib/libgtest_main.a /opt/homebrew/lib/libgtest.a
