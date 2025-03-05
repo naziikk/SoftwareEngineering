@@ -1,0 +1,46 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate-complete.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-build.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-configure.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-download.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-install.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-mkdir.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-patch.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-test.rule"
+		},
+		{
+			"file" : "/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-update.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"spdlog-populate"
+		],
+		"name" : "spdlog-populate"
+	}
+}

@@ -1,0 +1,9 @@
+/Applications/CLion.app/Contents/bin/cmake/mac/aarch64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/Applications/CLion.app/Contents/bin/ninja/mac/aarch64/ninja -G Ninja -S /Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1 -B /Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug
+-- Build spdlog: 1.12.0
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Build type: Debug
+-- Configuring done (25.9s)
+-- Generating done (0.0s)
+-- Build files have been written to: /Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/big-homework-1/cmake-build-debug

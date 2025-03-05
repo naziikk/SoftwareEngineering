@@ -1,0 +1,4 @@
+Cannot generate into /Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-1/cmake-build-debug
+It was created with incompatible generator 'Unix Makefiles'
+
+Please either delete it manually or select another generation directory
