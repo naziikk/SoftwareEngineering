@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS finance_tracker.category (
     category_name VARCHAR(50) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS finance_tracker.operation (
+CREATE TABLE IF NOT EXISTS finance_tracker.operations (
     operation_id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     operation_type finance_tracker.transaction_type NOT NULL,
     bank_account_id UUID REFERENCES finance_tracker.bank_account(account_id),
