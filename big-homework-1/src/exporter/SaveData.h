@@ -1,9 +1,10 @@
 #include "../../database/migrations/Database.h"
+#include <spdlog/spdlog.h>
 #include <vector>
 #include <unordered_map>
 #include <optional>
 
-class GetData {
+class SaveData {
 public:
     struct Payment {
         std::string operation_id;
@@ -47,32 +48,34 @@ private:
 class FileSaver {
 public:
     void Export(const std::string& filename, const std::string& bank_account_id, DatabaseFacade& db) {
-       std::vector<GetData::Payment> payments = GetData::ConvertData(GetData::GetDataFromDB(bank_account_id, db));
+       std::vector<SaveData::Payment> payments = SaveData::ConvertData(SaveData::GetDataFromDB(bank_account_id, db));
+
+        spdlog::info("Данные по банковскому счету с id: {} успешно сохранены в файл.", bank_account_id);
     }
 
 protected:
     // "= 0" говорит нам о том, что мы обязательно должны переопределить реализацию метода
     // во всех классах наследниках
-    virtual std::string FormatData(const std::vector<GetData::Payment>& payments) const = 0;
+    virtual std::string FormatData(const std::vector<SaveData::Payment>& payments) const = 0;
 };
 
 class CSVFileSaver : public FileSaver {
 public:
-    std::string FormatData(const std::vector<GetData::Payment>& payments) const override {
-
+    std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
+        spdlog::info("Данные попали на форматирование в CSV формат.");
     }
 };
 
 class YAMLFileSaver : public FileSaver {
 public:
-    std::string FormatData(const std::vector<GetData::Payment>& payments) const override {
-
+    std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
+        spdlog::info("Данные попали на форматирование в YAML формат.");
     }
 };
 
 class JSONFileSaver : public FileSaver {
 public:
-    std::string FormatData(const std::vector<GetData::Payment>& payments) const override {
-
+    std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
+        spdlog::info("Данные попали на форматирование в JSON формат.");
     }
 };
