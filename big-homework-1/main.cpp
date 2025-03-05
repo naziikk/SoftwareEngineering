@@ -1,6 +1,8 @@
 #include <iostream>
 #include "src/executor/Invoker.h"
 #include <spdlog/spdlog.h>
+#include "src/observer/Observer.h"
+#include "src/factory/CommandFactory.h"
 
 //### User Stories
 //- добавление нового счета (запрашиваем название счета) -> создаем счет с нулевым балансом в DB
@@ -26,22 +28,25 @@ void ShowMenu() {
 int main() {
     Invoker invoker;
     DatabaseFacade db("dbname=finance_tracker port=5432");
+    auto logger = std::make_shared<Logger>();
+    invoker.AddObserver(logger);
 
     while (true) {
         ShowMenu();
         int choice;
         std::cin >> choice;
 
-        if (choice == 1) {
-            std::string account_name;
-            std::cout << "Введите название счета: ";
-            std::cin >> account_name;
-
-            spdlog::info("Добавлен новый счет: {}", account_name);
-
-            invoker.SetCommand(std::make_shared<AddAccountCommand>(account_name, db));
+        if (choice == 8) {
+            std::cout << "Спасибо, что посетили наш банк!\n";
+            break;
         }
 
-        invoker.RunCommand();
+        auto command = CommandFactory::CreateCommand(choice, db);
+        if (command) {
+            invoker.SetCommand(command);
+            invoker.RunCommand();
+        } else {
+            std::cout << "Введите корректное число!\n";
+        }
     }
 }
