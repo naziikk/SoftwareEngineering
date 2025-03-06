@@ -31,7 +31,7 @@ int main() {
         int choice;
         std::cin >> choice;
 
-        if (choice == 8) {
+        if (choice == 9) {
             std::cout << "Спасибо, что посетили наш банк!\n";
             break;
         }

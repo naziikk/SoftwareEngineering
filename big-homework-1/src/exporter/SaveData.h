@@ -1,4 +1,5 @@
 #include "../../database/migrations/Database.h"
+#include "../../third_party/nlohmann/json.hpp"
 #include <spdlog/spdlog.h>
 #include <vector>
 #include <unordered_map>
@@ -11,7 +12,7 @@ public:
         std::string operation_type;
         std::string bank_account_id;
         std::string category_id;
-        long long amount;
+        std::string amount;
         std::string operation_date;
         std::optional<std::string> description;
     };
@@ -19,9 +20,9 @@ public:
 private:
     friend class FileSaver;
 
-    static pqxx::result GetDataFromDB(const std::string& bank_account_id, DatabaseFacade& db) {
-        std::string query = "SELECT * FROM finance_tracker.operations WHERE bank_account_id = $1";
-        std::vector<std::string> params = {bank_account_id};
+    static pqxx::result GetDataFromDB(const std::string& account_name, DatabaseFacade& db) {
+        std::string query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1";
+        std::vector<std::string> params = {account_name};
 
         pqxx::result response = db.ExecuteQuery(query, params);
 
@@ -36,7 +37,7 @@ private:
             payment.operation_type = row["operation_type"].as<std::string>();
             payment.bank_account_id = row["bank_account_id"].as<std::string>();
             payment.category_id = row["category_id"].as<std::string>();
-            payment.amount = row["amount"].as<long long>();
+            payment.amount = row["amount"].as<std::string>();
             payment.operation_date = row["operation_date"].as<std::string>();
             payment.description = row["description"].as<std::string>();
             payments.push_back(payment);
@@ -47,10 +48,19 @@ private:
 
 class FileSaver {
 public:
-    void Export(const std::string& filename, const std::string& bank_account_id, DatabaseFacade& db) {
-       std::vector<SaveData::Payment> payments = SaveData::ConvertData(SaveData::GetDataFromDB(bank_account_id, db));
+    void Export(const std::string& filename, const std::string& account_name, DatabaseFacade& db) {
+       std::vector<SaveData::Payment> payments = SaveData::ConvertData(SaveData::GetDataFromDB(account_name, db));
+       std::string formatted_data = FormatData(payments);
 
-        spdlog::info("Данные по банковскому счету с id: {} успешно сохранены в файл.", bank_account_id);
+        std::ofstream file(filename);
+        if (!file) {
+            spdlog::error("Ошибка при открытии файла: {}", filename);
+            return;
+        }
+        file << formatted_data;
+        file.close();
+
+        spdlog::info("Данные по банковскому счету : {} успешно сохранены в файл {}", account_name, filename);
     }
 
 protected:
@@ -63,6 +73,18 @@ class CSVFileSaver : public FileSaver {
 public:
     std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
         spdlog::info("Данные попали на форматирование в CSV формат.");
+        std::stringstream ss;
+        ss << "operation_id,operation_type,bank_account_id,category_id,amount,operation_date,description\n";
+        for (const auto& payment : payments) {
+            ss << payment.operation_id << ","
+               << payment.operation_type << ","
+               << payment.bank_account_id << ","
+               << payment.category_id << ","
+               << payment.amount << ","
+               << payment.operation_date << ","
+               << payment.description.value_or("") << "\n";
+        }
+        return ss.str();
     }
 };
 
@@ -70,6 +92,18 @@ class YAMLFileSaver : public FileSaver {
 public:
     std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
         spdlog::info("Данные попали на форматирование в YAML формат.");
+        std::stringstream ss;
+        ss << "payments:\n";
+        for (const auto& payment : payments) {
+            ss << "  - operation_id: " << payment.operation_id << "\n"
+               << "    operation_type: " << payment.operation_type << "\n"
+               << "    bank_account_id: " << payment.bank_account_id << "\n"
+               << "    category_id: " << payment.category_id << "\n"
+               << "    amount: " << payment.amount << "\n"
+               << "    operation_date: " << payment.operation_date << "\n"
+               << "    description: " << (payment.description ? *payment.description : "null") << "\n";
+        }
+        return ss.str();
     }
 };
 
@@ -77,5 +111,18 @@ class JSONFileSaver : public FileSaver {
 public:
     std::string FormatData(const std::vector<SaveData::Payment>& payments) const override {
         spdlog::info("Данные попали на форматирование в JSON формат.");
+        nlohmann::json json_data;
+        for (const auto& payment : payments) {
+            json_data["payments"].push_back({
+                    {"operation_id", payment.operation_id},
+                    {"operation_type", payment.operation_type},
+                    {"bank_account_id", payment.bank_account_id},
+                    {"category_id", payment.category_id},
+                    {"amount", payment.amount},
+                    {"operation_date", payment.operation_date},
+                    {"description", payment.description ? *payment.description : nullptr}
+            });
+        }
+        return json_data.dump(4);
     }
 };

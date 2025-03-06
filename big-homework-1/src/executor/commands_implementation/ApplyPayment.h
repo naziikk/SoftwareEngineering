@@ -76,8 +76,9 @@ private:
         std::vector<std::string> params = {account_id_};
         pqxx::result res = db_.ExecuteQuery(query, params);
 
-        long long balance = res[0]["balance"].as<long long>();
-        return balance >= amount_;
+        std::string balance = res[0]["balance"].as<std::string>();
+        long long balance_ll = std::stoll(balance);
+        return balance_ll >= amount_;
     }
 
     void RecordOperation(TransactionType type) {
