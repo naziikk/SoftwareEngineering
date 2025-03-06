@@ -5,7 +5,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(big-homework-1
         main.cpp
-        database/migrations/Database.h
+        database/decorator/Decorator.h
         src/exporter/SaveData.h
         src/executor/Invoker.h
         src/executor/ProcessRequest.h
@@ -13,6 +13,9 @@ add_executable(big-homework-1
         src/helper.h
         src/factory/CommandFactory.h
         tests/tests.cpp
+        database/decorator/Logger.h
+        database/decorator/Facade.h
+        database/decorator/RetryDecorator.h
 )
 
 # ---------------------------------------------------------------

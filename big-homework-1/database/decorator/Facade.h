@@ -1,15 +1,10 @@
-#pragma once
-#include <pqxx/pqxx>
-#include <iostream>
-#include <fstream>
+#include "Decorator.h"
 
-class DatabaseFacade {
+class DatabaseFacade : IDatabase {
     pqxx::connection conn_;
 
 public:
-    DatabaseFacade() {};
-
-    DatabaseFacade(const std::string& con) : conn_(con) {}
+    explicit DatabaseFacade(const std::string& con) : conn_(con) {}
 
     void Init(const std::string &filename) {
         std::ifstream file(filename);

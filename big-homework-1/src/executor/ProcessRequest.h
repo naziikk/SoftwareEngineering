@@ -3,7 +3,7 @@
 #include <utility>
 #include <vector>
 #include <utility>
-#include "../../database/migrations/Database.h"
+#include "../../database/decorator/Decorator.h"
 #include <spdlog/spdlog.h>
 
 class Command {

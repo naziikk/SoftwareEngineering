@@ -2,7 +2,7 @@
 
 class GetAccountsCommand : public Command {
 public:
-    GetAccountsCommand(DatabaseFacade& db) : db_(db) {}
+    explicit GetAccountsCommand(DatabaseFacade& db) : db_(db) {}
 
     void Execute() override {
         std::vector<std::string> params;

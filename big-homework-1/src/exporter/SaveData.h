@@ -1,4 +1,4 @@
-#include "../../database/migrations/Database.h"
+#include "../../database/decorator/Decorator.h"
 #include "../../third_party/nlohmann/json.hpp"
 #include <spdlog/spdlog.h>
 #include <vector>
