@@ -3,6 +3,7 @@
 #include <spdlog/spdlog.h>
 #include "src/observer/Observer.h"
 #include "src/factory/CommandFactory.h"
+#include "src/helper.h"
 
 //### User Stories
 //- добавление нового счета (запрашиваем название счета) -> создаем счет с нулевым балансом в DB
@@ -13,23 +14,17 @@
 //-> проверяем достаточно ли средств на балансе -> если нет - выдаем ошибку -> иначе фиксируем операцию и добавляем в лог
 //- получение выгрузки операции в файл -> запрашиваем название выходного файла + формат (JSON/YAML/CSV)
 
-void ShowMenu() {
-    std::cout << "Добро пожаловать в наш банк!\n";
-    std::cout << "1. Добавить новый счет\n";
-    std::cout << "2. Добавить новую категорию\n";
-    std::cout << "3. Получить список моих счетов\n";
-    std::cout << "4. Пополнить счет\n";
-    std::cout << "5. Произвести операцию со счетом\n";
-    std::cout << "6. Получить историю платежей\n";
-    std::cout << "7. Удалить банковский аккаунт\n";
-    std::cout << "8. Покинуть банк\n";
-}
-
 int main() {
     Invoker invoker;
-    DatabaseFacade db("dbname=finance_tracker port=5432");
+
+    DatabaseFacade db("dbname=finance_tracker host=localhost port=5432");
+    db.Init("../database/migrations/init_db.sql");
+    pqxx::connection connection_("dbname=finance_tracker host=localhost port=5432");
+    pqxx::work worker(connection_);
+
     auto logger = std::make_shared<Logger>();
     invoker.AddObserver(logger);
+    std::cout << "Добро пожаловать в наш банк!\n";
 
     while (true) {
         ShowMenu();

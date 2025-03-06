@@ -3,11 +3,27 @@ project(big-homework-1)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(big-homework-1 main.cpp
+add_executable(big-homework-1
+        main.cpp
         database/migrations/Database.h
         src/exporter/SaveData.h
         src/executor/Invoker.h
-        src/executor/ProcessRequest.h)
+        src/executor/ProcessRequest.h
+        src/observer/Observer.h
+        src/helper.h
+        src/factory/CommandFactory.h
+        )
+
+# ---------------------------------------------------------------
+include_directories("/opt/homebrew/Cellar/curl/8.12.0/include")
+link_directories("/opt/homebrew/Cellar/curl/8.12.0/lib")
+
+include_directories("/opt/homebrew/opt/libpqxx/include")
+link_directories("/opt/homebrew/opt/libpqxx/lib")
+
+include_directories("third_party/libpqxx/include")
+include_directories("/opt/homebrew/opt/openssl@3/include")
+# ---------------------------------------------------------------
 
 include(FetchContent)
 FetchContent_Declare(
@@ -20,4 +36,7 @@ FetchContent_MakeAvailable(spdlog)
 target_link_libraries(big-homework-1
         PRIVATE
         spdlog::spdlog
+        /opt/homebrew/opt/openssl@3/lib/libssl.dylib
+        /opt/homebrew/opt/openssl@3/lib/libcrypto.dylib
+        /opt/homebrew/opt/libpqxx/lib/libpqxx.dylib
 )
