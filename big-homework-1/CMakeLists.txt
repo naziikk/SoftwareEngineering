@@ -12,7 +12,8 @@ add_executable(big-homework-1
         src/observer/Observer.h
         src/helper.h
         src/factory/CommandFactory.h
-        )
+        tests/tests.cpp
+)
 
 # ---------------------------------------------------------------
 include_directories("/opt/homebrew/Cellar/curl/8.12.0/include")
@@ -32,6 +33,12 @@ FetchContent_Declare(
         GIT_TAG v1.12.0
 )
 FetchContent_MakeAvailable(spdlog)
+
+find_package(GTest REQUIRED)
+enable_testing()
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -O0 -g")
+#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
+add_executable(tests tests/tests.cpp)
 
 target_link_libraries(big-homework-1
         PRIVATE
