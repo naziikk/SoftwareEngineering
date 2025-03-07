@@ -7,6 +7,7 @@
 #include "../executor/commands_implementation/GetAccounts.h"
 #include "../executor/commands_implementation/TopUpAccount.h"
 #include "../executor/commands_implementation/DeleteAccount.h"
+#include "../executor/commands_implementation/GetCategories.h"
 
 std::string HelperStringEnter(std::string message) {
     std::cout << message;
@@ -64,16 +65,17 @@ public:
                 int format = HelperIntEnter("Выберите формат выходного файла (1 - JSON, 2 - YAML, 3 - CSV): ");
                 std::string filename = HelperStringEnter("Введите название файла: ");
                 std::string account_name = HelperStringEnter("Введите название счета по которому хотите получить выгрузку: ");
+                std::string last_time_min = HelperStringEnter("За сколько последних минут? (введите 0, если не важно): ");
 
                 if (format == 1) {
                     JSONFileSaver json_saver;
-                    json_saver.Export(filename, account_name, db);
+                    json_saver.Export(filename, account_name, last_time_min, db);
                 } else if (format == 2) {
                     YAMLFileSaver yaml_saver;
-                    yaml_saver.Export(filename, account_name, db);
+                    yaml_saver.Export(filename, account_name, last_time_min, db);
                 } else {
                     CSVFileSaver csv_saver;
-                    csv_saver.Export(filename, account_name, db);
+                    csv_saver.Export(filename, account_name, last_time_min, db);
                 }
             }
             case 7: {
@@ -81,7 +83,7 @@ public:
                 return std::make_shared<DeleteAccountCommand>(db, account_name);
             }
             case 8: {
-
+                return std::make_shared<GetCategoriesCommand>(db);
             }
             default:
                 return nullptr;

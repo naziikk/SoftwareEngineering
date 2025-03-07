@@ -1,4 +1,5 @@
 #include "../ProcessRequest.h"
+#pragma once
 
 class ApplyOperationCommand : public Command {
 public:

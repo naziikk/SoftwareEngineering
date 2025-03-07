@@ -1,4 +1,5 @@
 #include "../ProcessRequest.h"
+#pragma once
 
 class TopUpAccountCommand : public Command {
 public:

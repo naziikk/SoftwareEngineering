@@ -1,5 +1,5 @@
 #include "../ProcessRequest.h"
-
+#pragma once
 class AddAccountCommand : public Command {
 public:
     AddAccountCommand(std::string account_name, DatabaseFacade& db)

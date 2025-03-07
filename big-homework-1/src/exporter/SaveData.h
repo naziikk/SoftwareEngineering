@@ -20,8 +20,15 @@ public:
 private:
     friend class FileSaver;
 
-    static pqxx::result GetDataFromDB(const std::string& account_name, DatabaseFacade& db) {
-        std::string query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1";
+    static pqxx::result GetDataFromDB(const std::string& account_name, DatabaseFacade& db, const std::string& minutes) {
+        std::string query;
+
+        if (std::stoll(minutes) == 0) {
+            query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1";
+        } else {
+            query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1 && operation_date > NOW() - INTERVAL '" + minutes + " minutes'";
+        }
+
         std::vector<std::string> params = {account_name};
 
         pqxx::result response = db.ExecuteQuery(query, params);
@@ -48,8 +55,8 @@ private:
 
 class FileSaver {
 public:
-    void Export(const std::string& filename, const std::string& account_name, DatabaseFacade& db) {
-       std::vector<SaveData::Payment> payments = SaveData::ConvertData(SaveData::GetDataFromDB(account_name, db));
+    void Export(const std::string& filename, const std::string& account_name, const std::string& minutes, DatabaseFacade& db) {
+       std::vector<SaveData::Payment> payments = SaveData::ConvertData(SaveData::GetDataFromDB(account_name, db, minutes));
        std::string formatted_data = FormatData(payments);
 
         std::ofstream file(filename);

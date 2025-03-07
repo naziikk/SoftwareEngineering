@@ -24,7 +24,7 @@ public:
         }
     }
 
-    pqxx::result ExecuteQuery(const std::string& query, std::vector<std::string>& params) {
+    pqxx::result ExecuteQuery(const std::string& query, const std::vector<std::string>& params) override {
         try {
             // начинаем транзакцию, выполняем непосредственно транзакцию и делаем коммит
             // потому что если вдруг что-то случится во время запроса, транзакция откатится

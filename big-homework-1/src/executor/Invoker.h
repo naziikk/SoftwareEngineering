@@ -1,5 +1,6 @@
 #include "ProcessRequest.h"
 #include "../observer/Observer.h"
+#pragma once
 
 class Invoker {
 public:

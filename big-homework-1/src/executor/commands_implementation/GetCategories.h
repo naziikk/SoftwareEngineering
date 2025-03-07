@@ -1,6 +1,7 @@
 #include "../ProcessRequest.h"
 #include <spdlog/spdlog.h>
 #include <iostream>
+#pragma once
 
 class GetCategoriesCommand : public Command {
 public:
