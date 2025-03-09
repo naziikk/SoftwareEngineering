@@ -5,6 +5,7 @@
 #include "src/observer/Observer.h"
 #include "src/factory/CommandFactory.h"
 #include "src/helper.h"
+#include "src/importer/ReadData.h"
 
 int main() {
     Invoker invoker;
@@ -23,9 +24,20 @@ int main() {
         int choice;
         std::cin >> choice;
 
-        if (choice == 9) {
+        if (choice == 10) {
             std::cout << "Спасибо, что посетили наш банк!\n";
             break;
+        } else if (choice == 9) {
+            std::cout << "Введите название файла с данными: ";
+            std::string filename;
+            std::cin >> filename;
+            bool result = FillDatabase("../" + filename, db);
+
+            if (result) {
+                std::cout << "Данные успешно загружены в базу данных!\n";
+            } else {
+                std::cout << "Ошибка при загрузке данных в базу данных! Возможно данные не соответствуют формату :(\n";
+            }
         }
 
         auto command = CommandFactory::CreateCommand(choice, db);

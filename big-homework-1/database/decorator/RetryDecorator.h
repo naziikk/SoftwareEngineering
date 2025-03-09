@@ -7,16 +7,17 @@ public:
     : DatabaseDecorator(std::move(database)), max_retries_(max_retries) {}
 
     pqxx::result ExecuteQuery(const std::string& query, const std::vector<std::string>& params) override {
-        for (int i = 0; i < max_retries_; ++i) {
+        int attempts = 0;
+        while (attempts < max_retries_) {
             try {
                 return db_->ExecuteQuery(query, params);
             } catch (const std::exception& e) {
-                spdlog::warn("Запрос не выполнился (попытка {}/{}): {}. Пробуем снова...", i + 1, max_retries_, e.what());
+                spdlog::warn("Запрос не выполнился (попытка {}/{}): {}. Пробуем снова...", attempts + 1, max_retries_, e.what());
+                ++attempts;
             }
         }
         spdlog::error("Не удалось выполнить запрос после нескольких попыток");
-        pqxx::result empty_result;
-        return empty_result;
+        return pqxx::result{};
     }
 
 private:

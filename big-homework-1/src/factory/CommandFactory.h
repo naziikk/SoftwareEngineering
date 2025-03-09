@@ -9,7 +9,7 @@
 #include "../executor/commands_implementation/DeleteAccount.h"
 #include "../executor/commands_implementation/GetCategories.h"
 
-std::string HelperStringEnter(std::string message) {
+std::string HelperStringEnter(const std::string& message) {
     std::cout << message;
     std::string entered;
     std::cin >> entered;
@@ -62,15 +62,15 @@ public:
                 return std::make_shared<ApplyOperationCommand>(db, account_name, amount, category_name, description);
             }
             case 6: {
-                int format = HelperIntEnter("Выберите формат выходного файла (1 - JSON, 2 - YAML, 3 - CSV): ");
+                std::string format = HelperStringEnter("Выберите формат выходного файла (1 - JSON, 2 - YAML, 3 - CSV): ");
                 std::string filename = HelperStringEnter("Введите название файла: ");
                 std::string account_name = HelperStringEnter("Введите название счета по которому хотите получить выгрузку: ");
                 std::string last_time_min = HelperStringEnter("За сколько последних минут? (введите 0, если не важно): ");
 
-                if (format == 1) {
+                if (std::stoi(format) == 1) {
                     JSONFileSaver json_saver;
                     json_saver.Export(filename, account_name, last_time_min, db);
-                } else if (format == 2) {
+                } else if (std::stoi(format) == 2) {
                     YAMLFileSaver yaml_saver;
                     yaml_saver.Export(filename, account_name, last_time_min, db);
                 } else {

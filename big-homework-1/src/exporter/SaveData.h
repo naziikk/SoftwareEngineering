@@ -20,17 +20,28 @@ public:
 private:
     friend class FileSaver;
 
+    static std::string GetAccountId(const std::string& account_name, DatabaseFacade& db) {
+        std::string query = "SELECT account_id from finance_tracker.bank_account WHERE account_name = $1";
+        std::vector<std::string> params = {account_name};
+
+        return db.ExecuteQuery(query, params)[0]["account_id"].as<std::string>();
+    }
+
     static pqxx::result GetDataFromDB(const std::string& account_name, DatabaseFacade& db, const std::string& minutes) {
+        std::cout << account_name << '\n';
+        std::string account_id = GetAccountId(account_name, db);
+        std::vector<std::string> params = {account_id};
         std::string query;
 
         if (std::stoll(minutes) == 0) {
-            query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1";
+            query = "SELECT * FROM finance_tracker.operations WHERE bank_account_id = $1";
         } else {
-            query = "SELECT * FROM finance_tracker.operations WHERE account_name = $1 && operation_date > NOW() - INTERVAL '" + minutes + " minutes'";
+            query =
+                    "SELECT * FROM finance_tracker.operations "
+                    "WHERE bank_account_id = $1 AND operation_date > NOW() - INTERVAL $2";
+            params.push_back(minutes + " minutes");
         }
-
-        std::vector<std::string> params = {account_name};
-
+        
         pqxx::result response = db.ExecuteQuery(query, params);
 
         return response;

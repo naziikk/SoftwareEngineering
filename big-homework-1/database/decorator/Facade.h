@@ -1,4 +1,5 @@
 #include "Decorator.h"
+#pragma once
 
 class DatabaseFacade : IDatabase {
     pqxx::connection conn_;
