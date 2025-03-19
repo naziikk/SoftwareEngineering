@@ -1,7 +1,8 @@
 services:
   homework:
+    platform: linux/amd64
     build:
-      context: ./homework
+      context: ../big-homework-1
       dockerfile: Dockerfile
     networks:
       - main

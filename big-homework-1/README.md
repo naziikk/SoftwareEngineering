@@ -9,7 +9,25 @@ Finance tracker - консольное приложение реализующе
 после нескольких итераций попробовать снова сохранить в файл и сравнить ожидаемое с реальным, между прочим можно вызывать функции для получения списка счетов/категорий, 
 чтобы не забывать что вы сами добавляли).
 
-При сохранении файла просьба указывать название в формате "filename.format" (например "test.json")
+При сохранении файла просьба указывать название в формате "filename.format" (например "test.json"), но также поддерживаются форматы YAML и CSV.
+
+**Ввод данных с файла:**
+
+Для начала подготовьте файл с форматом .csv и добавьте его в корне проекта. Формат данных в файле должен быть следующим (пример):
+```shell
+operation_type,bank_account_name,category_name,amount,date,description
+INCOME,MyBankChecking,Salary,5000.00,2024-03-01,Monthly salary
+EXPENSE,MyBankChecking,Groceries,200.50,2024-03-02,Groceries at supermarket
+EXPENSE,MyBankChecking,Utilities,100.00,2024-03-03,Electricity bill
+EXPENSE,MyBankChecking,Entertainment,50.00,2024-03-04,Movie night
+EXPENSE,MyBankChecking,Transportation,25.00,2024-03-05,Taxi ride
+INCOME,SavingsAccount,Freelance,1200.00,2024-03-06,Freelance project payment
+EXPENSE,SavingsAccount,Groceries,180.75,2024-03-07,Organic food store
+EXPENSE,MyBankChecking,Utilities,95.00,2024-03-08,Water bill
+EXPENSE,CreditCard,Entertainment,60.00,2024-03-09,Concert ticket
+```
+Просьба указывать данные именно в таком формате, иначе программа может выдать UB или вовсе упасть.
+Также обратите внимание на тип операции (EXPENSE / INCOME) и на ввод даты операции (YYYY-MM-DD)
 
 Далее все описание будет идти учитывая критерии оценивания
 

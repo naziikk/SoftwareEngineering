@@ -12,28 +12,14 @@ set(SOURCE_FILES
         src/observer/Observer.h
         src/helper.h
         src/factory/CommandFactory.h
-        tests/tests.cpp
         database/decorator/Logger.h
         database/decorator/Facade.h
         database/decorator/RetryDecorator.h
 )
 
-add_executable(big-homework-1 ${SOURCE_FILES})
-
-# ---------------------------------------------------------------
-include_directories("/opt/homebrew/Cellar/curl/8.12.0/include")
-link_directories("/opt/homebrew/Cellar/curl/8.12.0/lib")
-
-include_directories("/opt/homebrew/opt/libpqxx/include")
-link_directories("/opt/homebrew/opt/libpqxx/lib")
-
-include_directories("third_party/libpqxx/include")
-include_directories("/opt/homebrew/opt/openssl@3/include")
-# ---------------------------------------------------------------
-
-#find_package(Boost REQUIRED)
-
 include(FetchContent)
+
+# Подключаем spdlog
 FetchContent_Declare(
         spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
@@ -41,17 +27,26 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(spdlog)
 
-find_package(GTest REQUIRED)
-enable_testing()
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage -O0 -g")
-#set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-add_executable(tests tests/tests.cpp ${SOURCE_FILES})
+FetchContent_Declare(
+        pqxx
+        GIT_REPOSITORY https://github.com/jtv/libpqxx.git
+        GIT_TAG 7.9.1
+)
+FetchContent_MakeAvailable(pqxx)
 
-target_link_libraries(tests GTest::GTest GTest::Main)
+find_package(CURL REQUIRED)
+find_package(OpenSSL REQUIRED)
+find_package(PostgreSQL REQUIRED)
 
-target_link_libraries(big-homework-1 PRIVATE
+add_executable(big-homework-1 ${SOURCE_FILES})
+
+target_include_directories(big-homework-1 PRIVATE ${pqxx_SOURCE_DIR}/include)
+
+target_link_libraries(big-homework-1
+        PRIVATE
         spdlog::spdlog
-        /opt/homebrew/opt/openssl@3/lib/libssl.dylib
-        /opt/homebrew/opt/openssl@3/lib/libcrypto.dylib
-        /opt/homebrew/opt/libpqxx/lib/libpqxx.dylib
+        pqxx
+        CURL::libcurl
+        OpenSSL::SSL
+        OpenSSL::Crypto
 )

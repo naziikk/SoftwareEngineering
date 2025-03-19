@@ -1,8 +1,0 @@
-payments:
-  - operation_id: afe750a8-4d8f-4b1f-baf4-7f0791b00bf3
-    operation_type: INCOME
-    bank_account_id: fa28a663-7fca-4994-b803-ddbc4c59d1d5
-    category_id: 0359f560-00d6-4ae4-9329-bf42390ff5f0
-    amount: 12345.00
-    operation_date: 2025-03-06 17:04:00.133706
-    description: qwerty
