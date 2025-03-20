@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../DI-container.h"
 #include "../exporter/SaveData.h"
 #include "../executor/ProcessRequest.h"
 #include "../executor/commands_implementation/AddCategory.h"

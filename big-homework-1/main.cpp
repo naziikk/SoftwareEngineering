@@ -8,15 +8,20 @@
 #include "src/importer/ReadData.h"
 
 int main() {
-    Invoker invoker;
+    DIContainer container;
+    container.RegisterObject<DatabaseFacade>("dbname=finance_tracker host=localhost port=5432");
+    container.RegisterObject<Invoker>();
+    container.RegisterObject<Logger>();
 
-    DatabaseFacade db("dbname=finance_tracker host=localhost port=5432");
-    db.Init("../database/migrations/init_db.sql");
-    pqxx::connection connection_("dbname=finance_tracker host=localhost port=5432");
-    pqxx::work worker(connection_);
+    auto db = container.GetObject<DatabaseFacade>();
+    db->Init("../database/migrations/init_db.sql");
 
-    auto logger = std::make_shared<Logger>();
-    invoker.AddObserver(logger);
+    auto invoker = container.GetObject<Invoker>();
+    auto logger = container.GetObject<Logger>();
+    auto commandFactory = container.GetObject<CommandFactory>();
+
+    invoker->AddObserver(logger);
+
     std::cout << "Добро пожаловать в наш банк!\n";
 
     while (true) {
@@ -31,7 +36,7 @@ int main() {
             std::cout << "Введите название файла с данными: ";
             std::string filename;
             std::cin >> filename;
-            bool result = FillDatabase("../" + filename, db);
+            bool result = FillDatabase("../" + filename, *db);
 
             if (result) {
                 std::cout << "Данные успешно загружены в базу данных!\n";
@@ -40,10 +45,10 @@ int main() {
             }
         }
 
-        auto command = CommandFactory::CreateCommand(choice, db);
+        auto command = CommandFactory::CreateCommand(choice, *db);
         if (command) {
-            invoker.SetCommand(command);
-            invoker.RunCommand();
+            invoker->SetCommand(command);
+            invoker->RunCommand();
         } else {
             std::cout << "Введите корректное число!\n";
         }

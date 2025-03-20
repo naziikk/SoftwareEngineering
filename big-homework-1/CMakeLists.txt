@@ -12,6 +12,7 @@ set(SOURCE_FILES
         src/observer/Observer.h
         src/helper.h
         src/factory/CommandFactory.h
+        src/DI-container.h
         database/decorator/Logger.h
         database/decorator/Facade.h
         database/decorator/RetryDecorator.h
@@ -19,7 +20,6 @@ set(SOURCE_FILES
 
 include(FetchContent)
 
-# Подключаем spdlog
 FetchContent_Declare(
         spdlog
         GIT_REPOSITORY https://github.com/gabime/spdlog.git
