@@ -13,8 +13,8 @@ void AnimalController::AddAnimal(const httplib::Request& request, httplib::Respo
     auto parsed = json::parse(request.body);
     Animal to_add = GetAnimal(parsed);
 
-    std::pair<bool, int> response = AnimalService::AddAnimal(to_add);
-    if (response.first) {
+    std::pair<bool, int> response = animal_service.AddAnimal(to_add);
+    if (!response.first) {
         SendError(res, 400, "Your animal is not healthy");
         return;
     }
@@ -36,15 +36,18 @@ void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Re
         return;
     }
 
-    if (!AnimalService::RemoveAnimal(animal_id)) {
+    if (!animal_service.RemoveAnimal(animal_id)) {
         SendError(res, 404, "Animal not found");
         return;
     }
 
-    EnclosureRepository::RemoveAnimal(animal_id);
+    enclosure_repository.RemoveAnimal(animal_id);
 
+    json response_json = {
+            {"message", "Animal successfully deleted"}
+    };
     res.status = 200;
-    res.set_content("Animal successfully deleted", "application/json");
+    res.set_content(response_json.dump(), "application/json");
 }
 
 void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Response &res) {

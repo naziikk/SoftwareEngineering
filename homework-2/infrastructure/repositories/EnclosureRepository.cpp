@@ -51,7 +51,12 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
         return false;
     }
 
-    int old_enclosure_id = animal_repository_.GetAnimalById(animal_id)->GetEnclosureId();
+    Animal* animal = animal_repository_.GetAnimalById(animal_id);
+    int old_enclosure_id = -1;
+
+    if (animal) {
+        old_enclosure_id = animal->GetEnclosureId();
+    }
 
     if (old_enclosure_id != -1) {
         Enclosure* old_enclosure = GetEnclosureById(old_enclosure_id);
@@ -66,7 +71,13 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
 }
 
 void EnclosureRepository::RemoveAnimal(int animal_id) {
-    int old_enclosure_id = animal_repository_.GetAnimalById(animal_id)->GetEnclosureId();
+    Animal* animal = animal_repository_.GetAnimalById(animal_id);
+
+    if (!animal) {
+        return;
+    }
+
+    int old_enclosure_id = animal->GetEnclosureId();
 
     if (old_enclosure_id != -1) {
         Enclosure* old_enclosure = GetEnclosureById(old_enclosure_id);

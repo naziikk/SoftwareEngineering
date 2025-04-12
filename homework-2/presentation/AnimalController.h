@@ -8,6 +8,9 @@
 
 class AnimalController {
 public:
+    AnimalController(AnimalService& animal_service, EnclosureRepository& enclosure_repository)
+        : animal_service(animal_service), enclosure_repository(enclosure_repository) {}
+
     void AddAnimal(const httplib::Request& request, httplib::Response &res);
 
     void RemoveAnimal(const httplib::Request& request, httplib::Response &res);
@@ -15,9 +18,12 @@ public:
     static void MoveAnimal(const httplib::Request& request, httplib::Response &res);
 
 private:
-    Animal GetAnimal(const nlohmann::json & parsed);
+    static Animal GetAnimal(const nlohmann::json & parsed);
 
 private:
     using json = nlohmann::json;
+
+    AnimalService& animal_service;
+    EnclosureRepository& enclosure_repository;
 };
 

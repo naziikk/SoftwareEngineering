@@ -6,14 +6,17 @@
 
 class AnimalService {
 public:
-    static std::pair<bool, int> AddAnimal(const Animal& animal);
+    AnimalService(AnimalRepository& animal_repo, EnclosureRepository& enclosure_repo)
+        : animal_repository(animal_repo), enclosure_repository(enclosure_repo) {}
 
-    static bool RemoveAnimal(int id);
+    std::pair<bool, int> AddAnimal(const Animal& animal);
+
+    bool RemoveAnimal(int id);
 
     bool MoveAnimal(int id, const std::string& new_enclosure);
 
 private:
-    static AnimalRepository animal_repository;
-    EnclosureRepository enclosure_repository;
+    AnimalRepository& animal_repository;
+    EnclosureRepository& enclosure_repository;
 };
 

@@ -6,6 +6,8 @@
 
 class EnclosureRepository {
 public:
+    EnclosureRepository(AnimalRepository& animal_repository) : animal_repository_(animal_repository) {}
+
     void AddEnclosure(std::unique_ptr<Enclosure> animal);
 
     void RemoveEnclosure(int id);
@@ -16,12 +18,12 @@ public:
 
     bool MoveAnimalToEnclosure(int animal_id, int enclosure_id);
 
-    static void RemoveAnimal(int animal_id);
+    void RemoveAnimal(int animal_id);
 
 private:
     std::unordered_map<int, std::unique_ptr<Enclosure>> enclosures_;
     std::priority_queue<int, std::vector<int>, std::greater<int>> free_ids_;
     int current_id = 0;
 
-    AnimalRepository animal_repository_;
+    AnimalRepository& animal_repository_;
 };

@@ -5,16 +5,20 @@
 #include "presentation/ZooStatisticsController.h"
 
 int main() {
-    Config config = Config::MustLoadConfig("config.yaml");
-
+    Config config = Config::MustLoadConfig("/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-2/infrastructure/config/config.yaml");
+    AnimalRepository animal_repository;
+    EnclosureRepository enclosure_repository(animal_repository);
+    AnimalService animal_service(animal_repository, enclosure_repository);
     httplib::Server server;
 
-    server.Post("/animal", [](const httplib::Request& request, httplib::Response &res) {
-        AnimalController::AddAnimal(request, res);
+    server.Post("/animal", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+        AnimalController controller(animal_service, enclosure_repository);
+        controller.AddAnimal(request, res);
     });
 
-    server.Delete("/animal/:id", [](const httplib::Request& request, httplib::Response &res) {
-        AnimalController::RemoveAnimal(request, res);
+    server.Delete("/animal/:id", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+        AnimalController controller(animal_service, enclosure_repository);
+        controller.RemoveAnimal(request, res);
     });
 
     server.Post("/enclosure", [](const httplib::Request& request, httplib::Response &res) {

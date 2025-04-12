@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.10)
 
 project(ZooApp VERSION 1.0.0)
 
@@ -8,7 +8,6 @@ set(SOURCE_FILES
         main.cpp
         infrastructure/config/config.h
         infrastructure/config/config.cpp
-        infrastructure/config/config.yaml
         infrastructure/repositories/AnimalRepository.cpp
         infrastructure/repositories/AnimalRepository.h
         infrastructure/repositories/EnclosureRepository.h
@@ -33,6 +32,7 @@ set(SOURCE_FILES
         app/FeedingOrganizationService.h
         app/ZooStatisticsService.cpp
         app/ZooStatisticsService.h
+        presentation/utils.h
 )
 
 include(FetchContent)
@@ -42,7 +42,6 @@ FetchContent_Declare(
         GIT_TAG yaml-cpp-0.7.0
 )
 FetchContent_MakeAvailable(yaml-cpp)
-
 
 add_executable(ZooApp ${SOURCE_FILES})
 
