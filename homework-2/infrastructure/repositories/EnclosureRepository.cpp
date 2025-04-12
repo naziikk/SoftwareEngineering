@@ -62,5 +62,15 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
     enclosure->AddAnimal(animal_id);
     animal_repository_.GetAnimalById(animal_id)->SetEnclosureId(enclosure_id);
 
-    return false;
+    return true;
+}
+
+void EnclosureRepository::RemoveAnimal(int animal_id) {
+    int old_enclosure_id = animal_repository_.GetAnimalById(animal_id)->GetEnclosureId();
+
+    if (old_enclosure_id != -1) {
+        Enclosure* old_enclosure = GetEnclosureById(old_enclosure_id);
+
+        old_enclosure->RemoveAnimal(animal_id);
+    }
 }

@@ -1,8 +1,8 @@
 #include "Animal.h"
 
-Animal::Animal(std::string name, int status_, std::string birthday, std::string favorite_food, int type_, int sex_)
+Animal::Animal(std::string name, int status_, std::string birthday, std::string favorite_food, std::string type_, int sex_)
            : name(name), birthday(birthday), favorite_food(favorite_food) {
-    type = type_ == 0 ? Type::Herbo : Type::Predator;
+    type = type_map[type_];
     sex = sex_ == 0 ? Sex::Male : Sex::Female;
     status = status_ == 0 ? Status::Healthy : Status::Sick;
 }

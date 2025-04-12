@@ -1,6 +1,6 @@
 #include "AnimalRepository.h"
 
-void AnimalRepository::AddAnimal(std::unique_ptr<Animal> animal) {
+int AnimalRepository::AddAnimal(std::unique_ptr<Animal> animal) {
     if (free_ids_.empty()) {
         animals_[current_id] = std::move(animal);
         current_id++;
@@ -8,7 +8,11 @@ void AnimalRepository::AddAnimal(std::unique_ptr<Animal> animal) {
         int id = free_ids_.top();
         free_ids_.pop();
         animals_[id] = std::move(animal);
+
+        return id;
     }
+
+    return current_id - 1;
 }
 
 Animal* AnimalRepository::GetAnimalById(int id) {

@@ -1,13 +1,13 @@
 #include "AnimalTransferService.h"
 
-bool AnimalService::AddAnimal(const Animal& animal) {
+std::pair<bool, int> AnimalService::AddAnimal(const Animal& animal) {
     if (animal.GetStatus() == 1) {
-        return false;
+        return {false, -1};
     }
 
-    animal_repository.AddAnimal(std::make_unique<Animal>(animal));
+    int id = animal_repository.AddAnimal(std::make_unique<Animal>(animal));
 
-    return true;
+    return {true, id};
 }
 
 bool AnimalService::RemoveAnimal(int id) {

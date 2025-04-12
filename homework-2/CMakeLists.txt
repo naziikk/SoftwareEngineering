@@ -5,14 +5,34 @@ project(ZooApp VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
-    main.cpp
-    infrastructure/config/config.h
-    infrastructure/config/config.cpp
-    infrastructure/config/config.yaml
-    infrastructure/repositories/AnimalRepository.cpp
-    infrastructure/repositories/AnimalRepository.h
-    infrastructure/repositories/EnclosureRepository.h
-    infrastructure/repositories/EnclosureRepository.cpp
+        main.cpp
+        infrastructure/config/config.h
+        infrastructure/config/config.cpp
+        infrastructure/config/config.yaml
+        infrastructure/repositories/AnimalRepository.cpp
+        infrastructure/repositories/AnimalRepository.h
+        infrastructure/repositories/EnclosureRepository.h
+        infrastructure/repositories/EnclosureRepository.cpp
+        presentation/AnimalController.cpp
+        presentation/AnimalController.h
+        presentation/EnclosureController.cpp
+        presentation/EnclosureController.h
+        presentation/FeedingScheduleController.cpp
+        presentation/FeedingScheduleController.h
+        presentation/ZooStatisticsController.cpp
+        presentation/ZooStatisticsController.h
+        domain/Animal.cpp
+        domain/Animal.h
+        domain/Enclosure.cpp
+        domain/Enclosure.h
+        domain/FeedingSchedule.cpp
+        domain/FeedingSchedule.h
+        app/AnimalTransferService.cpp
+        app/AnimalTransferService.h
+        app/FeedingOrganizationService.cpp
+        app/FeedingOrganizationService.h
+        app/ZooStatisticsService.cpp
+        app/ZooStatisticsService.h
 )
 
 include(FetchContent)

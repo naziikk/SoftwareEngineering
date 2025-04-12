@@ -5,7 +5,7 @@ class Animal {
 public:
     Animal() = default;
 
-    Animal(std::string name, int status, std::string birthday, std::string favorite_food, int type, int sex);
+    Animal(std::string name, int status, std::string birthday, std::string favorite_food, std::string type, int sex);
 
     std::string GetName() const;
 
@@ -31,23 +31,25 @@ private:
         Female = 1
     };
 
-    enum Type {
-        Herbo = 0,
-        Predator
-    };
-
     enum Status {
         Healthy = 0,
         Sick = 1
     };
 
 private:
+    std::unordered_map<std::string, int> type_map = {
+            {"Herbo", 0},
+            {"Predator", 1},
+            {"Aquatic", 2},
+            {"Bird", 3}
+    };
+
     std::string name;
     std::string birthday;
     std::string favorite_food;
 
     Status status;
-    Type type;
+    int type;
     Sex sex;
 
     int enclosure_id = -1;

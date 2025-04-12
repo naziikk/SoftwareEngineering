@@ -1,0 +1,127 @@
+openapi: 3.0.0
+info:
+  title: ZooApp API
+  version: 1.0.0
+  description: API для управления зоопарком
+
+servers:
+  - url: http://localhost:8008
+    description: Локальный сервер для разработки
+
+tags:
+  - name: AnimalsAPI
+    description: Операции с животными (добавление, удаление, перемещение)
+  - name: FeedingServiceApi
+    description: Операции с сервисом кормления
+  - name: EnclosureAPI
+    description: Операции с вольерами
+
+paths:
+  /animal:
+    post:
+      tags:
+        - AnimalsAPI
+      summary: Добавление нового животного
+      description: Добавляет новое животное в зоопарк с указанием его имени, вида и возраста.
+      operationId: addAnimal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: Имя животного
+                  example: "Hamster"
+                type:
+                  type: string
+                  description: Вид животного один из {"Herbo", "Predator", "Aquatic", "Bird"}
+                  example: "Herbo"
+                sex:
+                  type: integer
+                  description: Пол животного (0 - мужской, 1 женский)
+                  example: 0
+                favorite_food:
+                  type: string
+                  description: Любимая еда животного
+                  example: "Seeds"
+                health_status:
+                  type: integer
+                  description: Статус здоровья животного (0 - здоров, 1 - болен)
+                  example: 0
+                birthday:
+                  type: string
+                  format: date
+                  description: Дата рождения животного в формате YYYY-MM-DD
+                  example: "2023-01-01"
+              required:
+                - name
+                - type
+                - sex
+                - favorite_food
+                - health_status
+                - birthday
+      responses:
+        200:
+          description: Животное успешно добавлено
+        400:
+          description: Ошибка при добавлении животного (например, неверные данные)
+
+  /animal/{id}:
+    delete:
+      tags:
+        - AnimalsAPI
+      summary: Удаление животного
+      description: Удаляет животное из зоопарка по его уникальному идентификатору.
+      operationId: deleteAnimal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      responses:
+        200:
+          description: Животное успешно удалено
+        404:
+          description: Животное не найдено
+        500:
+          description: Ошибка сервера
+
+  /animal/{id}/move:
+    post:
+      tags:
+        - AnimalsAPI
+      summary: Перемещение животного
+      description: Перемещает животное в другой вольер по его уникальному идентификатору.
+      operationId: moveAnimal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                enclosure_id:
+                  type: string
+                  description: Уникальный идентификатор вольера, в который нужно переместить животное
+                  example: "10"
+              required:
+                - enclosure_id
+      responses:
+        200:
+          description: Животное успешно перемещено
+        400:
+          description: Ошибка при перемещении животного (например, неверные данные)
+        404:
+          description: Животное или вольер не найдены

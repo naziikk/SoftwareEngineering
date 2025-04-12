@@ -6,7 +6,7 @@
 
 class AnimalRepository {
 public:
-    void AddAnimal(std::unique_ptr<Animal> animal);
+    int AddAnimal(std::unique_ptr<Animal> animal);
 
     bool RemoveAnimal(int id);
 
