@@ -21,9 +21,15 @@ Animal* AnimalRepository::GetAnimalById(int id) {
     return nullptr;
 }
 
-void AnimalRepository::RemoveAnimal(int id) {
+bool AnimalRepository::RemoveAnimal(int id) {
+    if (!animals_.contains(id)) {
+        return false;
+    }
+
     animals_.erase(id);
     free_ids_.push(id);
+
+    return true;
 }
 
 std::vector<std::pair<int, Animal*>> AnimalRepository::GetAllAnimalsInTheZoo() {

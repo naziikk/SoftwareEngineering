@@ -1,6 +1,8 @@
 #pragma once
 #include <iostream>
+#include <vector>
 #include <unordered_map>
+#include "Animal.h"
 
 class Enclosure {
     std::unordered_map<std::string, int> type_map = {
@@ -21,9 +23,15 @@ public:
 
     int GetCurrentSize() const;
 
+    std::vector<int> GetAnimalsIn() const;
+
+    bool AddAnimal(int animal_id);
+
+    bool RemoveAnimal(int animal_id);
 private:
     int type;
     int capacity;
     int current_size;
     bool is_full;
+    std::vector<int> animals_in_; // тут будут храниться id-шники животных
 };

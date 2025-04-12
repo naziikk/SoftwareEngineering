@@ -21,6 +21,10 @@ public:
 
     int GetStatus() const;
 
+    int GetEnclosureId() const;
+
+    void SetEnclosureId(int id);
+
 private:
     enum Sex {
         Male = 0,
@@ -45,5 +49,7 @@ private:
     Status status;
     Type type;
     Sex sex;
+
+    int enclosure_id = -1;
 };
 

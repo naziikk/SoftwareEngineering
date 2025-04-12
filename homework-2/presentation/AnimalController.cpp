@@ -1,5 +1,13 @@
-//
-// Created by Назар Закревский on 12.04.2025.
-//
-
 #include "AnimalController.h"
+
+void AnimalController::AddAnimal(const httplib::Request& request, httplib::Response &res) {
+
+}
+
+void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Response &res) {
+
+}
+
+void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Response &res) {
+
+}

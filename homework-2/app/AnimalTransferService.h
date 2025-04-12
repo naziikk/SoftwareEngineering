@@ -1,14 +1,19 @@
-//
-// Created by Назар Закревский on 12.04.2025.
-//
-
-#ifndef BIG_HOMEWORK_1_ANIMALSERVICE_H
-#define BIG_HOMEWORK_1_ANIMALSERVICE_H
-
+#pragma once
+#include <iostream>
+#include "../domain/Animal.h"
+#include "../infrastructure/repositories/AnimalRepository.h"
+#include "../infrastructure/repositories/EnclosureRepository.h"
 
 class AnimalService {
+public:
+    bool AddAnimal(const Animal& animal);
 
+    bool RemoveAnimal(int id);
+
+    bool MoveAnimal(int id, const std::string& new_enclosure);
+
+private:
+    AnimalRepository animal_repository;
+    EnclosureRepository enclosure_repository;
 };
 
-
-#endif //BIG_HOMEWORK_1_ANIMALSERVICE_H

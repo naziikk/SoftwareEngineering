@@ -30,3 +30,11 @@ int Animal::GetSex() const {
 int Animal::GetStatus() const {
     return status;
 }
+
+void Animal::SetEnclosureId(int id) {
+    enclosure_id = id;
+}
+
+int Animal::GetEnclosureId() const {
+    return enclosure_id;
+}

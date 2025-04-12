@@ -8,7 +8,7 @@ class AnimalRepository {
 public:
     void AddAnimal(std::unique_ptr<Animal> animal);
 
-    void RemoveAnimal(int id);
+    bool RemoveAnimal(int id);
 
     Animal* GetAnimalById(int id);
 

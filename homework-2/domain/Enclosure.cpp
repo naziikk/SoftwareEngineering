@@ -20,3 +20,30 @@ bool Enclosure::IsFull() const {
 int Enclosure::GetCurrentSize() const {
     return current_size;
 }
+
+std::vector<int> Enclosure::GetAnimalsIn() const {
+    return animals_in_;
+}
+
+bool Enclosure::AddAnimal(int animal_id) {
+    if (current_size < capacity) {
+        animals_in_.push_back(animal_id);
+        current_size++;
+        if (current_size == capacity) {
+            is_full = true;
+        }
+        return true;
+    }
+    return false;
+}
+
+bool Enclosure::RemoveAnimal(int animal_id) {
+    auto it = std::find(animals_in_.begin(), animals_in_.end(), animal_id);
+    if (it != animals_in_.end()) {
+        animals_in_.erase(it);
+        current_size--;
+        is_full = false;
+    }
+
+    return false;
+}
