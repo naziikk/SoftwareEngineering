@@ -5,7 +5,7 @@
  * of headers.
  *
  * The public libpqxx headers (e.g. `<pqxx/connection>`) include this already;
- * there's no need to do this from within an application.
+ * there's no need to do this from within an app.
  *
  * Include this file at the highest aggregation level possible to avoid nesting
  * and to keep things simple.

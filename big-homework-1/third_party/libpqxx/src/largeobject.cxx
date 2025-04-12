@@ -1,4 +1,4 @@
-/** Implementation of the Large Objects interface.
+/** Implementation of the Large Objects presentation.
  *
  * Allows direct access to large objects, as well as though I/O streams.
  *

@@ -44,7 +44,7 @@ pqxx::thread_safety_model PQXX_COLD pqxx::describe_thread_safety()
                         "Using a libpq build that is not thread-safe.\n"sv),
     (model.safe_kerberos ?
        ""sv :
-       "Kerberos is not thread-safe.  If your application uses Kerberos, "
+       "Kerberos is not thread-safe.  If your app uses Kerberos, "
        "protect all calls to Kerberos or libpqxx using a global lock.\n"sv));
   return model;
 }

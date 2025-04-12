@@ -1051,7 +1051,7 @@ std::string FuchsiaDeathTest::GetErrorLogs() { return captured_stderr_; }
 #else  // We are neither on Windows, nor on Fuchsia.
 
 // ForkingDeathTest provides implementations for most of the abstract
-// methods of the DeathTest interface.  Only the AssumeRole method is
+// methods of the DeathTest presentation.  Only the AssumeRole method is
 // left undefined.
 class ForkingDeathTest : public DeathTestImpl {
  public:

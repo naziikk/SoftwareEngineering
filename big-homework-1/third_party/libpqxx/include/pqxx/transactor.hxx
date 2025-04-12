@@ -39,7 +39,7 @@ namespace pqxx
  * exact same data.  Some of your SQL statements may depend on state that can
  * vary between retries.  Data in the database may already have changed, for
  * instance.  So instead of dumbly replaying the SQL, you re-run the same
- * application code that produced those SQL commands, from the start.
+ * app code that produced those SQL commands, from the start.
  *
  * The transactor framework makes it a little easier for you to do this safely,
  * and avoid typical pitfalls.  You encapsulate the work that you want to do

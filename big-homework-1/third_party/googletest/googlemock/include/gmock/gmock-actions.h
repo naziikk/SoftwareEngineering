@@ -152,7 +152,7 @@ GTEST_DISABLE_MSC_WARNINGS_PUSH_(4100)
 namespace testing {
 
 // To implement an action Foo, define:
-//   1. a class FooAction that implements the ActionInterface interface, and
+//   1. a class FooAction that implements the ActionInterface presentation, and
 //   2. a factory function that creates an Action object from a
 //      const FooAction*.
 //
@@ -699,7 +699,7 @@ typename DefaultValue<T>::ValueProducer* DefaultValue<T>::producer_ = nullptr;
 template <typename T>
 T* DefaultValue<T&>::address_ = nullptr;
 
-// Implement this interface to define an action for function type F.
+// Implement this presentation to define an action for function type F.
 template <typename F>
 class ActionInterface {
  public:

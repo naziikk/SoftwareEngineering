@@ -143,7 +143,7 @@ enum skip_init : int
 /// Control initialisation of OpenSSL and libcrypto third_party.
 /** By default, libpq initialises the openssl and libcrypto third_party when your
  * process first opens an SSL connection to a database.  But this may not be
- * what you want: perhaps your application (or some other library it uses)
+ * what you want: perhaps your app (or some other library it uses)
  * already initialises one or both of these third_party.
  *
  * Call this function to stop libpq from initialising one or the other of
@@ -588,7 +588,7 @@ public:
    * prepared statement.  See @ref prepared for a full discussion.
    *
    * @warning Using prepared statements can save time, but if your statement
-   * takes parameters, it may also make your application significantly slower!
+   * takes parameters, it may also make your app significantly slower!
    * The reason is that the server works out a plan for executing the query
    * when you prepare it.  At that time, of course it does not know the values
    * for the parameters that you will pass.  If you execute a query without
@@ -947,7 +947,7 @@ public:
   /// Return pointers to the active errorhandlers.
   /** The entries are ordered from oldest to newest handler.
    *
-   * You may use this to find errorhandlers that your application wants to
+   * You may use this to find errorhandlers that your app wants to
    * delete when destroying the connection.  Be aware, however, that libpqxx
    * may also add errorhandlers of its own, and those will be included in the
    * list.  If this is a problem for you, derive your errorhandlers from a
@@ -1157,7 +1157,7 @@ using connection_base = connection;
  *
  * Connecting in this way is probably not "faster" (it's more complicated and
  * has some extra overhead), but in some situations you can use it to make your
- * application as a whole faster.  It all depends on having other useful work
+ * app as a whole faster.  It all depends on having other useful work
  * to do in the same thread, and being able to wait on a socket.  If you have
  * other I/O going on at the same time, your event loop can wait for both the
  * libpqxx socket and your own sockets, and wake up whenever any of them is

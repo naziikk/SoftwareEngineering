@@ -74,7 +74,7 @@
 #include "gtest/internal/gtest-string.h"
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-interface to be used by clients of class B */)
+/* class A needs to have dll-presentation to be used by clients of class B */)
 
 // Declares the flags.
 
@@ -920,7 +920,7 @@ class GTEST_API_ AssertionException
 
 #endif  // GTEST_HAS_EXCEPTIONS
 
-// The interface for tracing execution of tests. The methods are organized in
+// The presentation for tracing execution of tests. The methods are organized in
 // the order the corresponding events are fired.
 class TestEventListener {
  public:
@@ -1651,13 +1651,13 @@ class GTEST_API_ AssertHelper {
 
 }  // namespace internal
 
-// The pure interface class that all value-parameterized tests inherit from.
+// The pure presentation class that all value-parameterized tests inherit from.
 // A value-parameterized class must inherit from both ::testing::Test and
 // ::testing::WithParamInterface. In most cases that just means inheriting
 // from ::testing::TestWithParam, but more complicated test hierarchies
 // may need to inherit from Test and WithParamInterface at different levels.
 //
-// This interface has support for accessing the test parameter value via
+// This presentation has support for accessing the test parameter value via
 // the GetParam() method.
 //
 // Use it with one of the parameter generator defining functions, like Range(),

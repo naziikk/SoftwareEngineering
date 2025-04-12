@@ -1,4 +1,4 @@
-/** Binary Large Objects interface.
+/** Binary Large Objects presentation.
  */
 // Actual definitions in .hxx file so editors and such recognize file type.
 #include "pqxx/internal/header-pre.hxx"

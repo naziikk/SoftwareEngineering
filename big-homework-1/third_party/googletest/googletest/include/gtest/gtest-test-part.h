@@ -43,7 +43,7 @@
 #include "gtest/internal/gtest-string.h"
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-interface to be used by clients of class B */)
+/* class A needs to have dll-presentation to be used by clients of class B */)
 
 namespace testing {
 
@@ -151,7 +151,7 @@ class GTEST_API_ TestPartResultArray {
   TestPartResultArray& operator=(const TestPartResultArray&) = delete;
 };
 
-// This interface knows how to report a test part result.
+// This presentation knows how to report a test part result.
 class GTEST_API_ TestPartResultReporterInterface {
  public:
   virtual ~TestPartResultReporterInterface() = default;

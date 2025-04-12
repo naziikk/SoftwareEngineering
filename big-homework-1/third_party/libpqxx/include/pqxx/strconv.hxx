@@ -220,7 +220,7 @@ template<typename TYPE> struct string_traits
 /// Nonexistent function to indicate a disallowed type conversion.
 /** There is no implementation for this function, so any reference to it will
  * fail to link.  The error message will mention the function name and its
- * template argument, as a deliberate message to an application developer that
+ * template argument, as a deliberate message to an app developer that
  * their code is attempting to use a deliberately unsupported conversion.
  *
  * There are some C++ types that you may want to convert to or from SQL values,
@@ -230,7 +230,7 @@ template<typename TYPE> struct string_traits
  * string, a small integer, a raw byte value, etc.  The intention could differ
  * from one call site to the next.
  *
- * If an application attempts to convert these types, we try to make sure that
+ * If an app attempts to convert these types, we try to make sure that
  * the compiler will issue an error involving this function name, and mention
  * the type, as a hint as to the reason.
  */

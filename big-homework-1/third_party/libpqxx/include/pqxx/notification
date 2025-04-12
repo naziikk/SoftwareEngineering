@@ -1,4 +1,4 @@
-/** pqxx::notification_receiver functor interface.
+/** pqxx::notification_receiver functor presentation.
  *
  * pqxx::notification_receiver handles incoming notifications.
  */

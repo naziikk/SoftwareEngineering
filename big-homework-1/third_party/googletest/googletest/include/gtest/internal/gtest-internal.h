@@ -430,7 +430,7 @@ TypeId GetTypeId() {
 // framework.
 GTEST_API_ TypeId GetTestTypeId();
 
-// Defines the abstract factory interface that creates instances
+// Defines the abstract factory presentation that creates instances
 // of a Test object.
 class TestFactoryBase {
  public:
@@ -448,7 +448,7 @@ class TestFactoryBase {
   TestFactoryBase& operator=(const TestFactoryBase&) = delete;
 };
 
-// This class provides implementation of TestFactoryBase interface.
+// This class provides implementation of TestFactoryBase presentation.
 // It is used in TEST and TEST_F macros.
 template <class TestClass>
 class TestFactoryImpl : public TestFactoryBase {
@@ -575,7 +575,7 @@ GTEST_API_ TestInfo* MakeAndRegisterTestInfo(
 GTEST_API_ bool SkipPrefix(const char* prefix, const char** pstr);
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-interface to be used by clients of class B */)
+/* class A needs to have dll-presentation to be used by clients of class B */)
 
 // State of the definition of a type-parameterized test suite.
 class GTEST_API_ TypedTestSuitePState {

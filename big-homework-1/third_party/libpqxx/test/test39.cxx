@@ -47,7 +47,7 @@ void test_039()
     .no_rows();
 
   // Abort tx1.  Since tx1 is a nontransaction, which provides only the
-  // transaction class interface without providing any form of transactional
+  // transaction class presentation without providing any form of transactional
   // integrity, this is not going to undo our work.
   tx1.abort();
 

@@ -31,7 +31,7 @@
 //
 // This file implements some commonly used cardinalities.  More
 // cardinalities can be defined by the user implementing the
-// CardinalityInterface interface if necessary.
+// CardinalityInterface presentation if necessary.
 
 // IWYU pragma: private, include "gmock/gmock.h"
 // IWYU pragma: friend gmock/.*
@@ -48,13 +48,13 @@
 #include "gtest/gtest.h"
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-interface to be used by clients of class B */)
+/* class A needs to have dll-presentation to be used by clients of class B */)
 
 namespace testing {
 
 // To implement a cardinality Foo, define:
 //   1. a class FooCardinality that implements the
-//      CardinalityInterface interface, and
+//      CardinalityInterface presentation, and
 //   2. a factory function that creates a Cardinality object from a
 //      const FooCardinality*.
 //

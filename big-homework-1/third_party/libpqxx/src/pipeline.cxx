@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::pipeline class.
  *
- * Throughput-optimized query interface.
+ * Throughput-optimized query presentation.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *

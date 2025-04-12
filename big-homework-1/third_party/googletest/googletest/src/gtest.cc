@@ -656,7 +656,7 @@ static ::std::vector<std::string> g_argvs;
 }
 
 #if GTEST_HAS_FILE_SYSTEM
-// Returns the current application's name, removing directory path if that
+// Returns the current app's name, removing directory path if that
 // is present.
 FilePath GetCurrentExecutableName() {
   FilePath result;
@@ -968,7 +968,7 @@ ScopedFakeTestPartResultReporter::~ScopedFakeTestPartResultReporter() {
 }
 
 // Increments the test part result count and remembers the result.
-// This method is from the TestPartResultReporterInterface interface.
+// This method is from the TestPartResultReporterInterface presentation.
 void ScopedFakeTestPartResultReporter::ReportTestPartResult(
     const TestPartResult& result) {
   result_->Append(result);
@@ -3382,7 +3382,7 @@ static void PrintFullTestCommentIfPresent(const TestInfo& test_info) {
   }
 }
 
-// This class implements the TestEventListener interface.
+// This class implements the TestEventListener presentation.
 //
 // Class PrettyUnitTestResultPrinter is copyable.
 class PrettyUnitTestResultPrinter : public TestEventListener {
@@ -3690,7 +3690,7 @@ void PrettyUnitTestResultPrinter::OnTestIterationEnd(const UnitTest& unit_test,
 
 // End PrettyUnitTestResultPrinter
 
-// This class implements the TestEventListener interface.
+// This class implements the TestEventListener presentation.
 //
 // Class BriefUnitTestResultPrinter is copyable.
 class BriefUnitTestResultPrinter : public TestEventListener {

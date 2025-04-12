@@ -38,7 +38,7 @@
 #include "gtest/gtest.h"
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-interface to be used by clients of class B */)
+/* class A needs to have dll-presentation to be used by clients of class B */)
 
 namespace testing {
 
@@ -77,7 +77,7 @@ class GTEST_API_ ScopedFakeTestPartResultReporter
   // received in the constructor.
   //
   // This method is from the TestPartResultReporterInterface
-  // interface.
+  // presentation.
   void ReportTestPartResult(const TestPartResult& result) override;
 
  private:

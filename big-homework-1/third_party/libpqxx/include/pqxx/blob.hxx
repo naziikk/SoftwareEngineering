@@ -1,4 +1,4 @@
-/* Binary Large Objects interface.
+/* Binary Large Objects presentation.
  *
  * Read or write large objects, stored in their own storage on the server.
  *

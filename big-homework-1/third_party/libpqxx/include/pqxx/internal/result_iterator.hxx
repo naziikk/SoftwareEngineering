@@ -18,7 +18,7 @@
 
 /* Result iterator.
  *
- * Don't include this header from your own application; it is included for you
+ * Don't include this header from your own app; it is included for you
  * by other libpqxx headers.
  */
 
@@ -58,7 +58,7 @@ public:
    * An iterator "points to" its own row, which is also itself.  This makes it
    * easy to address a @ref pqxx::result as a two-dimensional container,
    * without going through the intermediate step of dereferencing the iterator.
-   * It makes the interface similar to C pointer/array semantics.
+   * It makes the presentation similar to C pointer/array semantics.
    *
    * IIRC Alex Stepanov, the inventor of the STL, once remarked that having
    * this as standard behaviour for pointers would be useful in some

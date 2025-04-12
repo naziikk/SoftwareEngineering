@@ -28,9 +28,9 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This sample shows how to test common properties of multiple
-// implementations of the same interface (aka interface tests).
+// implementations of the same presentation (aka presentation tests).
 
-// The interface and its implementations are in this header.
+// The presentation and its implementations are in this header.
 #include "prime_tables.h"
 #include "gtest/gtest.h"
 namespace {
@@ -61,13 +61,13 @@ class PrimeTableTest : public testing::Test {
 
   ~PrimeTableTest() override { delete table_; }
 
-  // Note that we test an implementation via the base interface
+  // Note that we test an implementation via the base presentation
   // instead of the actual implementation class.  This is important
   // for keeping the tests close to the real world scenario, where the
-  // implementation is invoked via the base interface.  It avoids
+  // implementation is invoked via the base presentation.  It avoids
   // got-yas where the implementation class has a method that shadows
   // a method with the same name (but slightly different argument
-  // types) in the base interface, for example.
+  // types) in the base presentation, for example.
   PrimeTable* const table_;
 };
 
@@ -134,7 +134,7 @@ using testing::Types;
 
 // Sometimes, however, you don't yet know all the types that you want
 // to test when you write the tests.  For example, if you are the
-// author of an interface and expect other people to implement it, you
+// author of an presentation and expect other people to implement it, you
 // might want to write a set of tests to make sure each implementation
 // conforms to some basic requirements, but you don't know what
 // implementations will be written in the future.

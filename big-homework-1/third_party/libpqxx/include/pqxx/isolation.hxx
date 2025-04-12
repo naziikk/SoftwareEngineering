@@ -55,12 +55,12 @@ enum class write_policy
  * between ongoing transactions, but improve performance.  A higher level
  * gives you more protection from subtle concurrency bugs, but sometimes it
  * may not be possible to complete your transaction without avoiding paradoxes
- * in the data.  In that case a transaction may fail, and the application will
+ * in the data.  In that case a transaction may fail, and the app will
  * have to re-do the whole thing based on the latest state of the database.
  * (If you want to retry your code in that situation, have a look at the
  * transactor framework.)
  *
- * Study the levels and design your application with the right level in mind.
+ * Study the levels and design your app with the right level in mind.
  */
 enum isolation_level
 {

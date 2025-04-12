@@ -214,10 +214,10 @@ inline TO check_cast(FROM value, std::string_view description)
 
 /** Check library version at link time.
  *
- * Ensures a failure when linking an application against a radically
+ * Ensures a failure when linking an app against a radically
  * different libpqxx version than the one against which it was compiled.
  *
- * Sometimes application builds fail in unclear ways because they compile
+ * Sometimes app builds fail in unclear ways because they compile
  * using headers from libpqxx version X, but then link against libpqxx
  * binary version Y.  A typical scenario would be one where you're building
  * against a libpqxx which you have built yourself, but a different version
@@ -261,7 +261,7 @@ struct PQXX_LIBEXPORT thread_safety_model
   /// Is Kerberos thread-safe?
   /** @warning Is currently always `false`.
    *
-   * If your application uses Kerberos, all accesses to libpqxx or Kerberos
+   * If your app uses Kerberos, all accesses to libpqxx or Kerberos
    * must be serialized.  Confine their use to a single thread, or protect it
    * with a global lock.
    */
