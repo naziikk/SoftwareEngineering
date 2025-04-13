@@ -18,7 +18,7 @@ public:
 
     bool MoveAnimalToEnclosure(int animal_id, int enclosure_id);
 
-    void RemoveAnimal(int animal_id);
+    bool RemoveAnimal(int animal_id);
 
 private:
     std::unordered_map<int, std::unique_ptr<Enclosure>> enclosures_;

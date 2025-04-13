@@ -43,6 +43,8 @@ bool Enclosure::RemoveAnimal(int animal_id) {
         animals_in_.erase(it);
         current_size--;
         is_full = false;
+
+        return true;
     }
 
     return false;

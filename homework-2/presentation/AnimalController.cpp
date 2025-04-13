@@ -48,12 +48,12 @@ void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Re
 
     int animal_id = response.second;
 
+    enclosure_repository.RemoveAnimal(animal_id);
+
     if (!animal_service.RemoveAnimal(animal_id)) {
-        SendError(res, 404, "Animal not found");
+        SendError(res, 409, "Animal not found");
         return;
     }
-
-    enclosure_repository.RemoveAnimal(animal_id);
 
     json response_json = {
             {"message", "Animal successfully deleted"}
@@ -75,7 +75,7 @@ void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Resp
     int new_enclosure_id = parsed.at("enclosure_id").get<int>();
 
     if (!animal_service.MoveAnimal(animal_id, new_enclosure_id)) {
-        SendError(res, 404, "Animal not found or enclosure is full");
+        SendError(res, 409, "Animal not found or enclosure is full");
         return;
     }
 
