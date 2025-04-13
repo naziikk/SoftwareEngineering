@@ -92,7 +92,7 @@ paths:
           description: Ошибка сервера
 
   /animal/{id}/move:
-    post:
+    put:
       tags:
         - AnimalsAPI
       summary: Перемещение животного
@@ -113,9 +113,9 @@ paths:
               type: object
               properties:
                 enclosure_id:
-                  type: string
+                  type: integer
                   description: Уникальный идентификатор вольера, в который нужно переместить животное
-                  example: "10"
+                  example: 0
               required:
                 - enclosure_id
       responses:
@@ -125,3 +125,56 @@ paths:
           description: Ошибка при перемещении животного (например, неверные данные)
         404:
           description: Животное или вольер не найдены
+
+  /enclosure:
+    post:
+      tags:
+        - EnclosureAPI
+      summary: Добавление нового вольера
+      description: Добавляет новый вольер в зоопарк с указанием его названия и типа.
+      operationId: addEnclosure
+      requestBody:
+        required: true
+        content:
+          application/json:
+              schema:
+                type: object
+                properties:
+                    type:
+                        type: string
+                        description: Тип вольера, например, "Herbo", "Predator", "Aquatic", "Birds"
+                        example: "Herbo"
+                    capacity:
+                        type: int
+                        description: Максимальная вместимость вольера
+                        example: 3
+                required:
+                    - type
+                    - capacity
+      responses:
+          200:
+              description: Вольер успешно добавлен
+          500:
+              description: Ошибка сервера
+
+  /enclosure/{id}:
+    delete:
+      tags:
+        - EnclosureAPI
+      summary: Удаление вольера
+      description: Удаляет вольер из зоопарка по его уникальному идентификатору.
+      operationId: deleteEnclosure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор вольера
+          schema:
+            type: string
+      responses:
+        200:
+          description: Вольер успешно удален
+        404:
+          description: Вольер не найден
+        500:
+          description: Ошибка сервера

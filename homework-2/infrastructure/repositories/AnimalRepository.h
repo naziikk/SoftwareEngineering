@@ -14,6 +14,8 @@ public:
 
     std::vector<std::pair<int, Animal*>> GetAllAnimalsInTheZoo();
 
+    void SetEnclosureToUndefinedAfterRemovingEnclosure(int id);
+
 private:
     std::unordered_map<int, std::unique_ptr<Animal>> animals_;
     std::priority_queue<int, std::vector<int>, std::greater<>> free_ids_;

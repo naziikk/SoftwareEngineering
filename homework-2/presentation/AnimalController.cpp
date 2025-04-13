@@ -51,5 +51,27 @@ void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Re
 }
 
 void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Response &res) {
+    int animal_id;
+    if (!request.path_params.at("id").empty()) {
+        animal_id = std::stoi(request.path_params.at("id"));
+    } else {
+        SendError(res, 400, "Missing animal id parameter");
+        return;
+    }
 
+    auto parsed = json::parse(request.body);
+    int new_enclosure_id = parsed.at("enclosure_id").get<int>();
+
+    if (!animal_service.MoveAnimal(animal_id, new_enclosure_id)) {
+        SendError(res, 404, "Animal not found or enclosure is full");
+        return;
+    }
+
+    res.status = 200;
+    json response_json = {
+            {"message", "Animal successfully moved"},
+            {"animal_id", animal_id},
+            {"new_enclosure_id", new_enclosure_id}
+    };
+    res.set_content(response_json.dump(), "application/json");
 }

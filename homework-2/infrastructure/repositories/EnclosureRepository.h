@@ -8,9 +8,9 @@ class EnclosureRepository {
 public:
     EnclosureRepository(AnimalRepository& animal_repository) : animal_repository_(animal_repository) {}
 
-    void AddEnclosure(std::unique_ptr<Enclosure> animal);
+    int AddEnclosure(std::unique_ptr<Enclosure> animal);
 
-    void RemoveEnclosure(int id);
+    bool RemoveEnclosure(int id);
 
     std::vector<std::pair<int, Enclosure*>> GetAllEnclosures();
 

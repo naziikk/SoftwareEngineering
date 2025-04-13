@@ -1,6 +1,6 @@
 #include "EnclosureRepository.h"
 
-void EnclosureRepository::AddEnclosure(std::unique_ptr<Enclosure> animal) {
+int EnclosureRepository::AddEnclosure(std::unique_ptr<Enclosure> animal) {
     if (free_ids_.empty()) {
         enclosures_[current_id] = std::move(animal);
         current_id++;
@@ -8,7 +8,11 @@ void EnclosureRepository::AddEnclosure(std::unique_ptr<Enclosure> animal) {
         int id = free_ids_.top();
         free_ids_.pop();
         enclosures_[id] = std::move(animal);
+
+        return id;
     }
+
+    return current_id - 1;
 }
 
 Enclosure* EnclosureRepository::GetEnclosureById(int id) {
@@ -19,9 +23,15 @@ Enclosure* EnclosureRepository::GetEnclosureById(int id) {
     return nullptr;
 }
 
-void EnclosureRepository::RemoveEnclosure(int id) {
+bool EnclosureRepository::RemoveEnclosure(int id) {
+    if (!enclosures_.contains(id)) {
+        return false;
+    }
+
     enclosures_.erase(id);
     free_ids_.push(id);
+
+    return true;
 }
 
 std::vector<std::pair<int, Enclosure*>> EnclosureRepository::GetAllEnclosures() {
@@ -56,9 +66,14 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
 
     if (animal) {
         old_enclosure_id = animal->GetEnclosureId();
+
+        if (animal->GetType() != enclosure->GetType()) {
+            return false; // that means that this type of animal can't be in this enclosure (types are different)
+        }
     }
 
     if (old_enclosure_id != -1) {
+        std::cout << "3" << std::endl;
         Enclosure* old_enclosure = GetEnclosureById(old_enclosure_id);
 
         old_enclosure->RemoveAnimal(animal_id);

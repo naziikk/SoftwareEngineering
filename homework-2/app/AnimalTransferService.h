@@ -13,7 +13,11 @@ public:
 
     bool RemoveAnimal(int id);
 
-    bool MoveAnimal(int id, const std::string& new_enclosure);
+    bool MoveAnimal(int id, int new_enclosure_id);
+
+    std::pair<bool, int> AddEnclosure(const Enclosure& enclosure);
+
+    bool RemoveEnclosure(int id);
 
 private:
     AnimalRepository& animal_repository;

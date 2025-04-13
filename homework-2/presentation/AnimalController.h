@@ -15,7 +15,7 @@ public:
 
     void RemoveAnimal(const httplib::Request& request, httplib::Response &res);
 
-    static void MoveAnimal(const httplib::Request& request, httplib::Response &res);
+    void MoveAnimal(const httplib::Request& request, httplib::Response &res);
 
 private:
     static Animal GetAnimal(const nlohmann::json & parsed);

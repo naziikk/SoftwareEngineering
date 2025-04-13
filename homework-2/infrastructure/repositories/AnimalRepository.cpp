@@ -46,3 +46,11 @@ std::vector<std::pair<int, Animal*>> AnimalRepository::GetAllAnimalsInTheZoo() {
 
     return animals_with_ids;
 }
+
+void AnimalRepository::SetEnclosureToUndefinedAfterRemovingEnclosure(int id) {
+    for (const auto& [_, animal] : animals_) {
+        if (animal->GetEnclosureId() == id) {
+            animal->SetEnclosureId(-1);
+        }
+    }
+}

@@ -21,16 +21,19 @@ int main() {
         controller.RemoveAnimal(request, res);
     });
 
-    server.Post("/enclosure", [](const httplib::Request& request, httplib::Response &res) {
-        EnclosureController::AddEnclosure(request, res);
+    server.Post("/enclosure", [&animal_repository, &animal_service](const httplib::Request& request, httplib::Response &res) {
+        EnclosureController controller(animal_service, animal_repository);
+        controller.AddEnclosure(request, res);
     });
 
-    server.Delete("/enclosure/:id", [](const httplib::Request& request, httplib::Response &res) {
-        EnclosureController::RemoveEnclosure(request, res);
+    server.Delete("/enclosure/:id", [&animal_repository, &animal_service](const httplib::Request& request, httplib::Response &res) {
+        EnclosureController controller(animal_service, animal_repository);
+        controller.RemoveEnclosure(request, res);
     });
 
-    server.Put("/animal/:id/move", [](const httplib::Request& request, httplib::Response &res) {
-        AnimalController::MoveAnimal(request, res);
+    server.Put("/animal/:id/move", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+        AnimalController controller(animal_service, enclosure_repository);
+        controller.MoveAnimal(request, res);
     });
 
     server.Get("/feeding_schedule", [](const httplib::Request& request, httplib::Response &res) {
