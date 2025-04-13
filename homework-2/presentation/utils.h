@@ -3,5 +3,8 @@
 
 inline void SendError(httplib::Response& res, int status, const std::string& message) {
     res.status = status;
-    res.set_content(R"({"message": ")" + message + R"("})", "application/json");
+    nlohmann::json response_json = {
+        {"message", message}
+    };
+    res.set_content(response_json.dump(), "application/json");
 }

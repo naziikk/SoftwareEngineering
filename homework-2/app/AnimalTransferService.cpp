@@ -44,10 +44,10 @@ bool AnimalService::HealAnimal(int id, std::string& message) {
         return false;
     }
 
-//    if (!animal->Heal()) {
-//        message = "Animal is already healthy";
-//        return false;
-//    }
+    if (!animal->Heal()) {
+        message = "Animal is already healthy";
+        return false;
+    }
 
     return true;
 }

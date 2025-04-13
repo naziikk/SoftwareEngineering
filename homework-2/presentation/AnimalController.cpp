@@ -89,29 +89,29 @@ void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Resp
 }
 
 void AnimalController::HealAnimal(const httplib::Request& request, httplib::Response &res) {
-//    std::pair<bool, int> response = GetId(request, res);
-//
-//    if (!response.first) {
-//        return;
-//    }
-//
-//    int animal_id = response.second;
+    std::pair<bool, int> response = GetId(request, res);
 
-//    std::string message;
-//    if (!animal_service.HealAnimal(0, message)) {
-//        if (message == "Not found") {
-//            SendError(res, 404, message);
-//            return;
-//        } else {
-//            SendError(res, 400, message);
-//            return;
-//        }
-//    }
+    if (!response.first) {
+        return;
+    }
+
+    int animal_id = response.second;
+
+    std::string message;
+    if (!animal_service.HealAnimal(animal_id, message)) {
+        if (message == "Not found") {
+            SendError(res, 404, message);
+            return;
+        } else {
+            SendError(res, 400, message);
+            return;
+        }
+    }
 
     res.status = 200;
     json response_json = {
             {"message", "Animal successfully healed"},
-            {"animal_id", 0}
+            {"animal_id", animal_id}
     };
     res.set_content(response_json.dump(), "application/json");
 }

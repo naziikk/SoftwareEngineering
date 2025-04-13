@@ -30,7 +30,6 @@ set(SOURCE_FILES
         app/AnimalTransferService.h
         app/FeedingOrganizationService.cpp
         app/FeedingOrganizationService.h
-        app/ZooStatisticsService.cpp
         app/ZooStatisticsService.h
         presentation/utils.h
 )

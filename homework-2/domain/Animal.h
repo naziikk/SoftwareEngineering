@@ -11,8 +11,6 @@ public:
 
     std::string GetName() const;
 
-    std::string GetHabitat() const;
-
     std::string GetBirthday() const;
 
     std::string GetFavoriteFood() const;

@@ -9,6 +9,7 @@ int main() {
     AnimalRepository animal_repository;
     EnclosureRepository enclosure_repository(animal_repository);
     AnimalService animal_service(animal_repository, enclosure_repository);
+    ZooStatisticsService zoo_service(animal_repository, enclosure_repository);
     httplib::Server server;
 
     server.Post("/animal", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
@@ -21,12 +22,12 @@ int main() {
         controller.RemoveAnimal(request, res);
     });
 
-    server.Patch("/animal/:id/feed", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+    server.Post("/animal/:id/feed", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
         AnimalController controller(animal_service, enclosure_repository);
         controller.FeedAnimal(request, res);
     });
 
-    server.Patch("/animal/:id/health_check", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+    server.Post("/animal/:id/health_check", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
         AnimalController controller(animal_service, enclosure_repository);
         controller.HealAnimal(request, res);
     });
@@ -54,8 +55,9 @@ int main() {
 
     });
 
-    server.Get("/zoo/statistics", [](const httplib::Request& request, httplib::Response &res) {
-
+    server.Get("/zoo/statistics", [&zoo_service](const httplib::Request& request, httplib::Response &res) {
+        ZooStatisticsController controller(zoo_service);
+        controller.GetAllStatisticsRequest(request, res);
     });
 
     server.listen(config.server_.host, config.server_.port);
