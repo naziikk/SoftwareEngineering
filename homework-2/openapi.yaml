@@ -178,3 +178,60 @@ paths:
           description: Вольер не найден
         500:
           description: Ошибка сервера
+
+  /animal/{id}/feed:
+    patch:
+      tags:
+        - AnimalsAPI
+      summary: Кормление животного
+      description: Кормит животное по его уникальному идентификатору.
+      operationId: feedAnimal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                food:
+                  type: string
+                  description: Тип корма для животного
+                  example: "Seeds"
+              required:
+                - food
+      responses:
+        200:
+          description: Животное успешно покормлено
+        400:
+          description: Ошибка при кормлении животного (например, неверные данные)
+        404:
+          description: Животное не найдено
+
+  /animal/{id}/health_check:
+    patch:
+      tags:
+          - AnimalsAPI
+      summary: Проверка здоровья животного
+      description: Проверяет здоровье животного по его уникальному идентификатору.
+      operationId: healthCheckAnimal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+              type: string
+      responses:
+          200:
+            description: Статус здоровья животного успешно обновлен
+          400:
+            description: Ошибка при обновлении статуса здоровья животного (например, неверные данные)
+          404:
+            description: Животное не найдено

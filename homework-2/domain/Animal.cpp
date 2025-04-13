@@ -38,3 +38,26 @@ void Animal::SetEnclosureId(int id) {
 int Animal::GetEnclosureId() const {
     return enclosure_id;
 }
+
+bool Animal::Heal() {
+    if (status != Status::Sick) {
+        return false;
+    }
+
+    status = Status::Healthy;
+    return true;
+}
+
+std::chrono::system_clock::time_point Animal::GetLastFedTime() const {
+    return last_fed_time_;
+}
+
+bool Animal::Feed(const std::string& food) {
+    if (food == favorite_food) {
+        last_fed_time_ = std::chrono::system_clock::now();
+
+        return true;
+    }
+
+    return false;
+}

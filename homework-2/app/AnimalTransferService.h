@@ -19,6 +19,10 @@ public:
 
     bool RemoveEnclosure(int id);
 
+    bool HealAnimal(int id, std::string& message);
+
+    bool FeedAnimal(int id, const std::string& food, std::string& message);
+
 private:
     AnimalRepository& animal_repository;
     EnclosureRepository& enclosure_repository;

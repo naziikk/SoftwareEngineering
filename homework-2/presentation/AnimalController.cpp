@@ -9,6 +9,18 @@ Animal AnimalController::GetAnimal(const json& parsed) {
                                 parsed.at("sex").get<int>());
 }
 
+std::pair<bool, int> GetId(const httplib::Request& request, httplib::Response& res) {
+    int id;
+    if (!request.path_params.at("id").empty()) {
+        id = std::stoi(request.path_params.at("id"));
+    } else {
+        SendError(res, 400, "Missing animal id parameter");
+        return {false, -1};
+    }
+
+    return {true, id};
+}
+
 void AnimalController::AddAnimal(const httplib::Request& request, httplib::Response &res) {
     auto parsed = json::parse(request.body);
     Animal to_add = GetAnimal(parsed);
@@ -28,13 +40,13 @@ void AnimalController::AddAnimal(const httplib::Request& request, httplib::Respo
 }
 
 void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Response &res) {
-    int animal_id;
-    if (!request.path_params.at("id").empty()) {
-        animal_id = std::stoi(request.path_params.at("id"));
-    } else {
-        SendError(res, 400, "Missing animal id parameter");
+    std::pair<bool, int> response = GetId(request, res);
+
+    if (!response.first) {
         return;
     }
+
+    int animal_id = response.second;
 
     if (!animal_service.RemoveAnimal(animal_id)) {
         SendError(res, 404, "Animal not found");
@@ -51,13 +63,13 @@ void AnimalController::RemoveAnimal(const httplib::Request& request, httplib::Re
 }
 
 void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Response &res) {
-    int animal_id;
-    if (!request.path_params.at("id").empty()) {
-        animal_id = std::stoi(request.path_params.at("id"));
-    } else {
-        SendError(res, 400, "Missing animal id parameter");
+    std::pair<bool, int> response = GetId(request, res);
+
+    if (!response.first) {
         return;
     }
+
+    int animal_id = response.second;
 
     auto parsed = json::parse(request.body);
     int new_enclosure_id = parsed.at("enclosure_id").get<int>();
@@ -72,6 +84,64 @@ void AnimalController::MoveAnimal(const httplib::Request& request, httplib::Resp
             {"message", "Animal successfully moved"},
             {"animal_id", animal_id},
             {"new_enclosure_id", new_enclosure_id}
+    };
+    res.set_content(response_json.dump(), "application/json");
+}
+
+void AnimalController::HealAnimal(const httplib::Request& request, httplib::Response &res) {
+//    std::pair<bool, int> response = GetId(request, res);
+//
+//    if (!response.first) {
+//        return;
+//    }
+//
+//    int animal_id = response.second;
+
+//    std::string message;
+//    if (!animal_service.HealAnimal(0, message)) {
+//        if (message == "Not found") {
+//            SendError(res, 404, message);
+//            return;
+//        } else {
+//            SendError(res, 400, message);
+//            return;
+//        }
+//    }
+
+    res.status = 200;
+    json response_json = {
+            {"message", "Animal successfully healed"},
+            {"animal_id", 0}
+    };
+    res.set_content(response_json.dump(), "application/json");
+}
+
+void AnimalController::FeedAnimal(const httplib::Request& request, httplib::Response &res) {
+    std::pair<bool, int> response = GetId(request, res);
+
+    if (!response.first) {
+        return;
+    }
+
+    int animal_id = response.second;
+    std::string food = json::parse(request.body).at("food").get<std::string>();
+
+    std::string message;
+    if (!animal_service.FeedAnimal(animal_id, food, message)) {
+        if (message == "Not found") {
+            SendError(res, 404, message);
+            return;
+        } else {
+            SendError(res, 400, message);
+            return;
+        }
+    }
+
+    res.status = 200;
+    json response_json = {
+            {"message", "Animal successfully fed"},
+            {"animal_id", animal_id},
+            {"food", food}
     };
     res.set_content(response_json.dump(), "application/json");
 }

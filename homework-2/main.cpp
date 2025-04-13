@@ -21,6 +21,16 @@ int main() {
         controller.RemoveAnimal(request, res);
     });
 
+    server.Patch("/animal/:id/feed", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+        AnimalController controller(animal_service, enclosure_repository);
+        controller.FeedAnimal(request, res);
+    });
+
+    server.Patch("/animal/:id/health_check", [&animal_service, &enclosure_repository, &animal_repository](const httplib::Request& request, httplib::Response &res) {
+        AnimalController controller(animal_service, enclosure_repository);
+        controller.HealAnimal(request, res);
+    });
+
     server.Post("/enclosure", [&animal_repository, &animal_service](const httplib::Request& request, httplib::Response &res) {
         EnclosureController controller(animal_service, animal_repository);
         controller.AddEnclosure(request, res);

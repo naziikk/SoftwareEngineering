@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <chrono>
 #include <unordered_map>
 
 class Animal {
@@ -25,6 +26,12 @@ public:
     int GetEnclosureId() const;
 
     void SetEnclosureId(int id);
+
+    bool Feed(const std::string& food);
+
+    std::chrono::system_clock::time_point GetLastFedTime() const;
+
+    bool Heal();
 
 private:
     enum Sex {
@@ -54,5 +61,6 @@ private:
     Sex sex;
 
     int enclosure_id = -1;
+    std::chrono::system_clock::time_point last_fed_time_;
 };
 

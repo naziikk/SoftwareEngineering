@@ -17,6 +17,10 @@ public:
 
     void MoveAnimal(const httplib::Request& request, httplib::Response &res);
 
+    void HealAnimal(const httplib::Request& request, httplib::Response &res);
+
+    void FeedAnimal(const httplib::Request& request, httplib::Response &res);
+
 private:
     static Animal GetAnimal(const nlohmann::json & parsed);
 
