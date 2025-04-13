@@ -23,6 +23,8 @@ public:
 
     bool FeedAnimal(int id, const std::string& food, std::string& message);
 
+    bool CleanEnclosure(int id, std::string& message);
+
 private:
     AnimalRepository& animal_repository;
     EnclosureRepository& enclosure_repository;

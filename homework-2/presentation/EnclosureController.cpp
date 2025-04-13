@@ -45,3 +45,32 @@ void EnclosureController::RemoveEnclosure(const httplib::Request& request, httpl
     res.status = 200;
     res.set_content(response_json.dump(), "application/json");
 }
+
+void EnclosureController::CleanAnEnclosureRequest(const httplib::Request& request, httplib::Response &res) {
+    int enclosure_id;
+    if (!request.path_params.at("id").empty()) {
+        enclosure_id = std::stoi(request.path_params.at("id"));
+    } else {
+        SendError(res, 400, "Missing enclosure id parameter");
+        return;
+    }
+
+    std::string message;
+    if (!animal_service.CleanEnclosure(enclosure_id, message)) {
+        if (message == "Not Found") {
+            SendError(res, 404, message);
+            return;
+        } else {
+            SendError(res, 400, message);
+            return;
+        }
+        return;
+    }
+
+    json response_json = {
+            {"message", "Enclosure successfully cleaned"}
+    };
+
+    res.status = 200;
+    res.set_content(response_json.dump(), "application/json");
+}

@@ -1,14 +1,28 @@
-//
-// Created by Назар Закревский on 12.04.2025.
-//
+#pragma once
 
-#ifndef BIG_HOMEWORK_1_FEEDINGSERVICE_H
-#define BIG_HOMEWORK_1_FEEDINGSERVICE_H
+#include <vector>
+#include "../domain/FeedingSchedule.h"
+#include "../domain/Animal.h"
+#include "../infrastructure/repositories/AnimalRepository.h"
 
+class FeedingOrganizationService {
+public:
+    explicit FeedingOrganizationService(AnimalRepository& animal_repository)
+            : animal_repository_(animal_repository) {}
 
-class FeedingService {
+    void AddFeedingSchedule(const FeedingSchedule& schedule);
 
+    bool UpdateFeedingSchedule(int animal_id, const FeedingSchedule& new_schedule);
+
+    void FeedAnimals();
+
+    bool CompleteFeeding(int animalId);
+
+    std::vector<FeedingSchedule> GetFeedingSchedules() const {
+        return schedules_;
+    }
+
+private:
+    AnimalRepository& animal_repository_;
+    std::vector<FeedingSchedule> schedules_;
 };
-
-
-#endif //BIG_HOMEWORK_1_FEEDINGSERVICE_H

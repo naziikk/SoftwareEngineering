@@ -139,25 +139,25 @@ paths:
         required: true
         content:
           application/json:
-              schema:
-                type: object
-                properties:
-                    type:
-                        type: string
-                        description: Тип вольера, например, "Herbo", "Predator", "Aquatic", "Birds"
-                        example: "Herbo"
-                    capacity:
-                        type: int
-                        description: Максимальная вместимость вольера
-                        example: 3
-                required:
-                    - type
-                    - capacity
+            schema:
+              type: object
+              properties:
+                type:
+                  type: string
+                  description: Тип вольера, например, "Herbo", "Predator", "Aquatic", "Birds"
+                  example: "Herbo"
+                capacity:
+                  type: int
+                  description: Максимальная вместимость вольера
+                  example: 3
+              required:
+                - type
+                - capacity
       responses:
-          200:
-              description: Вольер успешно добавлен
-          500:
-              description: Ошибка сервера
+        200:
+          description: Вольер успешно добавлен
+        500:
+          description: Ошибка сервера
 
   /enclosure/{id}:
     delete:
@@ -219,7 +219,7 @@ paths:
   /animal/{id}/health_check:
     post:
       tags:
-          - AnimalsAPI
+        - AnimalsAPI
       summary: Проверка здоровья животного
       description: Проверяет здоровье животного по его уникальному идентификатору.
       operationId: healthCheckAnimal
@@ -229,14 +229,14 @@ paths:
           required: true
           description: Уникальный идентификатор животного
           schema:
-              type: string
+            type: string
       responses:
-          200:
-            description: Статус здоровья животного успешно обновлен
-          400:
-            description: Ошибка при обновлении статуса здоровья животного (например, неверные данные)
-          404:
-            description: Животное не найдено
+        200:
+          description: Статус здоровья животного успешно обновлен
+        400:
+          description: Ошибка при обновлении статуса здоровья животного (например, неверные данные)
+        404:
+          description: Животное не найдено
 
   /zoo/statistics:
     get:
@@ -248,18 +248,134 @@ paths:
       responses:
         200:
           description: Статистика зоопарка успешно получена
-#          content:
-#            application/json:
-#              schema:
-#                type: object
-#                properties:
-#                  total_animals:
-#                    type: integer
-#                    description: Общее количество животных в зоопарке
-#                    example: 10
-#                  total_enclosures:
-#                    type: integer
-#                    description: Общее количество вольеров в зоопарке
-#                    example: 5
+        #          content:
+        #            application/json:
+        #              schema:
+        #                type: object
+        #                properties:
+        #                  total_animals:
+        #                    type: integer
+        #                    description: Общее количество животных в зоопарке
+        #                    example: 10
+        #                  total_enclosures:
+        #                    type: integer
+        #                    description: Общее количество вольеров в зоопарке
+        #                    example: 5
         500:
           description: Ошибка сервера
+
+  /enclosure/{id}/clean:
+    post:
+      tags:
+        - EnclosureAPI
+      summary: Уборка вольера
+      description: Выполняет уборку вольера по его уникальному идентификатору. (Уборка производится не чаще чем в минуту, иначе возвращается ошибка 400)
+      operationId: cleanEnclosure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор вольера
+          schema:
+            type: string
+      responses:
+        200:
+          description: Уборка вольера успешно выполнена
+        400:
+          description: Ошибка при уборке вольера (например, вольер уже убран и уборщик забастовал)
+        404:
+          description: Вольер не найден
+        500:
+          description: Ошибка сервера
+
+  /animal/{id}/feeding_schedule/1:
+    post:
+      tags:
+        - FeedingServiceApi
+      summary: Добавление расписания кормления животного
+      description: Добавление в расписание кормления животного по его уникальному идентификатору.
+      operationId: addFeedingSchedule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                interval:
+                  type: integer
+                  description: Интервал для кормления в секундах
+                  example: 30
+              required:
+                - interval
+      responses:
+        201:
+          description: Расписание кормления успешно добавлено
+        400:
+          description: Ошибка при добавлении расписания кормления (например, неверные данные)
+        404:
+          description: Животное не найдено
+
+  /animal/{id}/feeding_schedule/2:
+    put:
+      tags:
+        - FeedingServiceApi
+      summary: Обновление расписания кормления животного
+      description: Обновление в расписание кормления животного по его уникальному идентификатору.
+      operationId: updateFeedingSchedule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                interval:
+                  type: integer
+                  description: Интервал для кормления в секундах
+                  example: 30
+              required:
+                - interval
+      responses:
+        201:
+          description: Расписание кормления успешно обновлено
+        400:
+          description: Ошибка при обновлении расписания кормления (например, неверные данные)
+        404:
+          description: Животное не найдено
+
+  /animal/{id}/feeding_schedule/3:
+    delete:
+      tags:
+        - FeedingServiceApi
+      summary:  Сброс расписания
+      description: Сброс расписание кормления животного по его уникальному идентификатору.
+      operationId: cancelFeedingSchedule
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Уникальный идентификатор животного
+          schema:
+            type: string
+      responses:
+        201:
+          description: Расписание кормления успешно сброшено
+        400:
+          description: Ошибка при сбрасывании расписания кормления (например, неверные данные)
+        404:
+          description: Животное не найдено

@@ -5,8 +5,6 @@
 
 class Animal {
 public:
-    Animal() = default;
-
     Animal(std::string name, int status, std::string birthday, std::string favorite_food, std::string type, int sex);
 
     std::string GetName() const;

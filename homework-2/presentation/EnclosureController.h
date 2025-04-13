@@ -15,6 +15,8 @@ public:
 
     void RemoveEnclosure(const httplib::Request& request, httplib::Response &res);
 
+    void CleanAnEnclosureRequest(const httplib::Request& request, httplib::Response &res);
+
 private:
     static Enclosure GetEnclosure(const nlohmann::json& parsed);
 

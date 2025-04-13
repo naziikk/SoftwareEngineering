@@ -47,3 +47,19 @@ bool Enclosure::RemoveAnimal(int animal_id) {
 
     return false;
 }
+
+bool Enclosure::CleanEnclosure() {
+    if (IsTimeToClean()) {
+        last_cleaning_time_ = std::chrono::system_clock::now();
+        return true;
+    }
+
+    return false;
+}
+
+bool Enclosure::IsTimeToClean() const {
+    auto now = std::chrono::system_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::minutes>(now - last_cleaning_time_);
+
+    return duration.count() >= 1;
+}

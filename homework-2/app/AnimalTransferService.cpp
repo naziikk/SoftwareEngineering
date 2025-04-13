@@ -67,3 +67,19 @@ bool AnimalService::FeedAnimal(int id, const std::string& food, std::string& mes
 
     return true;
 }
+
+bool AnimalService::CleanEnclosure(int id, std::string& message) {
+    Enclosure* enclosure = enclosure_repository.GetEnclosureById(id);
+
+    if (!enclosure) {
+        message = "Not Found";
+        return false;
+    }
+
+    if (!enclosure->CleanEnclosure()) {
+        message = "The enclosure was not dirty";
+        return false;
+    }
+
+    return true;
+}
