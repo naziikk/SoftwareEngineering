@@ -1,3 +1,5 @@
+import random
+
 import pytest
 import requests
 from config import BASE_URL
@@ -174,3 +176,100 @@ def test_delete_animal(animal_id, expected_status_code):
             break
 
     assert in_enclosure == False
+
+
+# 5. Теперь давайте попробуем удалить несуществующее животное
+def test_delete_unexisting_animal():
+    random_id = random.randint(100, 1000)
+
+    response = requests.delete(f"{BASE_URL}/animal/{random_id}")
+
+    assert response.status_code == 409
+    result_json = response.json()
+
+
+# 6. Добавим в расписание кормление животного
+@pytest.mark.parametrize("animal_id, data, expected_status_code, expected_schedule_size", [
+    (
+            1,
+            {
+                "interval": 15,
+            },
+            201,
+            1
+    ),
+    (
+            2,
+            {
+                "interval": 18,
+            },
+            201,
+            2
+    )
+])
+def test_add_feeding_schedule(animal_id, data, expected_status_code, expected_schedule_size):
+    response = requests.post(f"{BASE_URL}/animal/{animal_id}/feeding_schedule/1", json=data)
+
+    assert response.status_code == expected_status_code
+
+    # проверим, что кормление появилось в расписании
+    statistics = requests.get(f"{BASE_URL}/zoo/statistics")
+
+    feeding_schedule = statistics.json()["feeding_schedule"]
+    assert len(feeding_schedule) == expected_schedule_size
+
+
+# 7. Теперь давайте почистим вольер
+def test_clean_enclosure():
+    response = requests.post(f"{BASE_URL}/enclosure/1/clean")
+
+    assert response.status_code == 200
+
+    # если сразу же попробуем почистить еще раз, получим ошибку т.к. вольер уже чистый
+    # между уборками должна пройти хотя бы минута
+    response = requests.post(f"{BASE_URL}/enclosure/1/clean")
+
+    assert response.status_code == 400
+
+
+# 8. Теперь давайте попробуем почистить несуществующий вольер
+def test_clean_unexisting_enclosure():
+    random_id = random.randint(100, 1000)
+
+    response = requests.post(f"{BASE_URL}/enclosure/{random_id}/clean")
+
+    assert response.status_code == 404
+    result_json = response.json()
+
+
+# 9. Давайте накормим животное в ручную, не учитывая расписания
+@pytest.mark.parametrize("animal_id, data, expected_status_code", [
+    (
+            1,
+            {
+                "food": "Meat",
+            },
+            200  # лев любит мясо
+    ),
+    (
+            2,
+            {
+                "food": "Fish"
+            },
+            400  # при проверке, что это любимое блюдо животного, получили несовпадение и животное не хочет это есть
+    )
+])
+def test_feed_animal(animal_id, data, expected_status_code):
+    response = requests.post(f"{BASE_URL}/animal/{animal_id}/feed", json=data)
+
+    assert response.status_code == expected_status_code
+
+    # проверим, что животное покормилось
+    result_json = response.json()
+    if expected_status_code == 200:
+        assert result_json["message"] == "Animal successfully fed"
+    else:
+        assert result_json["message"] == "Animal don`t like this food"
+
+
+# 10.
