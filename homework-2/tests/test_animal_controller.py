@@ -272,4 +272,4 @@ def test_feed_animal(animal_id, data, expected_status_code):
         assert result_json["message"] == "Animal don`t like this food"
 
 
-# 10.
+# 10. Следующим шагом предлагаю

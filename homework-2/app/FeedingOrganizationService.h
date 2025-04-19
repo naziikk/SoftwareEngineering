@@ -1,8 +1,8 @@
 #pragma once
 
 #include <vector>
-#include "../domain/FeedingSchedule.h"
-#include "../domain/Animal.h"
+#include "../domain/entities/FeedingSchedule.h"
+#include "../domain/entities/Animal.h"
 #include "../infrastructure/repositories/AnimalRepository.h"
 
 class FeedingOrganizationService {

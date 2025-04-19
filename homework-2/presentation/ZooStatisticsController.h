@@ -2,7 +2,7 @@
 #include "../infrastructure/third_party/nlohmann/json.hpp"
 #include "../infrastructure/third_party/httplib.h"
 #include "../app/ZooStatisticsService.h"
-#include "../domain/Animal.h"
+#include "../domain/entities/Animal.h"
 #include "utils.h"
 #include <iostream>
 

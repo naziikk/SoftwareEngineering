@@ -1,4 +1,5 @@
 #include "Animal.h"
+#include "../events/dispatcher.h"
 
 Animal::Animal(std::string name, int status_, std::string birthday, std::string favorite_food, std::string type_, int sex_)
            : name(name), birthday(birthday), favorite_food(favorite_food) {
@@ -54,6 +55,8 @@ std::chrono::system_clock::time_point Animal::GetLastFedTime() const {
 
 bool Animal::Feed(const std::string& food) {
     if (food == favorite_food) {
+        FeedingTimeEvent event(enclosure_id, food);
+        EventDispatcher::Dispatch(event);
         last_fed_time_ = std::chrono::system_clock::now();
 
         return true;

@@ -5,7 +5,7 @@
 #include "../infrastructure/third_party/nlohmann/json.hpp"
 #include "../app/AnimalTransferService.h"
 #include "../app/FeedingOrganizationService.h"
-#include "../domain/FeedingSchedule.h"
+#include "../domain/entities/FeedingSchedule.h"
 #include "../infrastructure/repositories/EnclosureRepository.h"
 #include "utils.h"
 

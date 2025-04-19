@@ -1,6 +1,6 @@
 #pragma once
 #include <iostream>
-#include "../domain/Animal.h"
+#include "../domain/entities/Animal.h"
 #include "../infrastructure/repositories/AnimalRepository.h"
 #include "../infrastructure/repositories/EnclosureRepository.h"
 #include "../app/FeedingOrganizationService.h"

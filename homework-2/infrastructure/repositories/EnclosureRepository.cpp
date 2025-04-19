@@ -1,4 +1,5 @@
 #include "EnclosureRepository.h"
+#include "../../domain/events/dispatcher.h"
 
 int EnclosureRepository::AddEnclosure(std::unique_ptr<Enclosure> animal) {
     if (free_ids_.empty()) {
@@ -66,7 +67,6 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
 
     if (animal) {
         old_enclosure_id = animal->GetEnclosureId();
-
         if (animal->GetType() != enclosure->GetType()) {
             return false; // that means that this type of animal can't be in this enclosure (types are different)
         }
@@ -76,7 +76,13 @@ bool EnclosureRepository::MoveAnimalToEnclosure(int animal_id, int enclosure_id)
         std::cout << "3" << std::endl;
         Enclosure* old_enclosure = GetEnclosureById(old_enclosure_id);
 
+        AnimalMoveEvent event(old_enclosure_id, enclosure_id, animal_id);
+        EventDispatcher::Dispatch(event);
+
         old_enclosure->RemoveAnimal(animal_id);
+    } else {
+        AnimalMoveEvent event(-1, enclosure_id, animal_id);
+        EventDispatcher::Dispatch(event);
     }
 
     enclosure->AddAnimal(animal_id);

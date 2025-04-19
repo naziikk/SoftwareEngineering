@@ -2,7 +2,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <queue>
-#include "../../domain/Animal.h"
+#include "../../domain/entities/Animal.h"
 
 class AnimalRepository {
 public:

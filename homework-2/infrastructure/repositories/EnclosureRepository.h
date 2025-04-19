@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 #include <queue>
-#include "../../domain/Enclosure.h"
+#include "../../domain/entities/Enclosure.h"
 #include "AnimalRepository.h"
 
 class EnclosureRepository {
