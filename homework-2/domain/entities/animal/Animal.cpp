@@ -1,12 +1,13 @@
 #include "Animal.h"
-#include "../events/dispatcher.h"
+#include "../../events/dispatcher.h"
 
 Animal::Animal(std::string name, int status_, std::string birthday, std::string favorite_food, std::string type_, int sex_)
-           : name(name), birthday(birthday), favorite_food(favorite_food) {
-    type = type_map[type_];
-    sex = sex_ == 0 ? Sex::Male : Sex::Female;
-    status = status_ == 0 ? Status::Healthy : Status::Sick;
-}
+        : name(std::move(name)),
+          birthday(std::move(birthday)),
+          favorite_food(std::move(favorite_food)),
+          status(status_),
+          type(std::move(type_)),
+          sex(sex_) {}
 
 std::string Animal::GetName() const {
     return name;
@@ -21,15 +22,15 @@ std::string Animal::GetFavoriteFood() const {
 }
 
 int Animal::GetType() const {
-    return type;
+    return type.GetType();
 }
 
 int Animal::GetSex() const {
-    return sex;
+    return sex.Get();
 }
 
 int Animal::GetStatus() const {
-    return status;
+    return status.Get();
 }
 
 void Animal::SetEnclosureId(int id) {
@@ -41,11 +42,11 @@ int Animal::GetEnclosureId() const {
 }
 
 bool Animal::Heal() {
-    if (status != Status::Sick) {
+    if (!status.IsSick()) {
         return false;
     }
 
-    status = Status::Healthy;
+    status.Heal();
     return true;
 }
 
@@ -58,9 +59,7 @@ bool Animal::Feed(const std::string& food) {
         FeedingTimeEvent event(enclosure_id, food);
         EventDispatcher::Dispatch(event);
         last_fed_time_ = std::chrono::system_clock::now();
-
         return true;
     }
-
     return false;
 }

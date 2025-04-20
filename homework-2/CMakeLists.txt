@@ -20,12 +20,13 @@ set(SOURCE_FILES
         presentation/FeedingScheduleController.h
         presentation/ZooStatisticsController.cpp
         presentation/ZooStatisticsController.h
-        domain/entities/Animal.cpp
-        domain/entities/Animal.h
-        domain/entities/Enclosure.cpp
-        domain/entities/Enclosure.h
-        domain/entities/FeedingSchedule.cpp
-        domain/entities/FeedingSchedule.h
+        domain/entities/animal/Animal.cpp
+        domain/entities/animal/Animal.h
+        domain/entities/animal/AnimalValueObjects.h
+        domain/entities/enclosure/Enclosure.cpp
+        domain/entities/enclosure/Enclosure.h
+        domain/entities/feeding_schedule/FeedingSchedule.cpp
+        domain/entities/feeding_schedule/FeedingSchedule.h
         app/AnimalTransferService.cpp
         app/AnimalTransferService.h
         app/FeedingOrganizationService.cpp

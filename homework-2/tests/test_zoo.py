@@ -71,7 +71,7 @@ def test_add_animal(data, expected_status_code, expected_animals_count):
     ),
     (
             {
-                "type": "Birds",
+                "type": "Bird",
                 "capacity": 2
             },
             200,
@@ -271,5 +271,3 @@ def test_feed_animal(animal_id, data, expected_status_code):
     else:
         assert result_json["message"] == "Animal don`t like this food"
 
-
-# 10. Следующим шагом предлагаю

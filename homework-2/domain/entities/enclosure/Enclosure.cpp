@@ -1,12 +1,10 @@
 #include "Enclosure.h"
 
 Enclosure::Enclosure(std::string type_, int capacity, int current_size, bool is_full)
-    : capacity(capacity), current_size(0), is_full(0) {
-    type = type_map[type_];
-}
+    : capacity(capacity), current_size(0), is_full(0), type(std::move(type_)) {}
 
 int Enclosure::GetType() const {
-    return type;
+    return type.GetType();
 }
 
 int Enclosure::GetCapacity() const {
