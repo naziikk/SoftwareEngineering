@@ -58,3 +58,4 @@ target_link_libraries(ZooApp PRIVATE
         yaml-cpp
         spdlog::spdlog
 )
+
