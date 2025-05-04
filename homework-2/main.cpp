@@ -7,8 +7,7 @@
 #include "app/FeedingOrganizationService.h"
 
 int main() {
-    // TODO: разобраться с багом с last_fed_time
-    Config config = Config::MustLoadConfig("/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/homework-2/infrastructure/config/config.yaml");
+    Config config = Config::MustLoadConfig("./infrastructure/config/config.yaml");
 
     AnimalRepository animal_repository;
     EnclosureRepository enclosure_repository(animal_repository);
