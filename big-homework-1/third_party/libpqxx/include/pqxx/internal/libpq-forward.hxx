@@ -29,7 +29,7 @@ using PQnoticeProcessor = void (*)(void *, char const *);
 
 namespace pqxx
 {
-/// PostgreSQL database row identifier.
+/// PostgreSQL infrastructure row identifier.
 using oid = unsigned int;
 } // namespace pqxx
 #endif

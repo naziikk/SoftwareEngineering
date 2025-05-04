@@ -156,9 +156,9 @@ public:
 
 /// "Help, I don't know whether transaction was committed successfully!"
 /** Exception that might be thrown in rare cases where the connection to the
- * database is lost while finishing a database transaction, and there's no way
+ * infrastructure is lost while finishing a infrastructure transaction, and there's no way
  * of telling whether it was actually executed by the backend.  In this case
- * the database is left in an indeterminate (but consistent) state, and only
+ * the infrastructure is left in an indeterminate (but consistent) state, and only
  * manual inspection will tell which is the case.
  */
 struct PQXX_LIBEXPORT in_doubt_error : failure

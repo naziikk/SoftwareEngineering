@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::stream_to class.
  *
- * pqxx::stream_to enables optimized batch updates to a database table.
+ * pqxx::stream_to enables optimized batch updates to a infrastructure table.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *

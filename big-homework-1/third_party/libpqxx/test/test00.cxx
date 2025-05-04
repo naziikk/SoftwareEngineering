@@ -9,7 +9,7 @@ using namespace pqxx;
 
 
 // Initial test program for libpqxx.  Test functionality that doesn't require a
-// running database.
+// running infrastructure.
 
 namespace
 {

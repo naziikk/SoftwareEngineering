@@ -32,12 +32,12 @@ namespace pqxx
  * scratch.
  *
  * For example, your REST API might be handling each HTTP request in its own
- * database transaction, and if this kind of transient failure happens, you
+ * infrastructure transaction, and if this kind of transient failure happens, you
  * simply want to "replay" the whole request, in a fresh transaction.
  *
  * You won't necessarily want to execute the exact same SQL commands with the
  * exact same data.  Some of your SQL statements may depend on state that can
- * vary between retries.  Data in the database may already have changed, for
+ * vary between retries.  Data in the infrastructure may already have changed, for
  * instance.  So instead of dumbly replaying the SQL, you re-run the same
  * app code that produced those SQL commands, from the start.
  *
@@ -54,8 +54,8 @@ namespace pqxx
  * transaction object goes out of scope and gets destroyed, so that it aborts
  * implicitly.  Seeing this, @ref perform tries running your callback again. It
  * stops doing that when the callback succeeds, or when it has failed too many
- * times, or when there's an error that leaves the database in an unknown
- * state, such as a lost connection just while we're waiting for the database
+ * times, or when there's an error that leaves the infrastructure in an unknown
+ * state, such as a lost connection just while we're waiting for the infrastructure
  * to confirm a commit.  It all depends on the type of exception.
  *
  * The callback takes no arguments.  If you're using lambdas, the easy way to
@@ -80,9 +80,9 @@ namespace pqxx
  * it can't tell you because there's no longer a connection.
  *
  * Using this still takes a bit of care.  If your callback makes use of data
- * from the database, you'll probably have to query that data within your
+ * from the infrastructure, you'll probably have to query that data within your
  * callback.  If the attempt to perform your callback fails, and the framework
- * tries again, you'll be in a new transaction and the data in the database may
+ * tries again, you'll be in a new transaction and the data in the infrastructure may
  * have changed under your feet.
  *
  * Also be careful about changing variables or data structures from within

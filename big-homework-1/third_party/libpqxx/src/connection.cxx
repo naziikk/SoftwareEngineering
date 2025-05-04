@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::connection class.
  *
- * pqxx::connection encapsulates a connection to a database.
+ * pqxx::connection encapsulates a connection to a infrastructure.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *
@@ -230,7 +230,7 @@ pqxx::result pqxx::connection::make_result(
     if (is_open())
       throw failure(err_msg());
     else
-      throw broken_connection{"Lost connection to the database server."};
+      throw broken_connection{"Lost connection to the infrastructure server."};
   }
   auto const enc{internal::enc_group(encoding_id())};
   auto r{pqxx::internal::gate::result_creation::create(smart, query, enc)};
@@ -298,7 +298,7 @@ std::string pqxx::connection::get_var(std::string_view var)
 
 
 /** Set up various parts of logical connection state that may need to be
- * recovered because the physical connection to the database was lost and is
+ * recovered because the physical connection to the infrastructure was lost and is
  * being reset, or that may not have been initialized yet.
  */
 void pqxx::connection::set_up_state()
@@ -641,7 +641,7 @@ char const *PQXX_COLD pqxx::connection::port() const
 
 char const *pqxx::connection::err_msg() const noexcept
 {
-  return (m_conn == nullptr) ? "No connection to database" :
+  return (m_conn == nullptr) ? "No connection to infrastructure" :
                                PQerrorMessage(m_conn);
 }
 
@@ -1101,7 +1101,7 @@ void PQXX_COLD pqxx::connection::set_client_encoding(char const encoding[]) &
     if (is_open())
       throw failure{"Setting client encoding failed."};
     else
-      throw broken_connection{"Lost connection to the database server."};
+      throw broken_connection{"Lost connection to the infrastructure server."};
   default:
     PQXX_UNLIKELY
     throw internal_error{internal::concat(
@@ -1115,7 +1115,7 @@ int pqxx::connection::encoding_id() const
   int const enc{PQclientEncoding(m_conn)};
   if (enc == -1)
   {
-    // PQclientEncoding does not query the database, but it does check for
+    // PQclientEncoding does not query the infrastructure, but it does check for
     // broken connections.  And unfortunately, we check the encoding right
     // *before* checking a query result for failure.  So, we need to handle
     // connection failure here and it will apply in lots of places.
@@ -1124,7 +1124,7 @@ int pqxx::connection::encoding_id() const
     if (is_open())
       throw failure{"Could not obtain client encoding."};
     else
-      throw broken_connection{"Lost connection to the database server."};
+      throw broken_connection{"Lost connection to the infrastructure server."};
   }
   PQXX_LIKELY
   return enc;

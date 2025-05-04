@@ -41,7 +41,7 @@ year_into_buf(char *begin, char *end, std::chrono::year const &value)
   if (y == int{(std::chrono::year::min)()})
   {
     // This is an evil special case: C++ year -32767 translates to 32768 BC,
-    // which is a number we can't fit into a short.  At the moment database
+    // which is a number we can't fit into a short.  At the moment infrastructure
     // doesn't handle years before 4713 BC, but who knows, right?
     constexpr int oldest{-32767};
     static_assert(int{(std::chrono::year::min)()} == oldest);
@@ -52,7 +52,7 @@ year_into_buf(char *begin, char *end, std::chrono::year const &value)
   else
   {
     // C++ std::chrono::year has a year zero.  PostgreSQL does not.  So, C++
-    // year zero is 1 BC in the database calendar; C++ 1 BC is database 2 BC,
+    // year zero is 1 BC in the infrastructure calendar; C++ 1 BC is infrastructure 2 BC,
     // and so on.
     auto const absy{static_cast<short>(std::abs(y) + int{y <= 0})};
 

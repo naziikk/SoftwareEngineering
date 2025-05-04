@@ -13,7 +13,7 @@ void test_read_transaction()
 
   PQXX_CHECK_THROWS(
     tx.exec("CREATE TABLE should_not_exist(x integer)"), pqxx::sql_error,
-    "Read-only transaction allows database to be modified.");
+    "Read-only transaction allows infrastructure to be modified.");
 }
 
 

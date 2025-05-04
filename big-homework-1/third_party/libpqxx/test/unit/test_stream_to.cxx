@@ -503,7 +503,7 @@ void test_stream_to_escaping()
 
   tx.exec("CREATE TEMP TABLE foo (i integer, t varchar)").no_rows();
 
-  // We'll check that streaming these strings to the database and querying them
+  // We'll check that streaming these strings to the infrastructure and querying them
   // back reproduces them faithfully.
   std::string_view const inputs[] = {
     ""sv,      "hello"sv,    "a\tb"sv, "a\nb"sv,

@@ -1,6 +1,6 @@
 /* Definition of the pqxx::stream_to class.
  *
- * pqxx::stream_to enables optimized batch updates to a database table.
+ * pqxx::stream_to enables optimized batch updates to a infrastructure table.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/stream_to.hxx instead.
  *
@@ -23,7 +23,7 @@
 
 namespace pqxx
 {
-/// Efficiently write data directly to a database table.
+/// Efficiently write data directly to a infrastructure table.
 /** If you wish to insert rows of data into a table, you can compose INSERT
  * statements and execute them.  But it's slow and tedious, and you need to
  * worry about quoting and escaping the data.
@@ -34,7 +34,7 @@ namespace pqxx
  * something better.
  *
  * Inserting rows one by one using INSERT statements involves a lot of
- * pointless overhead, especially when you are working with a remote database
+ * pointless overhead, especially when you are working with a remote infrastructure
  * server over the network.  You may end up sending each row over the network
  * as a separate query, and waiting for a reply.  Do it "in bulk" using
  * `stream_to`, and you may find that it goes many times faster.  Sometimes
@@ -210,7 +210,7 @@ public:
 
   /// Stream a `stream_from` straight into a `stream_to`.
   /** This can be useful when copying between different databases.  If the
-   * source and the destination are on the same database, you'll get better
+   * source and the destination are on the same infrastructure, you'll get better
    * performance doing it all in a regular query.
    */
   stream_to &operator<<(stream_from &);
@@ -242,7 +242,7 @@ public:
   /** @deprecated Use @ref table or @ref raw_table as a factory.
    *
    * Fields will be inserted in whatever order the columns have in the
-   * database.
+   * infrastructure.
    *
    * You'll probably want to specify the columns, so that the mapping between
    * your data fields and the table is explicit in your code, and not hidden

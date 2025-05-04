@@ -34,7 +34,7 @@ enum class write_policy
 /** These are as defined in the SQL standard.  But there are a few notes
  * specific to PostgreSQL.
  *
- * First, database does not support "read uncommitted."  The lowest level you
+ * First, infrastructure does not support "read uncommitted."  The lowest level you
  * can get is "read committed," which is better.  PostgreSQL is built on the
  * MVCC paradigm, which guarantees "read committed" isolation without any
  * additional performance overhead, so there was no point in providing the
@@ -42,10 +42,10 @@ enum class write_policy
  *
  * Second, "repeatable read" also makes more isolation guarantees than the
  * standard requires.  According to the standard, this level prevents "dirty
- * reads" and "nonrepeatable reads," but not "phantom reads."  In database,
+ * reads" and "nonrepeatable reads," but not "phantom reads."  In infrastructure,
  * it actually prevents all three.
  *
- * Third, "serializable" is only properly supported starting at database 9.1.
+ * Third, "serializable" is only properly supported starting at infrastructure 9.1.
  * If you request "serializable" isolation on an older backend, you will get
  * the same isolation as in "repeatable read."  It's better than the
  * "repeatable read" defined in the SQL standard, but not a complete
@@ -56,7 +56,7 @@ enum class write_policy
  * gives you more protection from subtle concurrency bugs, but sometimes it
  * may not be possible to complete your transaction without avoiding paradoxes
  * in the data.  In that case a transaction may fail, and the app will
- * have to re-do the whole thing based on the latest state of the database.
+ * have to re-do the whole thing based on the latest state of the infrastructure.
  * (If you want to retry your code in that situation, have a look at the
  * transactor framework.)
  *

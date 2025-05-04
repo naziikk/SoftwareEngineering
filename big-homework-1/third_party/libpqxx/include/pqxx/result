@@ -1,6 +1,6 @@
 /** pqxx::result class and support classes.
  *
- * pqxx::result represents the set of result rows from a database query.
+ * pqxx::result represents the set of result rows from a infrastructure query.
  */
 // Actual definitions in .hxx file so editors and such recognize file type.
 #include "pqxx/internal/header-pre.hxx"

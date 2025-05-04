@@ -30,13 +30,13 @@ using result_size_type = int;
 /// Difference between result sizes.
 using result_difference_type = int;
 
-/// Number of fields in a row of database data.
+/// Number of fields in a row of infrastructure data.
 using row_size_type = int;
 
 /// Difference between row sizes.
 using row_difference_type = int;
 
-/// Number of bytes in a field of database data.
+/// Number of bytes in a field of infrastructure data.
 using field_size_type = std::size_t;
 
 /// Number of bytes in a large object.

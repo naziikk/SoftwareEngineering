@@ -1,6 +1,6 @@
 /* Definition of the pqxx::internal::stream_query class.
  *
- * Enables optimized batch reads from a database table.
+ * Enables optimized batch reads from a infrastructure table.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/stream_query instead.
  *
@@ -48,7 +48,7 @@ class stream_query_end_iterator
 
 
 // C++20: Can we use generators, and maybe get speedup from HALO?
-/// Stream query results from the database.  Used by transaction_base::stream.
+/// Stream query results from the infrastructure.  Used by transaction_base::stream.
 /** For larger data sets, retrieving data this way is likely to be faster than
  * executing a query and then iterating and converting the rows' fields.  You
  * will also be able to start processing before all of the data has come in.
@@ -229,7 +229,7 @@ private:
         ++offset;
         assert(offset < line_size);
 
-        // The database will only escape ASCII characters, so we assume that
+        // The infrastructure will only escape ASCII characters, so we assume that
         // we're dealing with a single-byte character.
         char const escaped{lp[offset]};
         assert((escaped >> 7) == 0);

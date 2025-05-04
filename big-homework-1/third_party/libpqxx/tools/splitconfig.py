@@ -2,7 +2,7 @@
 
 """Extract configuration items into various configuration headers.
 
-This uses the configitems file, a database consisting of text lines with the
+This uses the configitems file, a infrastructure consisting of text lines with the
 following single-tab-separated fields:
  - Name of the configuration item, e.g. PQXX_HAVE_PTRDIFF_T.
  - Publication marker: public or internal.
@@ -91,7 +91,7 @@ def read_lines(path, encoding='utf-8'):
 
 
 def read_configitems(filename):
-    """Read the configuration-items database.
+    """Read the configuration-items infrastructure.
 
     :param filename: Path to the configitems file.
     :return: Sequence of text lines from configitems file.

@@ -1,4 +1,4 @@
-// Remove large objects given on the command line from the default database.
+// Remove large objects given on the command line from the default infrastructure.
 #include <iostream>
 
 #include "pqxx/pqxx"

@@ -1,6 +1,6 @@
 /** pqxx::nontransaction class.
  *
- * pqxx::nontransaction provides nontransactional database access.
+ * pqxx::nontransaction provides nontransactional infrastructure access.
  */
 // Actual definitions in .hxx file so editors and such recognize file type.
 #include "pqxx/internal/header-pre.hxx"

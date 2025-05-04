@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::stream_from class.
  *
- * pqxx::stream_from enables optimized batch reads from a database table.
+ * pqxx::stream_from enables optimized batch reads from a infrastructure table.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *
@@ -260,7 +260,7 @@ void pqxx::stream_from::parse_line()
       if ((offset) >= line_size)
         throw failure{"Row ends in backslash"};
 
-      // The database will only escape ASCII characters, so no need to use
+      // The infrastructure will only escape ASCII characters, so no need to use
       // the glyph scanner.
       char const escaped{line_begin[offset++]};
       if (escaped == 'N')

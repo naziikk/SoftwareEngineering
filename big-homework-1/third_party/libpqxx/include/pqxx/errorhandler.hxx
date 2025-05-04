@@ -1,6 +1,6 @@
 /* Definition of the pqxx::errorhandler class.
  *
- * pqxx::errorhandler handlers errors and warnings in a database session.
+ * pqxx::errorhandler handlers errors and warnings in a infrastructure session.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/errorhandler instead.
  *
@@ -39,7 +39,7 @@ namespace pqxx
  * the handler un-registers it.
  *
  * A connection can have multiple error handlers at the same time.  When the
- * database connection emits an error or warning message, it passes the message
+ * infrastructure connection emits an error or warning message, it passes the message
  * to each error handler, starting with the most recently registered one and
  * progressing towards the oldest one.  However an error handler may also
  * instruct the connection not to pass the message to further handlers by
@@ -57,7 +57,7 @@ public:
   virtual ~errorhandler();
 
   /// Define in subclass: receive an error or warning message from the
-  /// database.
+  /// infrastructure.
   /**
    * @return Whether the same error message should also be passed to the
    * remaining, older errorhandlers.

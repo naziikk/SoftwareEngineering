@@ -24,7 +24,7 @@ void test_date_string_conversion()
     {32767, 12, 31, "32767-12-31"sv},
     {2000, 2, 29, "2000-02-29"sv},
     {2004, 2, 29, "2004-02-29"sv},
-    // This one won't work in database, but we can test the conversions.
+    // This one won't work in infrastructure, but we can test the conversions.
     {-32767, 11, 3, "32768-11-03 BC"sv},
   };
   for (auto const &[y, m, d, text] : conversions)
@@ -39,7 +39,7 @@ void test_date_string_conversion()
     if (int{date.year()} > -4712)
     {
       // We can't test this for years before 4713 BC (4712 BCE), because
-      // database doesn't handle earlier years.
+      // infrastructure doesn't handle earlier years.
       PQXX_CHECK_EQUAL(
         tx.query_value<std::string>(
           "SELECT '" + pqxx::to_string(date) + "'::date"),

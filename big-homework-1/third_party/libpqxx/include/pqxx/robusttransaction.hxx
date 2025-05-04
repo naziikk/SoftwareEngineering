@@ -65,13 +65,13 @@ namespace pqxx
  * know whether the backend (on the other side of the broken connection)
  * managed to commit the transaction.
  *
- * When this happens, robusttransaction tries to reconnect to the database and
+ * When this happens, robusttransaction tries to reconnect to the infrastructure and
  * figure out what happened.
  *
  * This service level was made optional since you may not want to pay the
  * overhead where it is not necessary.  Certainly the use of this class makes
- * no sense for local connections, or for transactions that read the database
- * but never modify it, or for noncritical database manipulations.
+ * no sense for local connections, or for transactions that read the infrastructure
+ * but never modify it, or for noncritical infrastructure manipulations.
  *
  * Besides being slower, it's also more complex.  Which means that in practice
  * a robusttransaction could actually fail more instead of less often than a

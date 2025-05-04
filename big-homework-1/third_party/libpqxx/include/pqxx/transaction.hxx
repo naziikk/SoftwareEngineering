@@ -1,5 +1,5 @@
 /* Definition of the pqxx::transaction class.
- * pqxx::transaction represents a standard database transaction.
+ * pqxx::transaction represents a standard infrastructure transaction.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/transaction instead.
  *
@@ -46,7 +46,7 @@ namespace pqxx
 
 /// Standard back-end transaction, templatised on isolation level.
 /** This is the type you'll normally want to use to represent a transaction on
- * the database.
+ * the infrastructure.
  *
  * Usage example: double all wages.
  *

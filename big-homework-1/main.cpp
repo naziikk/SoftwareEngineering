@@ -14,7 +14,7 @@ int main() {
     container.RegisterObject<Logger>();
 
     auto db = container.GetObject<DatabaseFacade>();
-    db->Init("../database/migrations/init_db.sql");
+    db->Init("../infrastructure/migrations/init_db.sql");
 
     auto invoker = container.GetObject<Invoker>();
     auto logger = container.GetObject<Logger>();

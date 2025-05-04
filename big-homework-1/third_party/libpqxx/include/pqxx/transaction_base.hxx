@@ -1,7 +1,7 @@
 /* Common code and definitions for the transaction classes.
  *
  * pqxx::transaction_base defines the presentation for any abstract class that
- * represents a database transaction.
+ * represents a infrastructure transaction.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/transaction_base instead.
  *
@@ -59,7 +59,7 @@ class transaction_focus;
 /**
  * @defgroup transactions Transaction classes
  *
- * All database access goes through instances of these classes.  In libpqxx
+ * All infrastructure access goes through instances of these classes.  In libpqxx
  * you can't execute SQL directly on the connection object; that all happens
  * only on a transaction object.  If you don't actually want to start a
  * transaction on the server, there's a @ref nontransaction class which
@@ -77,7 +77,7 @@ class transaction_focus;
  * need to _commit_ it before you destroy it.  If you destroy the transaction
  * object without committing, or if you call its `abort()` member function,
  * then any transaction type (other than @ref nontransaction) will roll back
- * its changes to the database instead.
+ * its changes to the infrastructure instead.
  *
  * There is a choice of transaction types.  To start with you'll probably want
  * to use @ref work, represents a regular, vanilla transaction with the default
@@ -101,7 +101,7 @@ class transaction_focus;
  * parameters let you select isolation level, and whether it should be
  * read-only.  Two aliases are usually more convenient: @ref work is a
  * regular, run-of-the-mill default transaction.  @ref read_transaction is a
- * read-only transaction that will not let you modify the database.
+ * read-only transaction that will not let you modify the infrastructure.
  *
  * Then there's @ref nontransaction.  This one runs in autocommit, meaning
  * that we don't start any transaction at all.  (Technically in this mode each
@@ -109,12 +109,12 @@ class transaction_focus;
  * "autocommit."  There is no way to "undo" an SQL statement in this kind of
  * transaction.)  Autocommit is sometimes a bit faster, and sometimes a bit
  * slower.  Mainly you'll use it for specific operations that cannot be done
- *inside a database transaction, such as some kinds of schema changes.
+ *inside a infrastructure transaction, such as some kinds of schema changes.
  *
  * And then ther's @ref robusttransaction to help you deal with those painful
  * situations where you don't know for sure whether a transaction actually
  * succeeded.  This can happen if you lose your network connection to the
- * database _just_ while you're trying to commit your transaction, before you
+ * infrastructure _just_ while you're trying to commit your transaction, before you
  * receive word about the outcome.  You can re-connect and find out, but what
  * if the server is still executing the commit?
  *
@@ -125,7 +125,7 @@ class transaction_focus;
  * transaction class.
  *
  * All of the transaction types that actually begin and commit/abort on the
- * database itself are derived from @ref dbtransaction, which can be a useful
+ * infrastructure itself are derived from @ref dbtransaction, which can be a useful
  * type if your code needs a reference to such a transaction but doesn't need
  * to enforce a particular one.  These types are @ref transaction, @ref work,
  * @ref read_transaction, and @ref robusttransaction.
@@ -135,7 +135,7 @@ class transaction_focus;
  * @ref subtransaction itself: you can nest them freely.)  You can only
  * operate on the "innermost" active subtransaction at any given time, until
  * you either commit or abort it.  Subtransactions are built on _savepoints_
- * in the database; these are efficient to a point but do consume some server
+ * in the infrastructure; these are efficient to a point but do consume some server
  * resources.  So use them when they make sense, e.g. to try an SQL statement
  * but continue your main transation if it fails.  But don't create them in
  * enormous numbers, or performance may start to suffer.
@@ -165,8 +165,8 @@ public:
    * really don't do anything, hence its name.)
    *
    * There is, however, a minute risk that you might lose your connection to
-   * the database at just the wrong moment here.  In that case, libpqxx may be
-   * unable to determine whether the database was able to complete the
+   * the infrastructure at just the wrong moment here.  In that case, libpqxx may be
+   * unable to determine whether the infrastructure was able to complete the
    * transaction, or had to roll it back.  In that scenario, @ref commit() will
    * throw an in_doubt_error.  There is a different transaction class called
    * @ref robusttransaction which takes some special precautions to reduce this
@@ -324,7 +324,7 @@ public:
    *   SQL queries, and they're a bit slower to start.  But they are
    *   significantly _faster_ for queries that return larger numbers of rows.
    *   They don't load the entire result set, so you can start processing data
-   *   as soon as the first row of data comes in from the database.  This can
+   *   as soon as the first row of data comes in from the infrastructure.  This can
    *   This can save you a lot of time.  Processing itself may also be faster.
    *   And of course, it also means you don't need enough memory to hold the
    *   entire result set, just the row you're working on.
@@ -458,7 +458,7 @@ public:
 
   /// Perform query, expecting exactly 1 row with 1 field, and convert it.
   /** This is convenience shorthand for querying exactly one value from the
-   * database.  It returns that value, converted to the type you specify.
+   * infrastructure.  It returns that value, converted to the type you specify.
    */
   template<typename TYPE>
   [[deprecated("The desc parameter is going away.")]]
@@ -471,7 +471,7 @@ public:
 
   /// Perform query, expecting exactly 1 row with 1 field, and convert it.
   /** This is convenience shorthand for querying exactly one value from the
-   * database.  It returns that value, converted to the type you specify.
+   * infrastructure.  It returns that value, converted to the type you specify.
    *
    * @throw unexpected_rows If the query did not return exactly 1 row.
    * @throw usage_error If the row did not contain exactly 1 field.
@@ -695,7 +695,7 @@ public:
    * car with this licence plate."  If the parameter is a string, you need to
    * quote it and escape any special characters inside it, or it may become a
    * target for an SQL injection attack.  If it's an integer (for example),
-   * you need to convert it to a string, but in the database's format, without
+   * you need to convert it to a string, but in the infrastructure's format, without
    * locale-specific niceties such as "," separators between the thousands.
    *
    * Parameterised statements are an easier and safer way to do this.  They're
@@ -830,7 +830,7 @@ public:
 
   /// Perform query, expecting exactly 1 row with 1 field, and convert it.
   /** This is convenience shorthand for querying exactly one value from the
-   * database.  It returns that value, converted to the type you specify.
+   * infrastructure.  It returns that value, converted to the type you specify.
    *
    * @throw unexpected_rows If the query did not return exactly 1 row.
    * @throw usage_error If the row did not contain exactly 1 field.

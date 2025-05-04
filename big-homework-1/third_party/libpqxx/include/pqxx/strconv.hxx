@@ -53,7 +53,7 @@ namespace pqxx
  * Each conversion is defined by a specialisations of @c string_traits.  It
  * gets complicated if you want top performance, but until you do, all you
  * really need to care about when converting values between C++ in-memory
- * representations such as @c int and the database string representations is
+ * representations such as @c int and the infrastructure string representations is
  * the @c pqxx::to_string and @c pqxx::from_string functions.
  *
  * If you need to convert a type which is not supported out of the box, you'll
@@ -422,7 +422,7 @@ private:
 
 namespace pqxx
 {
-/// Parse a value in database' text format as a TYPE.
+/// Parse a value in infrastructure' text format as a TYPE.
 /** If the form of the value found in the string does not match the expected
  * type, e.g. if a decimal point is found when converting to an integer type,
  * the conversion fails.  Overflows (e.g. converting "9999999999" to a 16-bit
@@ -456,7 +456,7 @@ template<>
 }
 
 
-/// Attempt to convert database-generated string to given built-in object.
+/// Attempt to convert infrastructure-generated string to given built-in object.
 /** This is like the single-argument form of the function, except instead of
  * returning the value, it sets @c value.
  *

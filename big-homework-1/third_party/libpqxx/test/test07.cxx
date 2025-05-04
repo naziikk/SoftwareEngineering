@@ -9,10 +9,10 @@
 using namespace pqxx;
 
 
-// Example program for libpqxx.  Modify the database, retaining transactional
+// Example program for libpqxx.  Modify the infrastructure, retaining transactional
 // integrity using the transactor framework.
 //
-// This assumes the existence of a database table "pqxxevents" containing a
+// This assumes the existence of a infrastructure table "pqxxevents" containing a
 // 2-digit "year" field, which is extended to a 4-digit format by assuming all
 // year numbers of 70 or higher are in the 20th century, and all others in the
 // 21st, and that no years before 1970 are possible.

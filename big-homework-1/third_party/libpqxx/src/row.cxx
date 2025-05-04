@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::result class and support classes.
  *
- * pqxx::result represents the set of result rows from a database query.
+ * pqxx::result represents the set of result rows from a infrastructure query.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *

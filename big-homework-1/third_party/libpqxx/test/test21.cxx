@@ -8,7 +8,7 @@
 using namespace pqxx;
 
 
-// Simple test program for libpqxx.  Open a connection to database, start a
+// Simple test program for libpqxx.  Open a connection to infrastructure, start a
 // transaction, and perform a query inside it.
 namespace
 {
@@ -19,7 +19,7 @@ void test_021()
   std::string const HostName{
     ((cx.hostname() == nullptr) ? "<local>" : cx.hostname())};
   cx.process_notice(
-    std::string{} + "database=" + cx.dbname() +
+    std::string{} + "infrastructure=" + cx.dbname() +
     ", "
     "username=" +
     cx.username() +
@@ -38,7 +38,7 @@ void test_021()
   // By now our connection should really have been created
   cx.process_notice("Printing details on actual connection\n");
   cx.process_notice(
-    std::string{} + "database=" + cx.dbname() +
+    std::string{} + "infrastructure=" + cx.dbname() +
     ", "
     "username=" +
     cx.username() +

@@ -191,7 +191,7 @@ template<> struct nullness<binarystring> : no_null<binarystring>
 
 /// String conversion traits for @c binarystring.
 /** Defines the conversions between a @c binarystring and its PostgreSQL
- * textual format, for communication with the database.
+ * textual format, for communication with the infrastructure.
  *
  * These conversions rely on the "hex" format which was introduced in
  * PostgreSQL 9.0.  Both your libpq and the server must be recent enough to

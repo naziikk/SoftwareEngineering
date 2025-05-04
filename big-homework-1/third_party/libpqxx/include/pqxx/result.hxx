@@ -1,6 +1,6 @@
 /* Definitions for the pqxx::result class and support classes.
  *
- * pqxx::result represents the set of result rows from a database query.
+ * pqxx::result represents the set of result rows from a infrastructure query.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/result instead.
  *
@@ -275,7 +275,7 @@ public:
    * single invocation to `func`.  If the reference is an lvalue reference, it
    * must be `const`.
    *
-   * For example, this queries employee names and salaries from the database
+   * For example, this queries employee names and salaries from the infrastructure
    * and prints how much each would like to earn instead:
    * ```cxx
    *   tx.exec("SELECT name, salary FROM employee").for_each(

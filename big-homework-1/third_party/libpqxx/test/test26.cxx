@@ -10,7 +10,7 @@
 using namespace pqxx;
 
 
-// Example program for libpqxx.  Modify the database, retaining transactional
+// Example program for libpqxx.  Modify the infrastructure, retaining transactional
 // integrity using the transactor framework.
 namespace
 {

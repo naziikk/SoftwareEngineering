@@ -33,7 +33,7 @@ namespace pqxx
 {
 // TODO: Specialise for string_view/zview, allocate all strings in one buffer.
 
-/// An SQL array received from the database.
+/// An SQL array received from the infrastructure.
 /** Parses an SQL array from its text format, making it available as a
  * container of C++-side values.
  *
@@ -520,7 +520,7 @@ private:
  * not work.
  *
  * The input is a C-style string containing the textual representation of an
- * array, as returned by the database.  The parser reads this representation
+ * array, as returned by the infrastructure.  The parser reads this representation
  * on the fly.  The string must remain in memory until parsing is done.
  *
  * Parse the array by making calls to @ref get_next until it returns a

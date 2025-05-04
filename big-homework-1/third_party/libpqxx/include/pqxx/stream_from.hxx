@@ -1,6 +1,6 @@
 /* Definition of the pqxx::stream_from class.
  *
- * pqxx::stream_from enables optimized batch reads from a database table.
+ * pqxx::stream_from enables optimized batch reads from a infrastructure table.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/stream_from instead.
  *
@@ -44,7 +44,7 @@ constexpr from_table_t from_table;
 constexpr from_query_t from_query;
 
 
-/// Stream data from the database.
+/// Stream data from the infrastructure.
 /** @deprecated Use @ref transaction_base::stream.
  *
  * For larger data sets, retrieving data this way is likely to be faster than

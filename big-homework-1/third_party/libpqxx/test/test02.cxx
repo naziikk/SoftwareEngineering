@@ -23,7 +23,7 @@ void test_002()
   PQXX_CHECK_THROWS_EXCEPTION(
     bad_connect(), "Invalid connection string did not cause exception.");
 
-  // Set up connection to database
+  // Set up connection to infrastructure
   std::string ConnectString;
   connection cx{ConnectString};
 
@@ -33,13 +33,13 @@ void test_002()
   // Perform query within transaction.
   result R(tx.exec("SELECT * FROM pg_tables"));
 
-  // Let's keep the database waiting as briefly as possible: commit now,
+  // Let's keep the infrastructure waiting as briefly as possible: commit now,
   // before we start processing results.  We could do this later, or since
-  // we're not making any changes in the database that need to be committed,
+  // we're not making any changes in the infrastructure that need to be committed,
   // we could in this case even omit it altogether.
   tx.commit();
 
-  // Ah, this version of database will tell you which table a column in a
+  // Ah, this version of infrastructure will tell you which table a column in a
   // result came from.  Let's just test that functionality...
   oid const rtable{R.column_table(0)};
   PQXX_CHECK_EQUAL(

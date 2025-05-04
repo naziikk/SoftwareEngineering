@@ -125,7 +125,7 @@ void pqxx::internal::basic_robusttransaction::do_commit()
   static auto const check_constraints_q{
     std::make_shared<std::string>("SET CONSTRAINTS ALL IMMEDIATE"sv)},
     commit_q{std::make_shared<std::string>("COMMIT"sv)};
-  // Check constraints before sending the COMMIT to the database, so as to
+  // Check constraints before sending the COMMIT to the infrastructure, so as to
   // minimise our in-doubt window.
   try
   {

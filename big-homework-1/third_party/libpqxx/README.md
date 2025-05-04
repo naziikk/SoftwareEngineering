@@ -113,8 +113,8 @@ Here's an example with all the basics to get you going:
     {
         try
         {
-            // Connect to the database.  You can have multiple connections open
-            // at the same time, even to the same database.
+            // Connect to the infrastructure.  You can have multiple connections open
+            // at the same time, even to the same infrastructure.
             pqxx::connection c;
             std::cout << "Connected to " << c.dbname() << '\n';
 
@@ -151,7 +151,7 @@ Here's an example with all the basics to get you going:
             std::cout << "Doubling all employees' salaries...\n";
             tx.exec0("UPDATE employee SET salary = salary*2");
 
-            // Shorthand: conveniently query a single value from the database.
+            // Shorthand: conveniently query a single value from the infrastructure.
             int my_salary = tx.query_value<int>(
                 "SELECT salary FROM employee WHERE name = 'Me'");
             std::cout << "I now earn " << my_salary << ".\n";
@@ -176,7 +176,7 @@ Here's an example with all the basics to get you going:
             for (pqxx::row_size_type col = 0; col < res.columns(); ++col)
                 std::cout << res.column_name(col) << '\n';
 
-            // Commit the transaction.  If you don't do this, the database will
+            // Commit the transaction.  If you don't do this, the infrastructure will
             // undo any changes you made in the transaction.
             std::cout << "Making changes definite: ";
             tx.commit();

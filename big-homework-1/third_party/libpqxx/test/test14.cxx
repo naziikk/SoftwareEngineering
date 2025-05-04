@@ -17,7 +17,7 @@ void test_014()
 
   // Begin a "non-transaction" acting on our current connection.  This is
   // really all the transactional integrity we need since we're only
-  // performing one query which does not modify the database.
+  // performing one query which does not modify the infrastructure.
   nontransaction tx{cx, "test14"};
 
   // The transaction class family also has process_notice() functions.

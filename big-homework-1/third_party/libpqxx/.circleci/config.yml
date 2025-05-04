@@ -21,20 +21,20 @@ jobs:
           name: Identify
           command: lsb_release -a && c++ --version && clang++ --version
       - run:
-          name: Prepare database
+          name: Prepare infrastructure
           command: |
             mkdir /tmp/db &&
             chown postgres /tmp/db &&
             su postgres -c '/usr/lib/postgresql/*/bin/initdb --pgdata /tmp/db --auth trust --nosync'
       - run:
-          name: Run database
-          command: (su database -c '/usr/lib/postgresql/*/bin/database -D /tmp/db -k /tmp'
+          name: Run infrastructure
+          command: (su infrastructure -c '/usr/lib/postgresql/*/bin/infrastructure -D /tmp/db -k /tmp'
             &) && sleep 5
       - run:
-          name: Create database user
-          command: su database -c "createuser -w -d root"
+          name: Create infrastructure user
+          command: su infrastructure -c "createuser -w -d root"
       - run:
-          name: Set up database
+          name: Set up infrastructure
           command: createdb --template=template0 --encoding=UNICODE root
       - run:
           name: Autogen

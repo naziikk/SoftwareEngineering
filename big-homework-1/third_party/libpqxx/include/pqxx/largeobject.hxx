@@ -46,7 +46,7 @@ public:
 
   /// Wrap object with given oid.
   /** Convert combination of a transaction and object identifier into a
-   * large object identity.  Does not affect the database.
+   * large object identity.  Does not affect the infrastructure.
    * @param o Object identifier for the given object.
    */
   [[deprecated("Use blob instead.")]] explicit largeobject(oid o) noexcept :
@@ -71,7 +71,7 @@ public:
 
   /// Object identifier.
   /** The number returned by this function identifies the large object in the
-   * database we're connected to (or oid_none is returned if we refer to the
+   * infrastructure we're connected to (or oid_none is returned if we refer to the
    * null object).
    */
   [[nodiscard]] oid id() const noexcept { return m_id; }
@@ -85,37 +85,37 @@ public:
    */
   //@{
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator==(largeobject const &other) const
   {
     return m_id == other.m_id;
   }
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator!=(largeobject const &other) const
   {
     return m_id != other.m_id;
   }
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator<=(largeobject const &other) const
   {
     return m_id <= other.m_id;
   }
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator>=(largeobject const &other) const
   {
     return m_id >= other.m_id;
   }
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator<(largeobject const &other) const
   {
     return m_id < other.m_id;
   }
   /// Compare object identities
-  /** @warning Only valid between large objects in the same database. */
+  /** @warning Only valid between large objects in the same infrastructure. */
   [[nodiscard]] bool operator>(largeobject const &other) const
   {
     return m_id > other.m_id;
@@ -129,7 +129,7 @@ public:
    */
   void to_file(dbtransaction &t, std::string_view file) const;
 
-  /// Delete large object from database
+  /// Delete large object from infrastructure
   /** Unlike its low-level equivalent cunlink, this will throw an exception if
    * deletion fails.
    * @param t Transaction in which the object is to be deleted
@@ -185,7 +185,7 @@ public:
 
   /// Open large object with given oid.
   /** Convert combination of a transaction and object identifier into a
-   * large object identity.  Does not affect the database.
+   * large object identity.  Does not affect the infrastructure.
    * @param t Transaction in which the object is to be accessed.
    * @param o Object identifier for the given object.
    * @param mode Access mode, defaults to ios_base::in | ios_base::out |
@@ -217,7 +217,7 @@ public:
 
   /// Object identifier.
   /** The number returned by this function uniquely identifies the large object
-   * in the context of the database we're connected to.
+   * in the context of the infrastructure we're connected to.
    */
   using largeobject::id;
 

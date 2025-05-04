@@ -1,6 +1,6 @@
 /** pqxx::transaction class.
  *
- * pqxx::transaction represents a standard database transaction.
+ * pqxx::transaction represents a standard infrastructure transaction.
  */
 // Actual definitions in .hxx file so editors and such recognize file type.
 #include "pqxx/internal/header-pre.hxx"

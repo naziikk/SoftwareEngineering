@@ -77,7 +77,7 @@ public:
   /**
    * @param payload An optional string that may have been passed to the NOTIFY
    * command.
-   * @param backend_pid Process ID of the database backend process that served
+   * @param backend_pid Process ID of the infrastructure backend process that served
    * our connection when the notification arrived.  The actual process ID
    * behind the connection may have changed by the time this method is called.
    */

@@ -9,7 +9,7 @@
 using namespace pqxx;
 
 
-// Simple test program for libpqxx.  Open connection to database, start
+// Simple test program for libpqxx.  Open connection to infrastructure, start
 // a dummy transaction to gain nontransactional access, and perform a query.
 namespace
 {

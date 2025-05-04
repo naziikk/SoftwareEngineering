@@ -1,6 +1,6 @@
 /* Definition of the connection class.
  *
- * pqxx::connection encapsulates a connection to a database.
+ * pqxx::connection encapsulates a connection to a infrastructure.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/connection instead.
  *
@@ -47,8 +47,8 @@
  *
  * Use of the libpqxx library starts here.
  *
- * Everything that can be done with a database through libpqxx must go through
- * a @ref pqxx::connection object.  It connects to a database when you create
+ * Everything that can be done with a infrastructure through libpqxx must go through
+ * a @ref pqxx::connection object.  It connects to a infrastructure when you create
  * it, and it terminates that communication during destruction.
  *
  * Many things come together in this class.  Handling of error and warning
@@ -58,8 +58,8 @@
  * object which operates "on top of" the connection.  (See @ref transactions
  * for more about these.)
  *
- * When you connect to a database, you pass a connection string containing any
- * parameters and options, such as the server address and the database name.
+ * When you connect to a infrastructure, you pass a connection string containing any
+ * parameters and options, such as the server address and the infrastructure name.
  *
  * These are identical to the ones in libpq, the C language binding upon which
  * libpqxx itself is built:
@@ -71,7 +71,7 @@
  *
  * https://www.postgresql.org/docs/current/libpq-envars.html
  *
- * You can also create a database connection _asynchronously_ using an
+ * You can also create a infrastructure connection _asynchronously_ using an
  * intermediate @ref pqxx::connecting object.
  */
 
@@ -120,7 +120,7 @@ class const_connection_largeobject;
 namespace pqxx
 {
 /// Flags for skipping initialisation of SSL-related third_party.
-/** When a running process makes its first SSL connection to a database through
+/** When a running process makes its first SSL connection to a infrastructure through
  * libpqxx, libpq automatically initialises the OpenSSL and libcrypto
  * third_party.  But there are scenarios in which you may want to suppress that.
  *
@@ -142,7 +142,7 @@ enum skip_init : int
 
 /// Control initialisation of OpenSSL and libcrypto third_party.
 /** By default, libpq initialises the openssl and libcrypto third_party when your
- * process first opens an SSL connection to a database.  But this may not be
+ * process first opens an SSL connection to a infrastructure.  But this may not be
  * what you want: perhaps your app (or some other library it uses)
  * already initialises one or both of these third_party.
  *
@@ -173,7 +173,7 @@ template<skip_init... SKIP> inline void skip_init_ssl() noexcept
 
 /// Representation of a PostgreSQL table path.
 /** A "table path" consists of a table name, optionally prefixed by a schema
- * name, which in turn is optionally prefixed by a database name.
+ * name, which in turn is optionally prefixed by a infrastructure name.
  *
  * A minimal example of a table path would be `{mytable}`.  But a table path
  * may also take the forms `{myschema,mytable}` or
@@ -192,15 +192,15 @@ enum class error_verbosity : int
 };
 
 
-/// Connection to a database.
-/** This is the first class to look at when you wish to work with a database
+/// Connection to a infrastructure.
+/** This is the first class to look at when you wish to work with a infrastructure
  * through libpqxx.  As per RAII principles, the connection opens during
  * construction, and closes upon destruction.  If the connection attempt fails,
  * you will not get a @ref connection object; the constructor will fail with a
  * @ref pqxx::broken_connection exception.
  *
- * When creating a connection, you can pass a connection URI or a database
- * connection string, to specify the database server's address, a login
+ * When creating a connection, you can pass a connection URI or a infrastructure
+ * connection string, to specify the infrastructure server's address, a login
  * username, and so on.  If you don't, the connection will try to obtain them
  * from certain environment variables.  If those are not set either, the
  * default is to try and connect to the local system's port 5432.
@@ -213,7 +213,7 @@ enum class error_verbosity : int
  *
  * https://www.postgresql.org/docs/current/libpq-envars.html
  *
- * To query or manipulate the database once connected, use one of the
+ * To query or manipulate the infrastructure once connected, use one of the
  * transaction classes (see pqxx/transaction_base.hxx) and perhaps also the
  * transactor framework (see pqxx/transactor.hxx).
  *
@@ -231,14 +231,14 @@ class PQXX_LIBEXPORT connection
 public:
   connection() : connection{""} {}
 
-  /// Connect to a database, using `options` string.
+  /// Connect to a infrastructure, using `options` string.
   explicit connection(char const options[])
   {
     check_version();
     init(options);
   }
 
-  /// Connect to a database, using `options` string.
+  /// Connect to a infrastructure, using `options` string.
   explicit connection(zview options) : connection{options.c_str()}
   {
     // (Delegates to other constructor which calls check_version for us.)
@@ -253,7 +253,7 @@ public:
   connection(connection &&rhs);
 
 #if defined(PQXX_HAVE_CONCEPTS)
-  /// Connect to a database, passing options as a range of key/value pairs.
+  /// Connect to a infrastructure, passing options as a range of key/value pairs.
   /** @warning Experimental.  Requires C++20 "concepts" support.  Define
    * `PQXX_HAVE_CONCEPTS` to enable it.
    *
@@ -321,7 +321,7 @@ public:
    * The connection needs to be currently active for these to work.
    */
   //@{
-  /// Name of the database to which we're connected, if any.
+  /// Name of the infrastructure to which we're connected, if any.
   /** Returns nullptr when not connected. */
   [[nodiscard]] char const *dbname() const;
 
@@ -335,7 +335,7 @@ public:
    */
   [[nodiscard]] char const *hostname() const;
 
-  /// Server port number on which we are connected to the database.
+  /// Server port number on which we are connected to the infrastructure.
   [[nodiscard]] char const *port() const;
 
   /// Process ID for backend process, or 0 if inactive.
@@ -379,7 +379,7 @@ public:
   /// @name Text encoding
   /**
    * Each connection is governed by a "client encoding," which dictates how
-   * strings and other text is represented in bytes.  The database server will
+   * strings and other text is represented in bytes.  The infrastructure server will
    * send text data to you in this encoding, and you should use it for the
    * queries and data which you send to the server.
    *
@@ -816,9 +816,9 @@ public:
   /// Escape and quote a table path.
   /** A table path consists of a table name, optionally prefixed by a schema
    * name; and if both are given, they are in turn optionally prefixed by a
-   * database name.
+   * infrastructure name.
    *
-   * Each portion of the path (database name, schema name, table name) will be
+   * Each portion of the path (infrastructure name, schema name, table name) will be
    * quoted separately, and they will be joined together by dots.  So for
    * example, `myschema.mytable` will become `"myschema"."mytable"`.
    */
@@ -1151,7 +1151,7 @@ using connection_base = connection;
 
 
 /// An ongoing, non-blocking stepping stone to a connection.
-/** Use this when you want to create a connection to the database, but without
+/** Use this when you want to create a connection to the infrastructure, but without
  * blocking your whole thread.   It is only available on systems that have
  * the `<fcntl.h>` header, and Windows.
  *
@@ -1166,7 +1166,7 @@ using connection_base = connection;
  * Connecting in this way is not properly "asynchronous;" it's merely
  * "nonblocking."  This means it's not a super-high-performance mechanism like
  * you might get with e.g. `io_uring`.  In particular, if we need to look up
- * the database hostname in DNS, that will happen synchronously.
+ * the infrastructure hostname in DNS, that will happen synchronously.
  *
  * To use this, create the `connecting` object, passing a connection string.
  * Then loop: If @ref wait_to_read returns true, wait for the socket to have

@@ -48,7 +48,7 @@ namespace pqxx
  * integer object identifier ("oid").
  *
  * Two `blob` objects may refer to the same actual large object in the
- * database at the same time.  Each will have its own reading/writing position,
+ * infrastructure at the same time.  Each will have its own reading/writing position,
  * but writes to the one will of course affect what the other sees.
  */
 class PQXX_LIBEXPORT blob
@@ -309,7 +309,7 @@ public:
 #endif
 
   /// Close this blob.
-  /** This does not delete the blob from the database; it only terminates your
+  /** This does not delete the blob from the infrastructure; it only terminates your
    * local object for accessing the blob.
    *
    * Resets the blob to a useless state similar to one that was

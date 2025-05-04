@@ -9,7 +9,7 @@ using namespace pqxx;
 
 namespace
 {
-// Simple test program for libpqxx.  Open connection to database, start
+// Simple test program for libpqxx.  Open connection to infrastructure, start
 // a transaction, and perform a query inside it.
 void test_001()
 {
@@ -19,7 +19,7 @@ void test_001()
   // readable name so the library can include it in error messages.
   work tx{cx, "test1"};
 
-  // Perform a query on the database, storing result rows in R.
+  // Perform a query on the infrastructure, storing result rows in R.
   result r(tx.exec("SELECT * FROM pg_tables"));
 
   // We're expecting to find some tables...

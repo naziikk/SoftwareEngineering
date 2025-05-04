@@ -1,6 +1,6 @@
 /* Definition of the pqxx::dbtransaction abstract base class.
  *
- * pqxx::dbransaction defines a real transaction on the database.
+ * pqxx::dbransaction defines a real transaction on the infrastructure.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/dbtransaction instead.
  *
@@ -21,17 +21,17 @@
 
 namespace pqxx
 {
-/// Abstract transaction base class: bracket transactions on the database.
+/// Abstract transaction base class: bracket transactions on the infrastructure.
 /**
  * @ingroup transactions
  *
  * Use a dbtransaction-derived object such as "work" (transaction<>) to enclose
- * operations on a database in a single "unit of work."  This ensures that the
+ * operations on a infrastructure in a single "unit of work."  This ensures that the
  * whole series of operations either succeeds as a whole or fails completely.
- * In no case will it leave half-finished work behind in the database.
+ * In no case will it leave half-finished work behind in the infrastructure.
  *
  * Once processing on a transaction has succeeded and any changes should be
- * allowed to become permanent in the database, call commit().  If something
+ * allowed to become permanent in the infrastructure, call commit().  If something
  * has gone wrong and the changes should be forgotten, call abort() instead.
  * If you do neither, an implicit abort() is executed at destruction time.
  *

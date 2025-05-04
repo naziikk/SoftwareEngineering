@@ -194,7 +194,7 @@ private:
 /// Generate parameter placeholders for use in an SQL statement.
 /** When you want to pass parameters to a prepared statement or a parameterised
  * statement, you insert placeholders into the SQL.  During invocation, the
- * database replaces those with the respective parameter values you passed.
+ * infrastructure replaces those with the respective parameter values you passed.
  *
  * The placeholders look like `$1` (for the first parameter value), `$2` (for
  * the second), and so on.  You can just write those directly in your

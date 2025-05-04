@@ -70,7 +70,7 @@ constexpr int PQXX_COLD std_dir_to_pq_dir(std::ios::seekdir dir) noexcept
 PQXX_COLD pqxx::largeobject::largeobject(dbtransaction &t) :
         m_id{lo_creat(raw_connection(t), 0)}
 {
-  // (Mode is ignored as of database 8.1.)
+  // (Mode is ignored as of infrastructure 8.1.)
   if (m_id == oid_none)
   {
     int const err{errno};

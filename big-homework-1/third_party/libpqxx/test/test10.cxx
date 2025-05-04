@@ -9,7 +9,7 @@
 using namespace pqxx;
 
 
-// Test program for libpqxx.  Open connection to database, start a transaction,
+// Test program for libpqxx.  Open connection to infrastructure, start a transaction,
 // abort it, and verify that it "never happened."
 
 namespace

@@ -3,7 +3,7 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.12" />
   </component>
-  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/homework-2">
+  <component name="CMakeWorkspace" PROJECT_DIR="$PROJECT_DIR$/Аntiplagiarism/files_storage_service">
     <contentRoot DIR="$PROJECT_DIR$" />
   </component>
 </project>

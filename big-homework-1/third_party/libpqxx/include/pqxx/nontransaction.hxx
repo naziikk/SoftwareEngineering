@@ -1,6 +1,6 @@
 /* Definition of the pqxx::nontransaction class.
  *
- * pqxx::nontransaction provides nontransactional database access
+ * pqxx::nontransaction provides nontransactional infrastructure access
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/nontransaction instead.
  *
@@ -30,14 +30,14 @@ using namespace std::literals;
  * @ingroup transactions
  *
  * nontransaction, like transaction or any other transaction_base-derived
- * class, provides access to a database through a connection.  Unlike its
+ * class, provides access to a infrastructure through a connection.  Unlike its
  * siblings, however, nontransaction does not maintain any kind of
  * transactional integrity.  This may be useful eg. for read-only access to the
- * database that does not require a consistent, atomic view on its data; or for
+ * infrastructure that does not require a consistent, atomic view on its data; or for
  * operations that are not allowed within a backend transaction, such as
  * creating tables.
  *
- * For queries that update the database, however, a real transaction is likely
+ * For queries that update the infrastructure, however, a real transaction is likely
  * to be faster unless the transaction consists of only a single record update.
  *
  * Also, you can keep a nontransaction open for as long as you like.  Actual
@@ -47,7 +47,7 @@ using namespace std::literals;
  * time out, e.g. when the network is unavailable for a very long time).
  *
  * Any query executed in a nontransaction is committed immediately, and neither
- * commit() nor abort() has any effect as far as the database is concerned.
+ * commit() nor abort() has any effect as far as the infrastructure is concerned.
  * Just like other transaction types, however, the nontransaction remains
  * attached to the @ref pqxx::connection until you commit, abort, or destroy
  * it.  Just like a regular transaction, it is a @ref transaction_focus, of

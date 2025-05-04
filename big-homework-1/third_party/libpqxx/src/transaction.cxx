@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::transaction class.
  *
- * pqxx::transaction represents a regular database transaction.
+ * pqxx::transaction represents a regular infrastructure transaction.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *
@@ -67,7 +67,7 @@ void pqxx::internal::basic_transaction::do_commit()
   catch (statement_completion_unknown const &e)
   {
     // Outcome of "commit" is unknown.  This is a disaster: we don't know the
-    // resulting state of the database.
+    // resulting state of the infrastructure.
     process_notice(internal::concat(e.what(), "\n"));
 
     std::string msg{internal::concat(
