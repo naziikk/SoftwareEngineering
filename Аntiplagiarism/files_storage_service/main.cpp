@@ -32,7 +32,7 @@ int main() {
         });
 
     } catch (...) {
-        std::cerr << "Some shit happens" << std::endl;
+        std::cerr << "Some shit happens" << '\n';
         return 1;
     }
 
