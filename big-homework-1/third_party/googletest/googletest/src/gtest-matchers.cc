@@ -29,7 +29,7 @@
 
 // The Google C++ Testing and Mocking Framework (Google Test)
 //
-// This file implements just enough of the matcher presentation to allow
+// This file implements just enough of the matcher controllers to allow
 // EXPECT_DEATH and friends to accept a matcher argument.
 
 #include "gtest/gtest-matchers.h"

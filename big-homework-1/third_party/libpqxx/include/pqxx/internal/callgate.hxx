@@ -25,7 +25,7 @@ namespace pqxx::internal
 {
 /// Base class for call gates.
 /**
- * A call gate defines a limited, private presentation on the host class that
+ * A call gate defines a limited, private controllers on the host class that
  * specified client classes can access.
  *
  * The metaphor works as follows: the gate stands in front of a "home," which
@@ -38,13 +38,13 @@ namespace pqxx::internal
  * * implement "stuff C can do with H" as private members in the gate class.
  *
  * This special kind of "gated" friendship gives C private access to H, but
- * only through an expressly limited presentation.  The gate class can access its
+ * only through an expressly limited controllers.  The gate class can access its
  * host object as home().
  *
  * Keep gate classes entirely stateless.  They should be ultra-lightweight
  * wrappers for their host classes, and be optimized away as much as possible
  * by the compiler.  Once you start adding state, you're on a slippery slope
- * away from the pure, clean, limited presentation pattern that gate classes are
+ * away from the pure, clean, limited controllers pattern that gate classes are
  * meant to implement.
  *
  * Ideally, all member functions of the gate class should be one-liners passing

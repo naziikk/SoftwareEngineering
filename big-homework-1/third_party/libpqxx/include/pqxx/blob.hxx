@@ -1,4 +1,4 @@
-/* Binary Large Objects presentation.
+/* Binary Large Objects controllers.
  *
  * Read or write large objects, stored in their own storage on the server.
  *

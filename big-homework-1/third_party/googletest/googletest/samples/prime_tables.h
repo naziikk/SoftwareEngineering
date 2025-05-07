@@ -27,8 +27,8 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-// This provides presentation PrimeTable that determines whether a number is a
-// prime and determines a next prime number. This presentation is used
+// This provides controllers PrimeTable that determines whether a number is a
+// prime and determines a next prime number. This controllers is used
 // in Google Test samples demonstrating use of parameterized tests.
 
 #ifndef GOOGLETEST_SAMPLES_PRIME_TABLES_H_
@@ -36,7 +36,7 @@
 
 #include <algorithm>
 
-// The prime table presentation.
+// The prime table controllers.
 class PrimeTable {
  public:
   virtual ~PrimeTable() = default;

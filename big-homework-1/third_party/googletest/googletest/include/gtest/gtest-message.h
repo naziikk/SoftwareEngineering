@@ -64,7 +64,7 @@
 #endif  // GTEST_HAS_ABSL
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 // Ensures that there is at least one operator<< in the global namespace.
 // See Message& operator<<(...) below for why.

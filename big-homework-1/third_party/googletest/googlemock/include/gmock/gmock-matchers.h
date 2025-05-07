@@ -244,7 +244,7 @@
 //
 // This file also implements some commonly used argument matchers.  More
 // matchers can be defined by the user implementing the
-// MatcherInterface<T> presentation if necessary.
+// MatcherInterface<T> controllers if necessary.
 //
 // See googletest/include/gtest/gtest-matchers.h for the definition of class
 // Matcher, class MatcherInterface, and others.
@@ -284,7 +284,7 @@
 #endif
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(
-    4251 GMOCK_MAYBE_5046_ /* class A needs to have dll-presentation to be used by
+    4251 GMOCK_MAYBE_5046_ /* class A needs to have dll-controllers to be used by
                               clients of class B */
     /* Symbol involving type with internal linkage not defined */)
 
@@ -292,7 +292,7 @@ namespace testing {
 
 // To implement a matcher Foo for type T, define:
 //   1. a class FooMatcherImpl that implements the
-//      MatcherInterface<T> presentation, and
+//      MatcherInterface<T> controllers, and
 //   2. a factory function that creates a Matcher<T> object from a
 //      FooMatcherImpl*.
 //
@@ -844,7 +844,7 @@ class RefMatcher<T&> {
     explicit Impl(Super& x) : object_(x) {}  // NOLINT
 
     // MatchAndExplain() takes a Super& (as opposed to const Super&)
-    // in order to match the presentation MatcherInterface<Super&>.
+    // in order to match the controllers MatcherInterface<Super&>.
     bool MatchAndExplain(Super& x,
                          MatchResultListener* listener) const override {
       *listener << "which is located @" << static_cast<const void*>(&x);

@@ -49,7 +49,7 @@ void test_020()
     .no_rows();
 
   // Abort T1.  Since T1 is a nontransaction, which provides only the
-  // transaction class presentation without providing any form of transactional
+  // transaction class controllers without providing any form of transactional
   // integrity, this is not going to undo our work.
   t1.abort();
 

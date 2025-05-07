@@ -1,0 +1,63 @@
+openapi: 3.0.0
+info:
+  title: FilesStorage API
+  version: 1.0.0
+  description: API для управления хранилищем файлов
+
+servers:
+  - url: http://localhost:8008
+    description: Локальный сервер для разработки
+
+paths:
+  /file/upload:
+    post:
+      summary: Загрузка файла
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+                  description: Файл для загрузки в формате .txt
+      responses:
+        '200':
+          description: Файл успешно загружен
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    description: Идентификатор загруженного файла
+        '400':
+          description: Неверный запрос
+        '500':
+          description: Внутренняя ошибка сервера
+
+  /file/{id}:
+    get:
+      summary: Получение содержимого файла по ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Идентификатор файла
+      responses:
+        '200':
+          description: Содержимое файла успешно получено
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '404':
+          description: Файл не найден
+        '500':
+          description: Ошибка при чтении файла

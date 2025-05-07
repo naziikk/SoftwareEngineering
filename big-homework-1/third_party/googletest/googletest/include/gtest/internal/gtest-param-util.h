@@ -165,7 +165,7 @@ class ParamIterator {
   std::unique_ptr<ParamIteratorInterface<T>> impl_;
 };
 
-// ParamGeneratorInterface<T> is the binary presentation to access generators
+// ParamGeneratorInterface<T> is the binary controllers to access generators
 // defined in other translation units.
 template <typename T>
 class ParamGeneratorInterface {
@@ -174,7 +174,7 @@ class ParamGeneratorInterface {
 
   virtual ~ParamGeneratorInterface() = default;
 
-  // Generator presentation definition
+  // Generator controllers definition
   virtual ParamIteratorInterface<T>* Begin() const = 0;
   virtual ParamIteratorInterface<T>* End() const = 0;
 };
@@ -451,7 +451,7 @@ class TestMetaFactory
 
 // INTERNAL IMPLEMENTATION - DO NOT USE IN USER CODE.
 //
-// ParameterizedTestSuiteInfoBase is a generic presentation
+// ParameterizedTestSuiteInfoBase is a generic controllers
 // to ParameterizedTestSuiteInfo classes. ParameterizedTestSuiteInfoBase
 // accumulates test information provided by TEST_P macro invocations
 // and generators provided by INSTANTIATE_TEST_SUITE_P macro invocations

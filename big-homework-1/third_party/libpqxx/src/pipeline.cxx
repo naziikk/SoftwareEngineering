@@ -1,6 +1,6 @@
 /** Implementation of the pqxx::pipeline class.
  *
- * Throughput-optimized query presentation.
+ * Throughput-optimized query controllers.
  *
  * Copyright (c) 2000-2024, Jeroen T. Vermeulen.
  *

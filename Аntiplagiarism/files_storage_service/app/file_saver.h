@@ -4,14 +4,15 @@
 #include <fstream>
 #include "../infrastructure/database/Database.h"
 #include "../infrastructure/database/Database.h"
+#include "../third_party/httplib.h"
 
 class FileCreator {
 public:
-    explicit AddFile(Database& db) : db(db) {}
+    explicit FileCreator(Database& db) : db(db) {}
 
-    static std::string add_file_to_storage(const httplib::MultipartFormData& file);
+    std::string add_file_to_storage(const httplib::MultipartFormData& file);
 
-    static std::string get_file_id_by_hash(long long file_id);
+    std::string get_file_id_by_hash(long long file_id);
 
 private:
     bool check_file_existence(long long hash);

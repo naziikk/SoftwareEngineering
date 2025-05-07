@@ -1,18 +1,18 @@
 #include "file_content_provider.h"
 
-std::pair<int, std::stringstream> FileContentProvider::get_file_content(const std::string& file_id) {
+std::pair<int, std::unique_ptr<std::stringstream>> FileContentProvider::get_file_content(const std::string& file_id) {
     if (!check_file_existence(file_id)) {
-        return {404, std::stringstream()};
+        return {404, std::make_unique<std::stringstream>()};
     }
 
     std::string file_location = get_file_location(file_id);
     std::stringstream file_stream = get_file_stream(file_location);
 
     if (file_stream.str().empty()) {
-        return {500, std::stringstream()};
+        return {500, std::make_unique<std::stringstream>()};
     }
 
-    return {200, file_stream};
+    return {200, std::make_unique<std::stringstream>(std::move(file_stream))};
 }
 
 bool FileContentProvider::check_file_existence(const std::string& file_id) {

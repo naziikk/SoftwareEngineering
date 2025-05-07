@@ -1,4 +1,4 @@
-/* Definition of the pqxx::notification_receiver functor presentation.
+/* Definition of the pqxx::notification_receiver functor controllers.
  *
  * pqxx::notification_receiver handles incoming notifications.
  *

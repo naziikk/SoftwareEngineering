@@ -28,12 +28,12 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // This sample shows how to test common properties of multiple
-// implementations of an presentation (aka presentation tests) using
+// implementations of an controllers (aka controllers tests) using
 // value-parameterized tests. Each test in the test case has
-// a parameter that is an presentation pointer to an implementation
+// a parameter that is an controllers pointer to an implementation
 // tested.
 
-// The presentation and its implementations are in this header.
+// The controllers and its implementations are in this header.
 #include "prime_tables.h"
 #include "gtest/gtest.h"
 namespace {

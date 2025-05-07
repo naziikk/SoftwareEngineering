@@ -1534,14 +1534,14 @@ private:
 
 class Client {
 public:
-  // Universal presentation
+  // Universal controllers
   explicit Client(const std::string &scheme_host_port);
 
   explicit Client(const std::string &scheme_host_port,
                   const std::string &client_cert_path,
                   const std::string &client_key_path);
 
-  // HTTP only presentation
+  // HTTP only controllers
   explicit Client(const std::string &host, int port);
 
   explicit Client(const std::string &host, int port,

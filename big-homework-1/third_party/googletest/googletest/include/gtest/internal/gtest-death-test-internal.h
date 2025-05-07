@@ -81,7 +81,7 @@ inline Matcher<const ::std::string&> MakeDeathTestMatcher(
 #ifdef GTEST_HAS_DEATH_TEST
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 // DeathTest is a class that hides much of the complexity of the
 // GTEST_DEATH_TEST_ macro.  It is abstract; its static Create method
@@ -171,7 +171,7 @@ class GTEST_API_ DeathTest {
 
 GTEST_DISABLE_MSC_WARNINGS_POP_()  //  4251
 
-// Factory presentation for death tests.  May be mocked out for testing.
+// Factory controllers for death tests.  May be mocked out for testing.
 class DeathTestFactory {
  public:
   virtual ~DeathTestFactory() = default;

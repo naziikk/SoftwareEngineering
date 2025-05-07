@@ -9,7 +9,6 @@ struct ServerCfg {
 
 struct Config {
     ServerCfg server_;
-    DatabaseCfg database_;
 
     static Config MustLoadConfig(const std::string& path);
 };

@@ -4,13 +4,17 @@ set(CMAKE_CXX_STANDARD 20)
 
 set(SOURCE_FILES
         main.cpp
-        presentation/file_crud_controller.h
-        presentation/file_crud_controller.cpp
-        presentation/utils.h
+        controllers/file_crud_controller.h
+        controllers/file_crud_controller.cpp
+        controllers/utils.h
         infrastructure/database/Database.h
         infrastructure/database/Database.cpp
+        infrastructure/config/config.cpp
+        infrastructure/config/config.h
         app/file_saver.cpp
         app/file_saver.h
+        app/file_content_provider.cpp
+        app/file_content_provider.h
 )
 
 include(FetchContent)
@@ -24,7 +28,6 @@ FetchContent_MakeAvailable(yaml-cpp)
 FetchContent_Declare(
         pqxx
         GIT_REPOSITORY https://github.com/jtv/libpqxx.git
-        GIT_TAG 7.9.1
 )
 FetchContent_MakeAvailable(pqxx)
 

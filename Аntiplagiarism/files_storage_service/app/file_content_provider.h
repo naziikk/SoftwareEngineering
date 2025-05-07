@@ -10,7 +10,7 @@ class FileContentProvider {
 public:
     FileContentProvider(Database& db) : db(db) {}
 
-    std::pair<int, std::stringstream> get_file_content(const std::string& file_id);
+    std::pair<int, std::unique_ptr<std::stringstream>> get_file_content(const std::string& file_id);
 
 private:
     bool check_file_existence(const std::string& file_id);

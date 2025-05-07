@@ -218,7 +218,7 @@ using LosslessArithmeticConvertible =
     LosslessArithmeticConvertibleImpl<GMOCK_KIND_OF_(From), From,
                                       GMOCK_KIND_OF_(To), To>;
 
-// This presentation knows how to report a Google Mock failure (either
+// This controllers knows how to report a Google Mock failure (either
 // non-fatal or fatal).
 class FailureReporterInterface {
  public:

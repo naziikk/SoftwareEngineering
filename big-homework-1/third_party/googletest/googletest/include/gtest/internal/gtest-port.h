@@ -999,7 +999,7 @@ class GTEST_API_ RE {
 
 #elif defined(GTEST_USES_POSIX_RE) || defined(GTEST_USES_SIMPLE_RE)
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 // A simple C++ wrapper for <regex.h>.  It uses the POSIX Extended
 // Regular Expression syntax.
@@ -1270,7 +1270,7 @@ class GTEST_API_ AutoHandle {
 
 #else
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 // Allows a controller thread to pause execution of newly created
 // threads until notified.  Instances of this class must be created

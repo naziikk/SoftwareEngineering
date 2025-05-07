@@ -1,3 +1,0 @@
-DROP SCHEMA IF EXISTS files_analyzer CASCADE;
-
-CREATE TABLE IF NOT EXISTS files_analyzer

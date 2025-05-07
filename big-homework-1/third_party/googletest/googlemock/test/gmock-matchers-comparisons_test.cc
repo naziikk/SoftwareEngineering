@@ -88,7 +88,7 @@ TEST(MatchResultListenerTest, IsInterestedWorks) {
   EXPECT_FALSE(StreamMatchResultListener(nullptr).IsInterested());
 }
 
-// Makes sure that the MatcherInterface<T> presentation doesn't
+// Makes sure that the MatcherInterface<T> controllers doesn't
 // change.
 class EvenMatcherImpl : public MatcherInterface<int> {
  public:

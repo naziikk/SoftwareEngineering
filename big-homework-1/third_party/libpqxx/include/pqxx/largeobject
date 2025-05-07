@@ -1,4 +1,4 @@
-/** Large Objects presentation.
+/** Large Objects controllers.
  *
  * Supports direct access to large objects, as well as through I/O streams
  */

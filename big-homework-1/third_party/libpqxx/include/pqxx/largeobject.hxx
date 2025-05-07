@@ -1,4 +1,4 @@
-/* Large Objects presentation.  Deprecated; use blob instead.
+/* Large Objects controllers.  Deprecated; use blob instead.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/largeobject instead.
  *
@@ -275,7 +275,7 @@ public:
   /**
    * @name Low-level access to object contents.
    *
-   * These functions provide a more "C-like" access presentation, returning
+   * These functions provide a more "C-like" access controllers, returning
    * special values instead of throwing exceptions on error.  These functions
    * are generally best avoided in favour of the high-level access functions,
    * which behave more like C++ functions should.

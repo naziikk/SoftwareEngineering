@@ -45,7 +45,7 @@
 //      global namespace.
 // * Prefer AbslStringify(..) to operator<<(..), per https://abseil.io/tips/215.
 // * Define foo::PrintTo(..) if the type already has AbslStringify(..), but an
-//   alternative presentation in test results is of interest.
+//   alternative controllers in test results is of interest.
 //
 // However if T is an STL-style container then it is printed element-wise
 // unless foo::PrintTo(const T&, ostream*) is defined. Note that

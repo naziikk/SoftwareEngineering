@@ -12,7 +12,7 @@ std::string FileCreator::add_file_to_storage(const httplib::MultipartFormData& f
 
     std::string file_id = get_file_id_by_hash(hash);
 
-    save_file(filename, file.content);
+    save_file(filename, file.content, file_id);
 
     return file_id;
 }
@@ -56,7 +56,7 @@ long long FileCreator::compute_hash(const httplib::MultipartFormData& file) {
 
     while (std::getline(file_stream, line)) {
         for (const auto& symbol : line) {
-            hash = (hash + (symbol  + 1) * p_power) % MOD;
+            hash = (hash + (symbol  + 1) * p_pow) % MOD;
             p_pow = (p_pow * p) % MOD;
         }
     }

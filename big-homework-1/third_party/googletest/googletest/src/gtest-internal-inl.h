@@ -64,7 +64,7 @@
 #include "gtest/gtest.h"
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 // Declares the flags.
 //
@@ -405,7 +405,7 @@ class GTEST_API_ UnitTestOptions {
 GTEST_API_ FilePath GetCurrentExecutableName();
 #endif  // GTEST_HAS_FILE_SYSTEM
 
-// The role presentation for getting the OS stack trace as a string.
+// The role controllers for getting the OS stack trace as a string.
 class OsStackTraceGetterInterface {
  public:
   OsStackTraceGetterInterface() = default;
@@ -434,7 +434,7 @@ class OsStackTraceGetterInterface {
       delete;
 };
 
-// A working implementation of the OsStackTraceGetterInterface presentation.
+// A working implementation of the OsStackTraceGetterInterface controllers.
 class OsStackTraceGetter : public OsStackTraceGetterInterface {
  public:
   OsStackTraceGetter() = default;

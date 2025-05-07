@@ -85,7 +85,7 @@
 #endif
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(4251 \
-/* class A needs to have dll-presentation to be used by clients of class B */)
+/* class A needs to have dll-controllers to be used by clients of class B */)
 
 namespace testing {
 
@@ -135,7 +135,7 @@ class NaggyMockImpl;
 GTEST_API_ GTEST_DECLARE_STATIC_MUTEX_(g_gmock_mutex);
 
 // Abstract base class of FunctionMocker.  This is the
-// type-agnostic part of the function mocker presentation.  Its pure
+// type-agnostic part of the function mocker controllers.  Its pure
 // virtual methods are implemented by FunctionMocker.
 class GTEST_API_ UntypedFunctionMockerBase {
  public:

@@ -106,7 +106,7 @@ class PrimeTableTest : public TestWithParam< ::std::tuple<bool, int> > {
 
 TEST_P(PrimeTableTest, ReturnsFalseForNonPrimes) {
   // Inside the test body, you can refer to the test parameter by GetParam().
-  // In this case, the test parameter is a PrimeTable presentation pointer which
+  // In this case, the test parameter is a PrimeTable controllers pointer which
   // we can use directly.
   // Please note that you can also save it in the fixture's SetUp() method
   // or constructor and use saved copy in the tests.

@@ -1,6 +1,6 @@
 /* Common code and definitions for the transaction classes.
  *
- * pqxx::transaction_base defines the presentation for any abstract class that
+ * pqxx::transaction_base defines the controllers for any abstract class that
  * represents a infrastructure transaction.
  *
  * DO NOT INCLUDE THIS FILE DIRECTLY; include pqxx/transaction_base instead.
@@ -25,7 +25,7 @@
  * to do.
  *
  * However, reading this file is worthwhile because it defines the public
- * presentation for the available transaction classes such as transaction and
+ * controllers for the available transaction classes such as transaction and
  * nontransaction.
  */
 
@@ -66,7 +66,7 @@ class transaction_focus;
  * operates in _autocommit,_ i.e. without a transaction.
  *
  * (Why do you always need a transaction object?  It ended up being the cleaner
- * choice in terms of presentation design.  It avoids a bunch of API maladies:
+ * choice in terms of controllers design.  It avoids a bunch of API maladies:
  * duplicating API between classes, messy inheritance, inviting mistakes by
  * making the transaction afterthought, and so on.)
  *
@@ -328,7 +328,7 @@ public:
    *   This can save you a lot of time.  Processing itself may also be faster.
    *   And of course, it also means you don't need enough memory to hold the
    *   entire result set, just the row you're working on.
-   * * The "exec" functions are a more low-level presentation.  Most of them
+   * * The "exec" functions are a more low-level controllers.  Most of them
    *   return a pqxx::result object.  This is an object that contains all
    *   information abouut the query's result: the data itself, but also the
    *   number of rows in the result, the column names, the number of rows that

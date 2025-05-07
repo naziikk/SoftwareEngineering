@@ -1,0 +1,19 @@
+fvrebte bet b etb te b tbf et b teb et betb et b etb etbtebtbetbetbb\tb\\eb\b\tebb\eb
+b
+eb
+etb
+b
+t
+t
+b
+b
+eb
+et
+be
+
+eb
+bet
+be
+
+curl -X POST http://localhost:8008/file/upload \
+  -F "file="@bla.txt"

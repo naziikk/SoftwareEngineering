@@ -1,6 +1,6 @@
 /** Base for the transaction classes.
  *
- * pqxx::transaction_base defines the presentation for any abstract class that
+ * pqxx::transaction_base defines the controllers for any abstract class that
  * represents a infrastructure transaction.
  */
 // Actual definitions in .hxx file so editors and such recognize file type.

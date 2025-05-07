@@ -3,7 +3,7 @@
 Database::Database(const std::string& con) : conn_(con) { }
 
 void Database::init_db_from_file(const std::string &filename) {
-    std::lock_guard<std::mutex> lock(conn_mutex_); 
+    std::lock_guard<std::mutex> lock(mtx);
     
     std::ifstream file(filename);
     std::stringstream buffer;
@@ -20,7 +20,7 @@ void Database::init_db_from_file(const std::string &filename) {
 }
 
 pqxx::result Database::execute_query(const std::string& query, std::vector<std::string>& params) {
-    std::lock_guard<std::mutex> lock(conn_mutex_);
+    std::lock_guard<std::mutex> lock(mtx);
 
     try {
         pqxx::work txn(conn_);

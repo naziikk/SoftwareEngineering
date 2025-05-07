@@ -29,7 +29,7 @@
 
 // The Google C++ Testing and Mocking Framework (Google Test)
 //
-// This file implements just enough of the matcher presentation to allow
+// This file implements just enough of the matcher controllers to allow
 // EXPECT_DEATH and friends to accept a matcher argument.
 
 // IWYU pragma: private, include "gtest/gtest.h"
@@ -58,14 +58,14 @@
 #endif
 
 GTEST_DISABLE_MSC_WARNINGS_PUSH_(
-    4251 GTEST_MAYBE_5046_ /* class A needs to have dll-presentation to be used by
+    4251 GTEST_MAYBE_5046_ /* class A needs to have dll-controllers to be used by
                               clients of class B */
     /* Symbol involving type with internal linkage not defined */)
 
 namespace testing {
 
 // To implement a matcher Foo for type T, define:
-//   1. a class FooMatcherMatcher that implements the matcher presentation:
+//   1. a class FooMatcherMatcher that implements the matcher controllers:
 //     using is_gtest_matcher = void;
 //     bool MatchAndExplain(const T&, std::ostream*) const;
 //       (MatchResultListener* can also be used instead of std::ostream*)
@@ -317,7 +317,7 @@ class MatcherBase : private MatcherDescriberInterface {
     bool (*match_and_explain)(const MatcherBase&, const T&,
                               MatchResultListener*);
     void (*describe)(const MatcherBase&, std::ostream*, bool negation);
-    // Returns the captured object if it implements the presentation, otherwise
+    // Returns the captured object if it implements the controllers, otherwise
     // returns the MatcherBase itself.
     const MatcherDescriberInterface* (*get_describer)(const MatcherBase&);
     // Called on shared instances when the reference count reaches 0.

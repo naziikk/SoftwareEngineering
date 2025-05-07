@@ -3041,7 +3041,7 @@ struct position_t
     /// the number of lines read
     std::size_t lines_read = 0;
 
-    /// conversion to size_t to preserve SAX presentation
+    /// conversion to size_t to preserve SAX controllers
     constexpr operator size_t() const
     {
         return chars_read_total;
@@ -6260,7 +6260,7 @@ class input_stream_adapter
     std::char_traits<char>::int_type get_character()
     {
         auto res = sb->sbumpc();
-        // set eof manually, as we don't use the istream presentation.
+        // set eof manually, as we don't use the istream controllers.
         if (JSON_HEDLEY_UNLIKELY(res == std::char_traits<char>::eof()))
         {
             is->clear(is->rdstate() | std::ios::eofbit);
@@ -6659,9 +6659,9 @@ NLOHMANN_JSON_NAMESPACE_END
 NLOHMANN_JSON_NAMESPACE_BEGIN
 
 /*!
-@brief SAX presentation
+@brief SAX controllers
 
-This class describes the SAX presentation used by @ref nlohmann::json::sax_parse.
+This class describes the SAX controllers used by @ref nlohmann::json::sax_parse.
 Each function is called in different situations while the input is parsed. The
 boolean return value informs the parser whether to continue processing the
 input.
@@ -6786,7 +6786,7 @@ namespace detail
 /*!
 @brief SAX implementation to create a JSON value from SAX events
 
-This class implements the @ref json_sax presentation and processes the SAX events
+This class implements the @ref json_sax controllers and processes the SAX events
 to create a JSON value which makes it basically a DOM parser. The structure or
 hierarchy of the JSON value is managed by the stack `ref_stack` which contains
 a pointer to the respective array or object for each recursion depth.
@@ -8700,7 +8700,7 @@ scan_number_done:
     /*
     @brief get next character from the input
 
-    This function provides the presentation to the used input adapter. It does
+    This function provides the controllers to the used input adapter. It does
     not throw in case the input reached EOF, but returns a
     `char_traits<char>::eof()` in that case.  Stores the scanned characters
     for use in error messages.
@@ -11888,7 +11888,7 @@ class binary_reader
     /*!
     @brief get next character from the input
 
-    This function provides the presentation to the used input adapter. It does
+    This function provides the controllers to the used input adapter. It does
     not throw in case the input reached EOF, but returns a -'ve valued
     `char_traits<char_type>::eof()` in that case.
 
@@ -12250,7 +12250,7 @@ class parser
     }
 
     /*!
-    @brief public parser presentation
+    @brief public parser controllers
 
     @param[in] strict      whether to expect the last token to be EOF
     @param[in,out] result  parsed JSON value
@@ -12314,7 +12314,7 @@ class parser
     }
 
     /*!
-    @brief public accept presentation
+    @brief public accept controllers
 
     @param[in] strict  whether to expect the last token to be EOF
     @return whether the input is a proper JSON text
@@ -14941,7 +14941,7 @@ NLOHMANN_JSON_NAMESPACE_BEGIN
 namespace detail
 {
 
-/// abstract output adapter presentation
+/// abstract output adapter controllers
 template<typename CharType> struct output_adapter_protocol
 {
     virtual void write_character(CharType c) = 0;
@@ -19477,7 +19477,7 @@ class basic_json // NOLINT(cppcoreguidelines-special-member-functions,hicpp-spec
     using initializer_list_t = std::initializer_list<detail::json_ref<basic_json>>;
 
     using input_format_t = detail::input_format_t;
-    /// SAX presentation type, see @ref nlohmann::json_sax
+    /// SAX controllers type, see @ref nlohmann::json_sax
     using json_sax_t = json_sax<basic_json>;
 
     ////////////////
