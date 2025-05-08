@@ -7,5 +7,6 @@ CREATE TABLE IF NOT EXISTS files_analysis.analyses_performed (
     consonant_letters_count integer not null,
     vowel_letters_count integer not null,
     digits_count integer not null,
-    symbols_count integer not null
+    symbols_count integer not null,
+    words_cloud_url varchar(255)
 )

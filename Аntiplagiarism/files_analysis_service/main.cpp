@@ -1,4 +1,10 @@
 #include "third_party/httplib.h"
+#include "infrastructure/database/Database.h"
+#include "infrastructure/config/config.h"
+
+#include "app/analyzer.h"
+
+#include "controllers/file_analysis_controller.h"
 
 int main() {
     Config cfg = Config::MustLoadConfig("/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Аntiplagiarism/files_analysis_service/infrastructure/config/config.yaml");
@@ -11,9 +17,12 @@ int main() {
     pqxx::work W(C);
     W.commit();
 
+    Analyzer& analyzer(db);
+    FileAnalyseController file_analyze_controller(db, analyzer);
+
     try {
         server.Post("/file/:id/analysis", [&](const httplib::Request& request, httplib::Response &res) {
-
+            file_analyze_controller.file_analysis_request(request, res);
         });
 
         server.Get("/file/:id/words_cloud", [&](const httplib::Request& request, httplib::Response &res) {

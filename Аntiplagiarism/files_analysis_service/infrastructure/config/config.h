@@ -7,8 +7,15 @@ struct ServerCfg {
     int port;
 };
 
+struct DatabaseCfg {
+    std::string db_name;
+    std::string host;
+    int port;
+};
+
 struct Config {
     ServerCfg server_;
+    DatabaseCfg database_;
 
     static Config MustLoadConfig(const std::string& path);
 };
