@@ -5,7 +5,7 @@ info:
   description: API для управления хранилищем файлов
 
 servers:
-  - url: http://localhost:8008
+  - url: http://localhost:8007
     description: Локальный сервер для разработки
 
 paths:

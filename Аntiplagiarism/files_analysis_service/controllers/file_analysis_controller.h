@@ -1,3 +1,5 @@
+#pragma once
+
 #include <iostream>
 #include "../infrastructure/database/Database.h"
 #include "../app/analyzer.h"
@@ -16,7 +18,7 @@ private:
 
     nlohmann::json get_file_analysis(const std::string& id);
 
-    std::string get_words_cloud_location(const std::string& id);
+    std::string get_words_cloud_url(const std::string& id);
 
 private:
     using json = nlohmann::json;

@@ -34,6 +34,7 @@ std::stringstream FileContentProvider::get_file_stream(const std::string& file_l
     if (!file || !file.is_open()) {
         throw std::runtime_error("НАДО ДЕБАЖИТЬ ЙОУ");
     }
+
     std::stringstream buffer;
     buffer << file.rdbuf();
     file.close();

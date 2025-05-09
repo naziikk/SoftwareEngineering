@@ -1,33 +1,17 @@
 #include "analyzer.h"
 
 void Analyzer::analyse_file(const httplib::MultipartFormData& file, const std::string& file_id) {
+    std::cout << "Received file for analysis" << std::endl;
     Analysis analysis = get_analysis(file, file_id);
-    get_words_cloud(file.content, analysis);
+    generate_words_cloud(file.content, analysis);
 
     save_analysis(analysis);
+    std::cout << "Analysis completed" << std::endl;
 }
 
 void Analyzer::generate_words_cloud(const std::string& file_content, Analysis& analysis) {
-    std::string url = "https://quickchart.io/wordcloud";
-    httplib::Client client(url);
-
-    json request_body = {
-        {"text", file_content},
-        {"width", 800},
-        {"height", 600},
-        {"fontFamily", "Arial"},
-        {"scale", "log"},
-        {"padding", 2},
-        {"rotation", 0}
-    };
-
-    auto res = client.Post("/generate", request_body.dump(), "application/json");
-
-    if (res && res->status == 200) {
-        analysis.words_cloud_url = res->body;
-    } else {
-        throw std::runtime_error("Shit happens while generating word cloud");
-    }
+    std::string chart_url = "https://quickchart.io/wordcloud?text=" + httplib::detail::encode_url(file_content);
+    analysis.words_cloud_url = chart_url;
 }
 
 // Общая логика анализа файла:
@@ -38,7 +22,7 @@ void Analyzer::generate_words_cloud(const std::string& file_content, Analysis& a
 // 5) За букву считается любой символ, кроме пробела, пунктуации и цифр
 // А далее уже определяем гласная она или согласная в соответствии с методами
 // из utils.h
-Analysis Analyzer::get_analysis(const httplib::MultipartFormData& file, const std::string& file_id) {
+Analyzer::Analysis Analyzer::get_analysis(const httplib::MultipartFormData& file, const std::string& file_id) {
     std::stringstream file_stream(file.content);
     std::string line;
 
@@ -48,6 +32,7 @@ Analysis Analyzer::get_analysis(const httplib::MultipartFormData& file, const st
     bool in_paragraph = false;
 
     while (std::getline(file_stream, line)) {
+        std::cout << line << '\n';
         if (line.empty()) {
             in_paragraph = false;
             continue;
@@ -71,17 +56,17 @@ Analysis Analyzer::get_analysis(const httplib::MultipartFormData& file, const st
             }
 
             if (is_letter(symbol)) {
-                analysis.letters_count++;
                 if (is_vowel(symbol)) {
-                    analysis.vowels_count++;
+                    analysis.vowel_letters_count++;
                 } else {
-                    analysis.consonants_count++;
+                    analysis.consonant_letters_count++;
                 }
             } else if (is_digit(symbol)) {
                 analysis.digits_count++;
-            } else {
-                analysis.symbols_count++;
             }
+
+            analysis.symbols_count++;
+            prev_symbol = symbol;
         }
     }
 
@@ -93,15 +78,15 @@ void Analyzer::save_analysis(const Analysis& analysis) {
         analysis.id,
         std::to_string(analysis.paragraphs_count),
         std::to_string(analysis.words_count),
-        std::to_string(analysis.consonants_count),
-        std::to_string(analysis.vowels_count),
+        std::to_string(analysis.consonant_letters_count),
+        std::to_string(analysis.vowel_letters_count),
         std::to_string(analysis.digits_count),
         std::to_string(analysis.symbols_count),
         analysis.words_cloud_url
     };
 
-    std::string query = "INSERT INTO files_storage.analysis (id, paragraphs_count, words_count, consonants_count, "
-                        "vowels_count, digits_count, symbols_count, words_cloud_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+    std::string query = "INSERT INTO files_analysis.analyses_performed (id, paragraphs_count, words_count, consonant_letters_count, "
+                        "vowel_letters_count, digits_count, symbols_count, words_cloud_url) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
 
     db_.execute_query(query, params);
 }

@@ -1,4 +1,5 @@
 #include "file_saver.h"
+#include <filesystem>
 
 std::string FileCreator::add_file_to_storage(const httplib::MultipartFormData& file) {
     long long hash = compute_hash(file);
@@ -33,6 +34,8 @@ bool FileCreator::check_file_existence(long long hash) {
 
 void FileCreator::save_file(const std::string& file_name, const std::string& file_content, const std::string& file_id) {
     std::string location = "../infrastructure/files_storage/data/files/" + file_id + ".txt";
+
+    std::filesystem::create_directories("../infrastructure/files_storage/data/files");
 
     std::ofstream out(location, std::ios::binary);
     out.write(file_content.c_str(), file_content.size());

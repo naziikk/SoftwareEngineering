@@ -7,7 +7,7 @@ void FileAnalyseController::file_analysis_request(const httplib::Request& req, h
     }
 
     std::string document_id = extract_id_from_request(req);
-
+    std::cout << "Received request for file analysis with ID: " << document_id << std::endl;
     if (is_in_analysis_history(document_id)) {
         json analysis = get_file_analysis(document_id);
 
@@ -16,9 +16,26 @@ void FileAnalyseController::file_analysis_request(const httplib::Request& req, h
 
         return;
     }
+
+    const auto& file = req.files.begin()->second;
+    std::cout << "File name: " << file.filename << std::endl;
+//    httplib::MultipartFormData file = req.get_file_value(req.files[0].name);
+    analyzer_.analyse_file(file, document_id);
+    std::cout << "File analysis completed" << std::endl;
+    if (is_in_analysis_history(document_id)) {
+        json analysis = get_file_analysis(document_id);
+
+        res.status = 200;
+        res.set_content(analysis.dump(), "application/json");
+
+        return;
+    } else {
+        send_error(res, 500, "Internal server error");
+    }
 }
 
 void FileAnalyseController::words_cloud_request(const httplib::Request& req, httplib::Response& res) {
+    std::cout << "Received request for words cloud" << std::endl;
     if (!is_valid_id(req)) {
         handle_empty_or_incorrect_id("id", res);
         return;
@@ -27,13 +44,17 @@ void FileAnalyseController::words_cloud_request(const httplib::Request& req, htt
     std::string document_id = extract_id_from_request(req);
 
     if (is_in_analysis_history(document_id)) {
-        std::string words_cloud_location = get_words_cloud_location(document_id);
+        std::string words_cloud_url = get_words_cloud_url(document_id);
+        if (words_cloud_url.empty()) {
+            send_error(res, 404, "Words cloud URL not found");
+            return;
+        }
 
-        std::ifstream file(words_cloud_location);
-        std::vector<char> buffer((std::istreambuf_iterator<char>(file)),
-                                 std::istreambuf_iterator<char>());
+        json response;
+        response["words_cloud_url"] = words_cloud_url;
 
-        res.set_content(buffer.data(), buffer.size(), "image/png");
+        res.status = 200;
+        res.set_content(response.dump(), "application/json");
     } else {
         send_error(res, 404, "File not found in analysis history");
     }
@@ -74,9 +95,9 @@ nlohmann::json FileAnalyseController::get_file_analysis(const std::string& id) {
     return analysis_resp;
 }
 
-std::string FileAnalyseController::get_words_cloud_location(const std::string& id) {
+std::string FileAnalyseController::get_words_cloud_url(const std::string& id) {
     std::vector<std::string> params = {id};
-    std::string query = "SELECT words_cloud_location FROM files_analysis.analyses_performed WHERE id = $1";
+    std::string query = "SELECT words_cloud_url FROM files_analysis.analyses_performed WHERE id = $1";
 
     pqxx::result response = db_.execute_query(query, params);
 

@@ -11,6 +11,8 @@ set(SOURCE_FILES
         infrastructure/database/Database.cpp
         infrastructure/config/config.h
         infrastructure/config/config.cpp
+        app/analyzer.h
+        app/analyzer.cpp
 )
 
 include(FetchContent)
