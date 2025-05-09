@@ -1,0 +1,14 @@
+# Target labels
+ spdlog-populate
+# Source files and their labels
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate-complete.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-build.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-configure.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-download.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-install.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-mkdir.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-patch.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-test.rule
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/spdlog-populate-prefix/src/spdlog-populate-stamp/spdlog-populate-update.rule

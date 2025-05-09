@@ -1,0 +1,3 @@
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/yaml-cpp-subbuild/CMakeFiles/yaml-cpp-populate.dir
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/yaml-cpp-subbuild/CMakeFiles/edit_cache.dir
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/yaml-cpp-subbuild/CMakeFiles/rebuild_cache.dir

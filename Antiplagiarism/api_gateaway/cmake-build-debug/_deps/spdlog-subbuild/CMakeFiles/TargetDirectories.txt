@@ -1,0 +1,3 @@
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/spdlog-populate.dir
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/edit_cache.dir
+/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-subbuild/CMakeFiles/rebuild_cache.dir
