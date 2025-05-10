@@ -3,6 +3,8 @@ server:
     port: 8008
 
 database:
-    db_name: "files_analysis"
-    host: "localhost"
+    db_name: "api_gate_away"
+    host: "analysis_postgres"
     port: 5432
+    user: "postgres"
+    password: "postgres"

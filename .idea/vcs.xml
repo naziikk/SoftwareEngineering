@@ -2,8 +2,8 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/spdlog-src" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/Antiplagiarism/api_gateaway/cmake-build-debug/_deps/yaml-cpp-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Antiplagiarism/api_gate_away/cmake-build-debug/_deps/spdlog-src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/Antiplagiarism/api_gate_away/cmake-build-debug/_deps/yaml-cpp-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Antiplagiarism/files_analysis_service/cmake-build-debug/_deps/pqxx-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Antiplagiarism/files_analysis_service/cmake-build-debug/_deps/yaml-cpp-src" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/Antiplagiarism/files_storage_service/cmake-build-debug/_deps/pqxx-src" vcs="Git" />

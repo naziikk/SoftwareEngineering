@@ -9,12 +9,13 @@
 #include "controllers//file_crud_controller.h"
 
 int main() {
+    httplib::Server server;
+
     server.Options(".*", [&](const httplib::Request& req, httplib::Response& res) {
         res.set_header("Access-Control-Allow-Origin", "http://localhost:8009");
         res.set_header("Access-Control-Allow-Credentials", "true");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.set_header("Content-Type", "application/json");
         res.status = 200;
     });
 
@@ -23,15 +24,15 @@ int main() {
         res.set_header("Access-Control-Allow-Credentials", "true");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.set_header("Content-Type", "application/json");
     };
 
-    Config cfg = Config::MustLoadConfig("../infrastructure/config/config.yaml");
-    httplib::Server server;
-    std::string connection = "dbname=" + cfg.database_.db_name + " host=" + cfg.database_.host + " port=" + std::to_string(cfg.database_.port);
+    Config cfg = Config::MustLoadConfig("infrastructure/config/config.yaml");
+
+    std::string connection = "dbname=" + cfg.database_.db_name + " host=" + cfg.database_.host + " port=" + std::to_string(cfg.database_.port) +
+                             " user=" + cfg.database_.user + " password=" + cfg.database_.password;
     Database db(connection);
 
-    db.init_db_from_file("/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/files_storage_service/infrastructure/database/files_storage.sql");
+    db.init_db_from_file("infrastructure/database/files_storage.sql");
     pqxx::connection C(connection);
     pqxx::work W(C);
 

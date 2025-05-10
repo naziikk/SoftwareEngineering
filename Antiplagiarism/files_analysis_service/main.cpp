@@ -7,36 +7,36 @@
 #include "controllers/file_analysis_controller.h"
 
 int main() {
+    httplib::Server server;
+
     server.Options(".*", [&](const httplib::Request& req, httplib::Response& res) {
-        res.set_header("Access-Control-Allow-Origin", "http://localhost:8009");
-        res.set_header("Access-Control-Allow-Credentials", "true");
+        res.set_header("Access-Control-Allow-Origin", "*");
+        res.set_header("Access-Control-Allow-Origin", req.get_header_value("Origin").c_str());
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.set_header("Content-Type", "application/json");
         res.status = 200;
     });
 
     auto set_cors_headers = [&](httplib::Response& res) {
-        res.set_header("Access-Control-Allow-Origin", "http://localhost:8009");
+        res.set_header("Access-Control-Allow-Origin", res.get_header_value("Origin").c_str());
         res.set_header("Access-Control-Allow-Credentials", "true");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
-        res.set_header("Content-Type", "application/json");
     };
 
-    Config cfg = Config::MustLoadConfig("../infrastructure/config/config.yaml");
-    std::string connection = "dbname=" + cfg.database_.db_name + " host=" + cfg.database_.host + " port=" + std::to_string(cfg.database_.port);
+    Config cfg = Config::MustLoadConfig("infrastructure/config/config.yaml");
+    std::string connection = "dbname=" + cfg.database_.db_name + " host=" + cfg.database_.host + " port=" + std::to_string(cfg.database_.port) +
+                              " user=" + cfg.database_.user + " password=" + cfg.database_.password;
     Database db(connection);
-    db.init_db_from_file("/Users/nazarzakrevskij/CLionProjects/SoftwareEngineering/Antiplagiarism/files_analysis_service/infrastructure/database/files_analysis.sql");
+    db.init_db_from_file("infrastructure/database/files_analysis.sql");
     pqxx::connection C(connection);
     pqxx::work W(C);
     W.commit();
     Analyzer analyzer(db);
     FileAnalyseController file_analyze_controller(db, analyzer);
 
-    httplib::Server server;
-
     server.Post("/file/:id/analysis", [&file_analyze_controller, &set_cors_headers](const httplib::Request& request, httplib::Response &res) {
+        std::cout << "[REQUEST] Получен запрос на анализ файла с id: " << request.path_params.at("id") << std::endl;
         set_cors_headers(res);
         file_analyze_controller.file_analysis_request(request, res);
     });
