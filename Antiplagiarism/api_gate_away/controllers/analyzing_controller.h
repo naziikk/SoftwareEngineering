@@ -31,31 +31,35 @@ void get_analysis(const httplib::Request& req, httplib::Response& res) {
 
     spdlog::debug("[{}] Получен document_id: {}", request_id, document_id);
 
-    httplib::Client api("http://analyzer:8008");
-    api.set_connection_timeout(10);
-    api.set_read_timeout(10);
+    httplib::Client api_gateway("http://analyzer:8008");
+    api_gateway.set_connection_timeout(10000000);
+    api_gateway.set_read_timeout(100000000);
+    api_gateway.set_default_headers({
+            {"Accept", "application/json"}
+    });
 
     spdlog::info("[{}] Отправка запроса на анализ файла в сервис анализа...", request_id);
-    auto response = api.Post("/file/" + document_id + "/analysis", items);
-    std::cout << nlohmann::json::parse(response->body).dump() << std::endl;
-    if (response->status == 200) {
-        try {
-            spdlog::info("[{}] Получен ответ от сервиса анализа", request_id);
-            nlohmann::json json_response = nlohmann::json::parse(response->body);
-            spdlog::info("[{}] Успешный анализ файла. Ответ {} байт", request_id, response->body.size());
-            res.status = 200;
-            res.set_content(json_response.dump(), "application/json");
-        } catch (const std::exception& e) {
-            spdlog::error("[{}] Ошибка при разборе JSON от сервиса анализа: {}", request_id, e.what());
-            send_error(res, 500, "Invalid analysis service response");
-        }
-    } else if (response) {
-        spdlog::warn("[{}] Сервис анализа вернул ошибку: status {}, body: {}", request_id, response->status, response->body);
-        send_error(res, 400, "Error from analysis service");
-    } else {
-        spdlog::error("[{}] Не удалось связаться с сервисом анализа", request_id);
-        send_error(res, 500, "Internal server error");
-    }
+    std::string path = "/file/" + document_id + "/analysis";
+    auto response = api_gateway.Post(path, items);
+//    std::cout << nlohmann::json::parse(response->body).dump() << std::endl;
+//    if (response->status == 200) {
+//        try {
+    spdlog::info("[{}] Получен ответ от сервиса анализа", request_id);
+    nlohmann::json json_response = nlohmann::json::parse(response->body);
+    spdlog::info("[{}] Успешный анализ файла", request_id);
+    res.status = 200;
+    res.set_content(json_response.dump(), "application/json");
+//        } catch (const std::exception& e) {
+//            spdlog::error("[{}] Ошибка при разборе JSON от сервиса анализа: {}", request_id, e.what());
+//            send_error(res, 500, "Invalid analysis service response");
+//        }
+//    } else if (response) {
+//        spdlog::warn("[{}] Сервис анализа вернул ошибку: status {}, body: {}", request_id, response->status, response->body);
+//        send_error(res, 400, "Error from analysis service");
+//    } else {
+//        spdlog::error("[{}] Не удалось связаться с сервисом анализа", request_id);
+//        send_error(res, 500, "Internal server error");
+//    }
 
     auto end_time = std::chrono::steady_clock::now();
     spdlog::debug("[{}] Анализ завершён за {} мс", request_id,
@@ -76,8 +80,8 @@ void get_words_cloud(const httplib::Request& req, httplib::Response& res) {
             {"Content-Type", "application/json"},
             {"Accept", "application/json"}
     });
-
-    auto response = api.Get("/words_cloud/" + document_id);
+    std::string path = "/file/" + document_id + "/words_cloud";
+    auto response = api.Get(path);
 
     if (response && response->status == 200) {
         try {

@@ -1,14 +1,8 @@
 #include "analyzer.h"
 
 void Analyzer::analyse_file(const httplib::MultipartFormData& file, const std::string& file_id) {
-    std::cout << file.content << '\n';
     Analysis analysis = get_analysis(file, file_id);
-    std::cout << "[ANALYZER] Получен анализ файла: " << analysis.paragraphs_count << " параграфов, "
-              << analysis.words_count << " слов, "
-              << analysis.consonant_letters_count << " согласных букв, "
-              << analysis.vowel_letters_count << " гласных букв, "
-              << analysis.digits_count << " цифр, "
-              << analysis.symbols_count << " символов." << std::endl;
+
     generate_words_cloud(file.content, analysis);
 
     save_analysis(analysis);

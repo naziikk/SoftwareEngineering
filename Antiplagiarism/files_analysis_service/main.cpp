@@ -11,14 +11,14 @@ int main() {
 
     server.Options(".*", [&](const httplib::Request& req, httplib::Response& res) {
         res.set_header("Access-Control-Allow-Origin", "*");
-        res.set_header("Access-Control-Allow-Origin", req.get_header_value("Origin").c_str());
+        res.set_header("Access-Control-Allow-Origin", "http://localhost:8009");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
         res.status = 200;
     });
 
     auto set_cors_headers = [&](httplib::Response& res) {
-        res.set_header("Access-Control-Allow-Origin", res.get_header_value("Origin").c_str());
+        res.set_header("Access-Control-Allow-Origin", "http://localhost:8009");
         res.set_header("Access-Control-Allow-Credentials", "true");
         res.set_header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -36,7 +36,6 @@ int main() {
     FileAnalyseController file_analyze_controller(db, analyzer);
 
     server.Post("/file/:id/analysis", [&file_analyze_controller, &set_cors_headers](const httplib::Request& request, httplib::Response &res) {
-        std::cout << "[REQUEST] Получен запрос на анализ файла с id: " << request.path_params.at("id") << std::endl;
         set_cors_headers(res);
         file_analyze_controller.file_analysis_request(request, res);
     });
