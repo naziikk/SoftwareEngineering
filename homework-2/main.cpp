@@ -7,7 +7,7 @@
 #include "app/FeedingOrganizationService.h"
 
 int main() {
-    Config config = Config::MustLoadConfig("./infrastructure/config/config.yaml");
+    Config config = Config::MustLoadConfig("../infrastructure/config/config.yaml");
 
     AnimalRepository animal_repository;
     EnclosureRepository enclosure_repository(animal_repository);
