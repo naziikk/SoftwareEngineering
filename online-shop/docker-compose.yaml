@@ -1,0 +1,85 @@
+services:
+  api_gateway:
+    build:
+      context: ./api_gate_away
+      dockerfile: Dockerfile
+    environment:
+      - RUNNING_IN_DOCKER=true
+    ports:
+      - "8009:8009"
+    networks:
+      - main
+    restart: always
+    depends_on:
+      - storage
+      - analyzer
+
+  payments:
+    build:
+      context: ./payments_service
+      dockerfile: Dockerfile
+    ports:
+      - "8007:8007"
+    networks:
+      - main
+    restart: always
+    depends_on:
+      - payments_postgres
+
+  payments_postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: api_gate_away
+    networks:
+      - main
+    volumes:
+      - storage_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+    restart: always
+
+
+  orders:
+    build:
+      context: ./orders_service
+      dockerfile: Dockerfile
+    ports:
+      - "8008:8008"
+    networks:
+      - main
+    restart: always
+    depends_on:
+      - orders_postgres
+
+  orders_postgres:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: api_gate_away
+    networks:
+      - main
+    volumes:
+      - analysis_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-U", "postgres" ]
+      interval: 5s
+      retries: 5
+      timeout: 3s
+    restart: always
+
+
+networks:
+  main:
+    driver: bridge
+
+volumes:
+  analysis_postgres_data:
+  storage_postgres_data:
+    driver:
+      local
