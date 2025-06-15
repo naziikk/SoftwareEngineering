@@ -1,0 +1,10 @@
+server:
+    host: "0.0.0.0"
+    port: 8008
+
+database:
+    db_name: "api_gate_away"
+    host: "storage_postgres"
+    port: 5432
+    user: "postgres"
+    password: "postgres"
