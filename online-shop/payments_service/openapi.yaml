@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+  title: PaymentsService API
+  version: 1.0.0
+  description: API сервиса оплаты
+
+servers:
+  - url: http://localhost:8008
+    description: Локальный сервер для разработки
+
+paths:
+  /account/top_up:
+    post:
+      summary: Пополнение аккаунта
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: integer
+                  description: Сумма для оплаты заказа (в рублях)
+                  example: 500
+                user_id:
+                  type: string
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - amount
+                - user_id
+      responses:
+        '200':
+          description: Сумма успешна зачислена
+        '404':
+          description: У пользователя еще нет аккаунта
+        '500':
+          description: Ошибка сервиса
+
+  /account/{id}/balance:
+    get:
+      summary: Получение конкретного заказа
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Идентификатор пользователя
+      responses:
+        '200':
+          description: Баланс аккаунта успешно получен
+        '404':
+          description: Аккаунта у этого пользователя не наблюдается
+        '500':
+          description: Ошибка сервиса
+
+  /account/create:
+    post:
+      summary: Создание аккаунта
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - amount
+                - user_id
+      responses:
+        '200':
+          description: Аккаунт успешно создан
+        '400':
+          description: Аккаунт уже существует
+        '500':
+          description: Ошибка сервиса

@@ -56,15 +56,15 @@ public:
 
         std::string user_id = json::parse(req.body).at("user_id").as<std::string>();
 
-        spdlog::info("[{}] Запрос на создание аккаунта от пользователя user_id: {}", request_id, user_id);
+        spdlog::info("[{}] Запрос на получение баланса аккаунта от пользователя user_id: {}", request_id, user_id);
 
         httplib::Client api("http://orders:8008");
         api.set_connection_timeout(10);
         api.set_read_timeout(10);
         api.set_default_headers({
-                                        {"Content-Type", "application/json"},
-                                        {"Accept", "application/json"}
-                                });
+                {"Content-Type", "application/json"},
+                {"Accept", "application/json"}
+        });
 
         std::string path = "/account/balance";
 
@@ -91,7 +91,7 @@ public:
         }
 
         auto end_time = std::chrono::steady_clock::now();
-        spdlog::debug("[{}] Создание аккаунта завершено за {} мс", request_id,
+        spdlog::debug("[{}] Получение баланса аккаунта завершено за {} мс", request_id,
                       std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count());
     }
 
