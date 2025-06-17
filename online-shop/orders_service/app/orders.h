@@ -9,6 +9,7 @@ public:
     struct Order {
         std::string id;
         std::string description;
+        std::string status;
         long long amount;
     };
 
@@ -24,6 +25,7 @@ public:
             Order order;
             order.id = row["id"].as<std::string>();
             order.description = row["description"].as<std::string>();
+            order.status = row["status"].as<std::string>();
             order.amount = row["amount"].as<long long>();
 
             orders.push_back(order);
@@ -45,6 +47,7 @@ public:
         order.id = res[0]["id"].as<std::string>();
         order.description = res[0]["description"].as<std::string>();
         order.amount = res[0]["amount"].as<long long>();
+        order.status = res[0]["status"].as<std::string>();
 
         return order;
     }

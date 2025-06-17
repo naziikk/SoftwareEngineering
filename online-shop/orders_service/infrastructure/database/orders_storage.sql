@@ -1,15 +1,14 @@
 DROP SCHEMA IF EXISTS orders_storage CASCADE;
+CREATE SCHEMA orders_storage;
 
-CREATE SCHEMA IF NOT EXISTS orders_storage;
-
-CREATE TYPE Status AS ENUM ('NEW', 'COMPLETED', 'CANCELLED');
-CREATE TYPE SendingStatus AS ENUM ('NOT_SENT', 'SENT');
+CREATE TYPE orders_storage.status AS ENUM ('NEW', 'COMPLETED', 'CANCELLED', 'SUCCESS', 'FAILED');
+CREATE TYPE orders_storage.sendingstatus AS ENUM ('NOT_SENT', 'SENT');
 
 CREATE TABLE IF NOT EXISTS orders_storage.orders (
     id uuid primary key DEFAULT gen_random_uuid(),
     user_id uuid NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    status Status NOT NULL DEFAULT 'NEW',
+    status orders_storage.status NOT NULL DEFAULT 'NEW',
     description text
 );
 
@@ -17,7 +16,7 @@ CREATE TABLE IF NOT EXISTS orders_storage.outbox (
     id uuid primary key DEFAULT gen_random_uuid(),
     user_id uuid NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    status SendingStatus NOT NULL DEFAULT 'NOT_SENT',
+    status orders_storage.sendingstatus NOT NULL DEFAULT 'NOT_SENT',
     description text
 );
 

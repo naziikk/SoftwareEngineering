@@ -23,7 +23,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN mkdir -p build && \
+RUN rm -rf build && mkdir -p build && \
     cd build && \
     cmake .. && \
     make VERBOSE=1

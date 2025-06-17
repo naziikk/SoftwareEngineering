@@ -13,7 +13,8 @@ RUN apt-get update && apt-get install -y \
     libboost-system-dev \
     libboost-thread-dev \
     librdkafka-dev \
-    && rm -rf /var/lib/apt/lists/*
+    zlib1g-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN wget https://github.com/jtv/libpqxx/archive/refs/tags/7.7.5.tar.gz && \
     tar -xvzf 7.7.5.tar.gz && \
@@ -32,7 +33,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN mkdir -p build && cd build && \
+RUN rm -rf build && mkdir -p build && cd build && \
     cmake .. && \
     make VERBOSE=1
 

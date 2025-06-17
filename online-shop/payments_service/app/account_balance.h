@@ -9,7 +9,7 @@ public:
     BalanceProvider(Database& db) : db_(db) {}
 
     long long get_balance(const std::string& user_id) {
-        if (check_account_existing(user_id)) {
+        if (!check_account_existing(user_id)) {
             return LLONG_MIN;
         }
 

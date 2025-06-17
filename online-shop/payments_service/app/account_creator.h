@@ -14,7 +14,7 @@ public:
         }
 
         std::string query = "INSERT INTO payments.bill (user_id, money_amount) VALUES ($1, $2)";
-        std::vector<std::string> params = {user_id, 0};
+        std::vector<std::string> params = {user_id, "0"};
 
         try {
             db_.execute_query(query, params);

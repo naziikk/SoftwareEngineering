@@ -8,90 +8,170 @@ servers:
   - url: http://localhost:8009
     description: Локальный сервер для разработки
 
+tags:
+  - name: Orders
+  - name: Payments
+
 paths:
-  /file/{id}/words_cloud:
+  /orders/{id}/list:
     get:
-      summary: Получение урла на облако слов по id файла
+      summary: Получение списка заказов
+      tags:
+        - Orders
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-          description: Идентификатор файла
+          description: Идентификатор пользователя
       responses:
         '200':
-          description: Облако слов успешно получено
+          description: Список заказов успешно получен
         '404':
-          description: Файл не найден
+          description: У пользователя еще нет заказов (хотя по факту лучше бы 200, это же не ошибка)
         '500':
-          description: Ошибка при чтении файла
+          description: Ошибка сервиса
 
-  /file/{id}/analyze:
+  /orders/{id}:
     post:
-      summary: Получение урла на файл анализа по id файла
+      summary: Получение конкретного заказа
+      tags:
+        - Orders
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-          description: Идентификатор файла
-      responses:
-        '200':
-          description: Файл успешно проанализирован
-        '500':
-          description: Ошибка при чтении файла
-
-  /file/upload:
-    post:
-      summary: Загрузка файла
+          description: Идентификатор заказа
       requestBody:
         required: true
         content:
-          multipart/form-data:
+          application/json:
             schema:
               type: object
               properties:
-                file:
+                user_id:
                   type: string
-                  format: binary
-                  description: Файл для загрузки в формате .txt
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - user_id
       responses:
         '200':
-          description: Файл успешно загружен
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    description: Идентификатор загруженного файла
+          description: Информация о заказе успешно получена
+        '404':
+          description: Такого заказа для этого пользователя не существует
+        '500':
+          description: Ошибка сервиса
+
+  /order/create:
+    post:
+      summary: Загрузка файла
+      tags:
+        - Orders
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  description: Описание заказа
+                  example: Some very helpfully order description
+                amount:
+                  type: string
+                  description: Сумма для оплаты заказа (в рублях)
+                  example: 500
+                user_id:
+                  type: string
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - description
+                - amount
+                - user_id
+
+      responses:
+        '200':
+          description: Заказ успешно создан
         '400':
           description: Неверный запрос
         '500':
           description: Внутренняя ошибка сервера
 
-  /file/{id}:
+  /account/top_up:
+    post:
+      summary: Пополнение аккаунта
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                amount:
+                  type: string
+                  description: Сумма для оплаты заказа (в рублях)
+                  example: 500
+                user_id:
+                  type: string
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - amount
+                - user_id
+      responses:
+        '200':
+          description: Сумма успешна зачислена
+        '404':
+          description: У пользователя еще нет аккаунта
+        '500':
+          description: Ошибка сервиса
+
+  /account/{id}/balance:
     get:
-      summary: Получение содержимого файла по ID
+      summary: Получение конкретного заказа
+      tags:
+        - Payments
       parameters:
         - name: id
           in: path
           required: true
           schema:
             type: string
-          description: Идентификатор файла
+          description: Идентификатор пользователя
       responses:
         '200':
-          description: Содержимое файла успешно получено
-          content:
-            application/octet-stream:
-              schema:
-                type: string
-                format: binary
+          description: Баланс аккаунта успешно получен
         '404':
-          description: Файл не найден
+          description: Аккаунта у этого пользователя не наблюдается
         '500':
-          description: Ошибка при чтении файла
+          description: Ошибка сервиса
+
+  /account/create:
+    post:
+      summary: Создание аккаунта
+      tags:
+        - Payments
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                user_id:
+                  type: string
+                  example: d2b3ee91-6570-4ad7-9e61-f3f6d2c0ae82
+              required:
+                - user_id
+      responses:
+        '200':
+          description: Аккаунт успешно создан
+        '400':
+          description: Аккаунт уже существует
+        '500':
+          description: Ошибка сервиса

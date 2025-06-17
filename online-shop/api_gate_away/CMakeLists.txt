@@ -7,6 +7,8 @@ set(SOURCE_FILES
         config/config.h
         config/config.cpp
         utils.h
+        controllers/account_operation_controller.h
+        controllers/orders_operation_controller.h
 )
 
 include(FetchContent)

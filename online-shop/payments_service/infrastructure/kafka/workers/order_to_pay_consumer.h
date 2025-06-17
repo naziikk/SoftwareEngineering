@@ -7,7 +7,7 @@ class OrdersToPayConsumer {
 public:
     void listen_orders_to_pay_topic(Database& db) {
         std::thread consumer_thread([this, &db]() {
-            KafkaConsumer consumer("localhost:9092", "orders_to_pay", "orders_group");
+            KafkaConsumer consumer("kafka:9092", "orders_to_pay", "orders_group");
 
             while (true) {
                 try {
@@ -68,7 +68,7 @@ private:
     }
 
     bool check_balance_consistency(Database& db, const std::string& user_id, const std::string& amount) {
-        std::string query = "SELECT balance FROM payments.bill WHERE user_id = $1";
+        std::string query = "SELECT money_amount FROM payments.bill WHERE user_id = $1";
         std::vector<std::string> params = {user_id};
         pqxx::result res = db.execute_query(query, params);
 
@@ -77,14 +77,14 @@ private:
             return false;
         }
 
-        double balance = res[0]["balance"].as<double>();
+        double balance = res[0]["money_amount"].as<double>();
         double order_amount = std::stod(amount);
 
         return balance >= order_amount;
     }
 
     void update_balance(Database& db, const std::string& user_id, const std::string& amount) {
-        std::string query = "UPDATE payments.bill SET balance = balance - $1 WHERE user_id = $2";
+        std::string query = "UPDATE payments.bill SET money_amount = money_amount - $1 WHERE user_id = $2";
         std::vector<std::string> params = {amount, user_id};
 
         try {

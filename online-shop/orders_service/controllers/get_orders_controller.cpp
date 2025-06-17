@@ -2,13 +2,12 @@
 #include <vector>
 
 void GetOrdersController::get_orders_request(const httplib::Request& req, httplib::Response& res) {
-    auto parsed = json::parse(req.body);
-    if (!parsed.contains("user_id") || !parsed["user_id"].is_string()) {
-        handle_empty_or_incorrect_id("user_id", res);
+    if (!is_valid_id(req)) {
+        handle_empty_or_incorrect_id("id", res);
         return;
     }
 
-    std::string user_id = parsed["user_id"].get<std::string>();
+    std::string user_id = extract_id_from_request(req);
 
     std::vector<Orders::Order> orders = orders_service_.get_orders(user_id);
     if (orders.empty()) {
@@ -21,6 +20,7 @@ void GetOrdersController::get_orders_request(const httplib::Request& req, httpli
         order_json["id"] = order.id;
         order_json["description"] = order.description;
         order_json["amount"] = order.amount;
+        order_json["status"] = order.status;
         response_json.push_back(order_json);
     }
 

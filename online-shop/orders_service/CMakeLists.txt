@@ -39,8 +39,8 @@ find_package(PostgreSQL REQUIRED)
 set(SOURCE_FILES
         main.cpp
         utils.h
-        infrastructure/database/Database.h
-        infrastructure/database/Database.cpp
+        infrastructure/database/database.h
+        infrastructure/database/database.cpp
         infrastructure/config/config.h
         infrastructure/config/config.cpp
         controllers/get_orders_controller.cpp

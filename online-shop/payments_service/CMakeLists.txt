@@ -45,8 +45,8 @@ set(SOURCE_FILES
         infrastructure/kafka/kafka_consumer.h
         infrastructure/kafka/kafka_producer.cpp
         infrastructure/kafka/kafka_producer.h
-        infrastructure/database/Database.h
-        infrastructure/database/Database.cpp
+        infrastructure/database/database.h
+        infrastructure/database/database.cpp
         infrastructure/config/config.h
         infrastructure/config/config.cpp
         app/account_balance.h

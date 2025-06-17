@@ -24,7 +24,10 @@ services:
       - main
     restart: always
     depends_on:
-      - payments_postgres
+      kafka:
+        condition: service_healthy
+      payments_postgres:
+        condition: service_started
 
   payments_postgres:
     image: postgres:latest
@@ -35,7 +38,7 @@ services:
     networks:
       - main
     volumes:
-      - storage_postgres_data:/var/lib/postgresql/data
+      - payments_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 5s
@@ -54,7 +57,10 @@ services:
       - main
     restart: always
     depends_on:
-      - orders_postgres
+      kafka:
+        condition: service_healthy
+      orders_postgres:
+        condition: service_started
 
   orders_postgres:
     image: postgres:latest
@@ -65,13 +71,25 @@ services:
     networks:
       - main
     volumes:
-      - analysis_postgres_data:/var/lib/postgresql/data
+      - orders_postgres_data:/var/lib/postgresql/data
     healthcheck:
       test: [ "CMD", "pg_isready", "-U", "postgres" ]
       interval: 5s
       retries: 5
       timeout: 3s
     restart: always
+
+  kafka-init:
+    image: confluentinc/cp-kafka:7.5.0
+    depends_on:
+      - kafka
+    networks:
+      - main
+    entrypoint: [ "/bin/bash", "-c", "/scripts/create-topics.sh" ]
+    volumes:
+      - ./scripts:/scripts
+
+  # chmod +x scripts/create-topics.sh
 
   kafka:
     image: confluentinc/cp-kafka:7.5.0
@@ -80,11 +98,18 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_LISTENERS: PLAINTEXT_INTERNAL://0.0.0.0:9092,PLAINTEXT_HOST://0.0.0.0:29092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT_INTERNAL://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT_INTERNAL:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT_INTERNAL
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
     depends_on:
       - zookeeper
+    healthcheck:
+      test: [ "CMD", "kafka-topics", "--bootstrap-server", "localhost:9092", "--list" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
       - main
 
@@ -103,7 +128,7 @@ networks:
     driver: bridge
 
 volumes:
-  analysis_postgres_data:
-  storage_postgres_data:
+  orders_postgres_data:
+  payments_postgres_data:
     driver:
       local

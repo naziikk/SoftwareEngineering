@@ -8,14 +8,16 @@
 
 class OrderCreatingController {
 public:
-    OrderCreatingController(Database& db) : db_(db), producer_("localhost:9092", "orders_topic") {};
+    OrderCreatingController(Database& db) : db_(db) {};
 
     void create_order_request(const httplib::Request& req, httplib::Response& res) {
         auto parsed = json::parse(req.body);
 
-        const std::string& user_id = parsed["user_id"];
-        const std::string& amount = parsed["amount"];
-        const std::string& description = parsed["description"];
+        std::string user_id = parsed["user_id"];
+        std::string amount = parsed["amount"];
+        std::string description = parsed["description"];
+
+        std::cout << user_id << ' ' << amount << ' ' << description << '\n';
 
         std::string query = "INSERT INTO orders_storage.outbox (user_id, description, amount) VALUES ($1, $2, $3)";
         std::vector<std::string> params = {user_id, description, amount};
@@ -27,6 +29,7 @@ public:
         }
 
         json order_details;
+        order_details["message"] = "Order successfully created!";
         order_details["user_id"] = user_id;
         order_details["description"] = description;
         order_details["amount"] = amount;
@@ -37,6 +40,5 @@ public:
 
 private:
     using json = nlohmann::json;
-    KafkaProducer producer_;
     Database& db_;
 };

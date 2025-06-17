@@ -28,7 +28,7 @@ int main() {
         res.set_header("Access-Control-Allow-Headers", "Content-Type, Authorization");
     };
 
-    Config cfg = Config::MustLoadConfig("../infrastructure/config/config.yaml");
+    Config cfg = Config::MustLoadConfig("infrastructure/config/config.yaml");
     std::string connection = "dbname=" + cfg.database_.db_name + " host=" + cfg.database_.host + " port=" + std::to_string(cfg.database_.port) +
                              " user=" + cfg.database_.user + " password=" + cfg.database_.password;
     Database db(connection);
@@ -38,13 +38,13 @@ int main() {
     GetOrdersController controller(orders);
     OrderCreatingController creating_controller(db);
 
-    KafkaProducer producer("localhost:9092", "orders_to_pay");
+    KafkaProducer producer("kafka:9092", "orders_to_pay");
 
     // --------------------------------------------Основные обработчики--------------------------------------------------
     start_outbox_processor(db, producer);
 
     std::thread consumer_thread([&]() {
-        KafkaConsumer consumer("localhost:9092", "orders_to_pay", "orders_group");
+        KafkaConsumer consumer("kafka:9092", "orders_to_pay", "orders_group");
         consumer.consume([&](const std::string& msg) {
             std::cout << "Получили заказ в Kafka: " << msg << '\n';
 
@@ -62,7 +62,7 @@ int main() {
     });
 
     std::thread consumer_order_status_thread([&]() {
-        KafkaConsumer consumer("localhost:9092", "orders_status", "orders_status_group");
+        KafkaConsumer consumer("kafka:9092", "orders_status", "orders_status_group");
         consumer.consume([&](const std::string& msg) {
             std::cout << "Получили статус заказа в Kafka: " << msg << '\n';
 
@@ -83,17 +83,17 @@ int main() {
 
     // -------------------------------------------------------------------------------------------------------------------
 
-    server.Get("/orders/list", [&db, &set_cors_headers, &controller](const httplib::Request& request, httplib::Response &res) {
+    server.Get("/orders/:id/list", [&db, &set_cors_headers, &controller](const httplib::Request& request, httplib::Response &res) {
         set_cors_headers(res);
         controller.get_orders_request(request, res);
     });
 
-    server.Get("/orders/:id", [&db, &set_cors_headers, &controller](const httplib::Request& request, httplib::Response &res) {
+    server.Post("/orders/:id", [&db, &set_cors_headers, &controller](const httplib::Request& request, httplib::Response &res) {
         set_cors_headers(res);
         controller.get_order_by_id_request(request, res);
     });
 
-    server.Post("/orders/create", [&db, &set_cors_headers, &creating_controller](const httplib::Request& request, httplib::Response &res) {
+    server.Post("/order/create", [&db, &set_cors_headers, &creating_controller](const httplib::Request& request, httplib::Response &res) {
         set_cors_headers(res);
         creating_controller.create_order_request(request, res);
     });

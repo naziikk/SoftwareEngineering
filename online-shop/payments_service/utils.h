@@ -46,43 +46,6 @@ inline std::string extract_id_from_request(const httplib::Request& req) {
     return "";
 }
 
-inline void start_outbox(Database& db, KafkaProducer& producer) {
-    std::thread([&db, &producer]() {
-        while (true) {
-            try {
-                std::string select_query = "SELECT id, user_id, description, amount FROM orders_storage.outbox WHERE status = 'NOT_SENT'";
-                std::vector<std::string> params;
-                auto results = db.execute_query(select_query, params);
-
-                for (const auto& row : results) {
-                    std::string id = row["id"].as<std::string>();
-                    std::string user_id = row["user_id"].as<std::string>();
-                    std::string description = row["description"].as<std::string>();
-                    std::string amount = row["amount"].as<std::string>();
-
-                    nlohmann::json message = {
-                            {"user_id", user_id},
-                            {"description", description},
-                            {"amount", amount}
-                    };
-
-                    producer.send(message.dump());
-
-                    std::string update_query =
-                            "UPDATE orders_storage.outbox SET status = 'SENT' WHERE id = $1";
-                    std::vector<std::string> update_params = {id};
-                    db.execute_query(update_query, update_params);
-                }
-
-            } catch (const std::exception& e) {
-                std::cerr << "Ошибка в Outbox обработчике: " << e.what() << std::endl;
-            }
-
-            std::this_thread::sleep_for(std::chrono::seconds(2));
-        }
-    }).detach();
-}
-
 namespace uuid {
     static std::random_device              rd;
     static std::mt19937                    gen(rd());
